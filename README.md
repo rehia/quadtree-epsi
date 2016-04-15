@@ -39,6 +39,11 @@ On doit pouvoir interroger le quadtree de 2 façons :
 ## Livraison
 Le script que vous allez livrer devra demander à l'utilisateur une action (profondeur ou points les plus proches), ainsi que des coordonnées X,Y. La documentation succincte associée devra indiquer comment lancer le script, quelles options passer (si nécessaire), et comment interagir avec le script. Les résultats seront eux aussi affichés dans la console.
 
+Liste des livrables :
+- Le code avec les tests
+- Le script et son manuel d'utilisation (succinct)
+- Le contexte d'exécution de votre code (OS, Runtime, Versions, etc.)
+
 De préférence, forkez ce repository, et utilisez le fork pour commiter votre code. Commitez à chaque cycle TDD (après le refactor, et avant le prochain red). Faites une pull request une fois que vous avez terminé. 
 
 ## Notation
