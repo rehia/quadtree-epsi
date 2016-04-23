@@ -11,10 +11,10 @@ RSpec.describe Node do
         node = Node.new(top_left: [0, 0], top_right: [0, 99],
                         bottom_right: [99, 99], bottom_left: [99, 0])
 
-        expect(node.boundaries.top_left).to eq([0, 0])
-        expect(node.boundaries.top_right).to eq([0, 99])
-        expect(node.boundaries.bottom_right).to eq([99, 99])
-        expect(node.boundaries.bottom_left).to eq([99, 0])
+        expect(node.top_left).to eq([0, 0])
+        expect(node.top_right).to eq([0, 99])
+        expect(node.bottom_right).to eq([99, 99])
+        expect(node.bottom_left).to eq([99, 0])
       end
     end
 
@@ -23,6 +23,26 @@ RSpec.describe Node do
         expect {
           Node.new(top_left: [0, 0], top_right: [0, 99])
         }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '#own_point' do
+    let(:node) { Node.new(top_left: [0, 0], top_right: [0, 99],
+                         bottom_right: [99, 99], bottom_left: [99, 0]) }
+
+    context 'with a point in node' do
+      it 'return true' do
+        expect(node.own_point([42, 42])).to eq(true)
+        expect(node.own_point([0, 0])).to eq(true)
+        expect(node.own_point([99, 99])).to eq(true)
+      end
+    end
+
+    context 'with a point out of node' do
+      it 'return false' do
+        expect(node.own_point([-1, 42])).to eq(false)
+        expect(node.own_point([42, 100])).to eq(false)
       end
     end
   end
@@ -52,6 +72,10 @@ RSpec.describe Node do
       it 'raise error' do
         expect {
           node << [100, 0]
+        }.to raise_error(ArgumentError)
+
+        expect {
+          node << [-1, 0]
         }.to raise_error(ArgumentError)
       end
     end

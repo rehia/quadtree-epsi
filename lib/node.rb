@@ -24,22 +24,31 @@ class Node
     @childrens = Array.new(4) { nil }
     @points = Array.new
     @boundaries = OpenStruct.new(boundaries)
-
   end
 
   def add_point(*point)
     point.flatten!
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
-    raise ArgumentError, "Point #{point} is outside boundaries" unless belongs_to_boundaries(point)
+    raise ArgumentError, "Point #{point} is outside boundaries" unless own_point(point)
 
     points << point
 
     if points.count > 4
+
     end
 
     self
   end
   alias_method :<<, :add_point
+
+  def own_point(point)
+    if point[X] >= top_left[X] && point[X] <= bottom_right[X] &&
+       point[Y] >= top_left[Y] && point[Y] <= bottom_right[Y]
+      true
+    else
+      false
+    end
+  end
 
   private # ====================================================================
 
@@ -51,15 +60,6 @@ class Node
 
     if missings.any?
       raise ArgumentError, "You must provide 4 boundaries (#{missings} are missing)"
-    end
-  end
-
-  def belongs_to_boundaries(point)
-    if point[X] > top_left[X] && point[X] < bottom_right[X] \
-      && point[Y] > top_left[Y] && point[Y] < bottom_right[Y]
-      true
-    else
-      false
     end
   end
 
