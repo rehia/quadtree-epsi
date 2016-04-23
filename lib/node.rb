@@ -6,28 +6,29 @@ require 'forwardable'
 class Node
   # Config =====================================================================
 
-  extend Forwardable
+  extend Forwardable # Needed to use def_delegators
 
-  X, Y = 0, 1
+  X, Y = 0, 1 # Syntaxic sugar
 
-  BOUNDARIES = %i(top_left top_right bottom_right bottom_left)
+  BOUNDARIES = %i(top_left top_right bottom_right bottom_left) # Array of accepted boundary
 
-  attr_accessor :boundaries, :childrens, :points
+  attr_accessor :boundaries, :childrens, :points # Class attributes
 
-  def_delegators :@boundaries, *BOUNDARIES
+  def_delegators :@boundaries, *BOUNDARIES # Syntaxic sugar to access boundary
 
   # Class declaration ==========================================================
 
   def initialize(boundaries = {})
+    # Raise error if one boundary is missing
     check_boundaries_presence(boundaries)
 
     @childrens = Array.new(4) { nil }
     @points = Array.new
-    @boundaries = OpenStruct.new(boundaries)
+    @boundaries = OpenStruct.new(boundaries) # Syntaxic sugar, access hash like a object
   end
 
-  def add_point(*point)
-    point.flatten!
+  def add_point(*point) # Splat operator ensure we always get an array
+    point.flatten! # Ensure we have 1D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
     raise ArgumentError, "Point #{point} is outside boundaries" unless own_point(point)
 
@@ -37,9 +38,9 @@ class Node
 
     end
 
-    self
+    self # Return object himself to chain function call
   end
-  alias_method :<<, :add_point
+  alias_method :<<, :add_point # Syntaxic sugar
 
   def own_point(point)
     if point[X] >= top_left[X] && point[X] <= bottom_right[X] &&
@@ -56,7 +57,7 @@ class Node
   end
 
   def check_boundaries_presence(boundaries)
-    missings = BOUNDARIES - boundaries.keys
+    missings = BOUNDARIES - boundaries.keys # This is why I love ruby :-)
 
     if missings.any?
       raise ArgumentError, "You must provide 4 boundaries (#{missings} are missing)"

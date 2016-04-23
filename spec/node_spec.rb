@@ -28,6 +28,7 @@ RSpec.describe Node do
   end
 
   describe '#own_point' do
+    # Lazy evaluated value, cached only in the same example
     let(:node) { Node.new(top_left: [0, 0], top_right: [0, 99],
                          bottom_right: [99, 99], bottom_left: [99, 0]) }
 
