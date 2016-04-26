@@ -7,11 +7,17 @@ module QuadTree
 class Node
   # Config =====================================================================
 
+  extend Forwardable
+
   X, Y = 0, 1 # Syntaxic sugar
 
   CTOR_ATTRIBUTES = %i(width height x y)
 
   attr_accessor *CTOR_ATTRIBUTES, :childrens, :points # Class attributes
+
+  CHILDRENS_LOCATIONS = %i(top_left top_right bottom_right bottom_left)
+
+  def_delegators :@childrens, *CHILDRENS_LOCATIONS # Syntaxic sugar to access childrens
 
   # Class declaration ==========================================================
 

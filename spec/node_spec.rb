@@ -93,8 +93,8 @@ RSpec.describe QuadTree::Node do
         expect(node.points.count).to eq(0)
         expect(node.childrens.to_h.count).to eq(4)
 
-        expect(node.childrens.top_left.points.count).to eq(4)
-        expect(node.childrens.bottom_right.points.count).to eq(1)
+        expect(node.top_left.points.count).to eq(4)
+        expect(node.bottom_right.points.count).to eq(1)
       end
     end
 
@@ -104,10 +104,22 @@ RSpec.describe QuadTree::Node do
 
         node << [21, 84] << [84, 21]
 
-        expect(node.childrens.bottom_left.points.count).to eq(1)
-        expect(node.childrens.top_right.points.count).to eq(1)
+        expect(node.bottom_left.points.count).to eq(1)
+        expect(node.top_right.points.count).to eq(1)
       end
     end
+
+    context 'with a child node with more than 4 points' do
+      it 'subdivide child node and ventilate the point to childrens nodes' do
+        node << [0, 0] << [10, 10] << [42, 42] << [21, 21]
+
+        node << [1, 1]
+
+        expect(node.top_left.top_left.points.count).to eq(4)
+        expect(node.top_left.bottom_right.points.count).to eq(1)
+      end
+    end
+  end
 
   describe '#subdivide' do
     let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
