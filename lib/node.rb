@@ -32,6 +32,7 @@ class Node
 
     @childrens = OpenStruct.new
     @points = Array.new
+    @is_leaf = true
   end
 
   def add_point(*point) # Splat operator ensure we always get an array
@@ -39,13 +40,13 @@ class Node
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
     raise ArgumentError, "Point #{point} is outside node" unless own_point(point)
 
-    if points.count == 4
+    if @is_leaf && points.count == 4
       subdivide
       ventilate_to_childrens points
       points.clear
     end
 
-    if childrens.to_h.any?
+    if childrens.to_h.any? && ! is_between_childrens(point)
       ventilate_to_childrens point
     else
       points << point
@@ -65,6 +66,8 @@ class Node
   end
 
   def subdivide
+    @is_leaf = false
+
     child_width = @width / 2.0
     child_height = @height / 2.0
 
@@ -99,11 +102,15 @@ class Node
 
   private # ====================================================================
 
+  def is_between_childrens(point)
+    childrens.to_h.values.count { |child| child.own_point point } > 1
+  end
+
   def ventilate_to_childrens(*points)
     # Get 1-D array and then put point coordinates by pair again
     points = points.flatten.each_slice(2).map { |point| point }
     points.each do |point|
-      childrens.to_h.each { |loc, child| child << point if child.own_point point }
+      childrens.to_h.values.each { |child| child << point if child.own_point point }
     end
   end
 

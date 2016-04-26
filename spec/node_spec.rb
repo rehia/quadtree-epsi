@@ -119,6 +119,20 @@ RSpec.describe QuadTree::Node do
         expect(node.top_left.bottom_right.points.count).to eq(1)
       end
     end
+
+    context 'with a point between 2 nodes' do
+      it 'point stay associated with parent node' do
+        node << [0, 0] << [1, 1] << [2, 2] << [3, 3]
+
+        node << [49, 49] << [49, 21] << [84, 49] << [49, 84]
+
+        expect(node.points.count).to eq(4)
+        expect(node.top_left.points.count).to eq(4)
+        expect(node.top_right.points.count).to eq(0)
+        expect(node.bottom_right.points.count).to eq(0)
+        expect(node.bottom_left.points.count).to eq(0)
+      end
+    end
   end
 
   describe '#subdivide' do
