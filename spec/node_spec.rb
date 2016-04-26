@@ -7,21 +7,28 @@ RSpec.describe QuadTree::Node do
   describe '#initialize' do
 
     context 'with valid boundaries' do
-      it 'create node with specified boundaries' do
-        node = QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
-                                  bottom_right: [99, 99], bottom_left: [0, 99])
+      it 'create node with specified size and coordinates' do
+        node = QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0)
 
-        expect(node.top_left).to eq([0, 0])
-        expect(node.top_right).to eq([99, 0])
-        expect(node.bottom_right).to eq([99, 99])
-        expect(node.bottom_left).to eq([0, 99])
+        expect(node.width).to eq(100)
+        expect(node.height).to eq(100)
+        expect(node.x).to eq(0)
+        expect(node.y).to eq(0)
       end
     end
 
-    context 'with invalid boundaries' do
+    context 'with invalid or incomplete size or coordinates' do
       it 'raise error' do
         expect {
-          QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0])
+          QuadTree::Node.new(width: 100, height: 100, x: 0)
+        }.to raise_error(ArgumentError)
+
+        expect {
+          QuadTree::Node.new(width: 100, height: 100, x: -42, y: 0)
+        }.to raise_error(ArgumentError)
+
+        expect {
+          QuadTree::Node.new(width: -42, height: 100, x: 42, y: 42)
         }.to raise_error(ArgumentError)
       end
     end
@@ -29,8 +36,7 @@ RSpec.describe QuadTree::Node do
 
   describe '#own_point' do
     # Lazy evaluated value, cached only in the same test
-    let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
-                                    bottom_right: [99, 99], bottom_left: [0, 99]) }
+    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
 
     context 'with a point in node' do
       it 'return true' do
@@ -49,8 +55,7 @@ RSpec.describe QuadTree::Node do
   end
 
   describe '#add_point (or <<)' do
-    let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
-                                    bottom_right: [99, 99], bottom_left: [0, 99]) }
+    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
 
     context 'with a node with less than 4 point' do
       context 'with more than 2 coordinates' do
@@ -92,8 +97,8 @@ RSpec.describe QuadTree::Node do
         expect(node.points.count).to eq(0)
         expect(node.childrens.count).to eq(4)
 
-        expect(node.childrens[0].points.count).to eq(4)
-        expect(node.childrens[2].points.count).to eq(1)
+        expect(node.childrens[:top_left].points.count).to eq(4)
+        expect(node.childrens[:bottom_right].points.count).to eq(1)
       end
     end
 
@@ -102,38 +107,38 @@ RSpec.describe QuadTree::Node do
         node << [0, 0] << [10, 10] << [42, 42] << [21, 21] << [84, 84]
 
         node << [21, 84] << [84, 21]
-        expect(node.childrens[3].points.count).to eq(1)
-        expect(node.childrens[1].points.count).to eq(1)
+
+        expect(node.childrens[:bottom_left].points.count).to eq(1)
+        expect(node.childrens[:top_right].points.count).to eq(1)
       end
     end
   end
 
   describe '#subdivide' do
-    let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
-                                    bottom_right: [99, 99], bottom_left: [0, 99]) }
+    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
 
     it 'create 4 equals child nodes' do
         top_left, top_right, bottom_right, bottom_left = node.subdivide
 
-        expect(top_left.top_left).to eq([0, 0])
-        expect(top_left.top_right).to eq([49, 0])
-        expect(top_left.bottom_right).to eq([49, 49])
-        expect(top_left.bottom_left).to eq([0, 49])
+        expect(top_left.width).to eq(50)
+        expect(top_left.height).to eq(50)
+        expect(top_left.x).to eq(0)
+        expect(top_left.y).to eq(0)
 
-        expect(top_right.top_left).to eq([49, 0])
-        expect(top_right.top_right).to eq([99, 0])
-        expect(top_right.bottom_right).to eq([99, 49])
-        expect(top_right.bottom_left).to eq([49, 49])
+        expect(top_right.width).to eq(50)
+        expect(top_right.height).to eq(50)
+        expect(top_right.x).to eq(49)
+        expect(top_right.y).to eq(0)
 
-        expect(bottom_right.top_left).to eq([49, 49])
-        expect(bottom_right.top_right).to eq([99, 49])
-        expect(bottom_right.bottom_right).to eq([99, 99])
-        expect(bottom_right.bottom_left).to eq([49, 99])
+        expect(bottom_right.width).to eq(50)
+        expect(bottom_right.height).to eq(50)
+        expect(bottom_right.x).to eq(49)
+        expect(bottom_right.y).to eq(49)
 
-        expect(bottom_left.top_left).to eq([0, 49])
-        expect(bottom_left.top_right).to eq([49, 49])
-        expect(bottom_left.bottom_right).to eq([49, 99])
-        expect(bottom_left.bottom_left).to eq([0, 99])
+        expect(bottom_left.width).to eq(50)
+        expect(bottom_left.height).to eq(50)
+        expect(bottom_left.x).to eq(0)
+        expect(bottom_left.y).to eq(49)
     end
   end
 
