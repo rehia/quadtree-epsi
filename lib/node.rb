@@ -9,8 +9,6 @@ class Node
 
   X, Y = 0, 1 # Syntaxic sugar
 
-  CHILDS_LOCATIONS = %i(top_left top_right bottom_right bottom_left)
-
   CTOR_ATTRIBUTES = %i(width height x y)
 
   attr_accessor *CTOR_ATTRIBUTES, :childrens, :points # Class attributes
@@ -26,7 +24,7 @@ class Node
     @x = attributes[:x]
     @y = attributes[:y]
 
-    @childrens = Hash.new
+    @childrens = OpenStruct.new
     @points = Array.new
   end
 
@@ -41,7 +39,7 @@ class Node
       points.clear
     end
 
-    if childrens.any?
+    if childrens.to_h.any?
       ventilate_to_childrens point
     else
       points << point
@@ -85,12 +83,12 @@ class Node
       child.merge! width: child_width, height: child_height
     end
 
-    childrens[:top_left] = Node.new top_left
-    childrens[:top_right] = Node.new top_right
-    childrens[:bottom_right] = Node.new bottom_right
-    childrens[:bottom_left] = Node.new bottom_left
+    childrens.top_left = Node.new top_left
+    childrens.top_right = Node.new top_right
+    childrens.bottom_right = Node.new bottom_right
+    childrens.bottom_left = Node.new bottom_left
 
-    childrens.values # Return nodes without location
+    childrens.to_h.values # Return nodes without location
   end
 
   private # ====================================================================
@@ -99,7 +97,7 @@ class Node
     # Get 1-D array and then put point coordinates by pair again
     points = points.flatten.each_slice(2).map { |point| point }
     points.each do |point|
-      childrens.each { |loc, child| child << point if child.own_point point  }
+      childrens.to_h.each { |loc, child| child << point if child.own_point point }
     end
   end
 
