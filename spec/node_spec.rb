@@ -2,35 +2,35 @@ require 'rspec'
 require 'byebug'
 require './lib/node.rb'
 
-RSpec.describe Node do
+RSpec.describe QuadTree::Node do
 
   describe '#initialize' do
 
     context 'with valid boundaries' do
       it 'create node with specified boundaries' do
-        node = Node.new(top_left: [0, 0], top_right: [0, 99],
-                        bottom_right: [99, 99], bottom_left: [99, 0])
+        node = QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
+                                  bottom_right: [99, 99], bottom_left: [0, 99])
 
         expect(node.top_left).to eq([0, 0])
-        expect(node.top_right).to eq([0, 99])
+        expect(node.top_right).to eq([99, 0])
         expect(node.bottom_right).to eq([99, 99])
-        expect(node.bottom_left).to eq([99, 0])
+        expect(node.bottom_left).to eq([0, 99])
       end
     end
 
     context 'with invalid boundaries' do
       it 'raise error' do
         expect {
-          Node.new(top_left: [0, 0], top_right: [0, 99])
+          QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0])
         }.to raise_error(ArgumentError)
       end
     end
   end
 
   describe '#own_point' do
-    # Lazy evaluated value, cached only in the same example
-    let(:node) { Node.new(top_left: [0, 0], top_right: [0, 99],
-                         bottom_right: [99, 99], bottom_left: [99, 0]) }
+    # Lazy evaluated value, cached only in the same test
+    let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
+                                    bottom_right: [99, 99], bottom_left: [0, 99]) }
 
     context 'with a point in node' do
       it 'return true' do
@@ -49,8 +49,8 @@ RSpec.describe Node do
   end
 
   describe '#add_point (or <<)' do
-    let(:node) { Node.new(top_left: [0, 0], top_right: [0, 99],
-                         bottom_right: [99, 99], bottom_left: [99, 0]) }
+    let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
+                                    bottom_right: [99, 99], bottom_left: [0, 99]) }
 
     context 'with more than 2 coordinates' do
       it 'raise error' do
@@ -79,6 +79,35 @@ RSpec.describe Node do
           node << [-1, 0]
         }.to raise_error(ArgumentError)
       end
+    end
+  end
+
+  describe '#subdivide' do
+    let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
+                                    bottom_right: [99, 99], bottom_left: [0, 99]) }
+
+    it 'create 4 equals child nodes' do
+        top_left, top_right, bottom_right, bottom_left = node.subdivide
+
+        expect(top_left.top_left).to eq([0, 0])
+        expect(top_left.top_right).to eq([49, 0])
+        expect(top_left.bottom_right).to eq([49, 49])
+        expect(top_left.bottom_left).to eq([0, 49])
+
+        expect(top_right.top_left).to eq([49, 0])
+        expect(top_right.top_right).to eq([99, 0])
+        expect(top_right.bottom_right).to eq([99, 49])
+        expect(top_right.bottom_left).to eq([49, 49])
+
+        expect(bottom_right.top_left).to eq([49, 49])
+        expect(bottom_right.top_right).to eq([99, 49])
+        expect(bottom_right.bottom_right).to eq([99, 99])
+        expect(bottom_right.bottom_left).to eq([49, 99])
+
+        expect(bottom_left.top_left).to eq([0, 49])
+        expect(bottom_left.top_right).to eq([49, 49])
+        expect(bottom_left.bottom_right).to eq([49, 99])
+        expect(bottom_left.bottom_left).to eq([0, 99])
     end
   end
 

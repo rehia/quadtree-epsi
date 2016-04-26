@@ -3,6 +3,7 @@ require 'awesome_print'
 require 'ostruct'
 require 'forwardable'
 
+module QuadTree
 class Node
   # Config =====================================================================
 
@@ -24,11 +25,13 @@ class Node
 
     @childrens = Array.new(4) { nil }
     @points = Array.new
-    @boundaries = OpenStruct.new(boundaries) # Syntaxic sugar, access hash like a object
+    @boundaries = OpenStruct.new(boundaries) # Syntaxic sugar, access hash like an object
+    @width = top_right[X] - top_left[X] + 1
+    @height = bottom_left[Y] -  top_left[Y] + 1
   end
 
   def add_point(*point) # Splat operator ensure we always get an array
-    point.flatten! # Ensure we have 1D array
+    point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
     raise ArgumentError, "Point #{point} is outside boundaries" unless own_point(point)
 
@@ -51,10 +54,42 @@ class Node
     end
   end
 
-  private # ====================================================================
-
   def subdivide
+    child_width = @width / 2.0 - 1
+    child_height = @height / 2.0 - 1
+
+    top_left_child = {
+      top_left:       top_left,
+      top_right:      [child_width, top_left[Y]],
+      bottom_right:   [child_width, child_height],
+      bottom_left:    [top_left[X], child_height]
+    }
+    top_right_child = {
+      top_left:       top_left_child[:top_right],
+      top_right:      top_right,
+      bottom_right:   [top_right[X], top_right[Y] + child_height],
+      bottom_left:    top_left_child[:bottom_right]
+    }
+    bottom_right_child = {
+      top_left:       top_right_child[:bottom_left],
+      top_right:      top_right_child[:bottom_right],
+      bottom_right:   bottom_right,
+      bottom_left:    [top_right_child[:bottom_left][X], bottom_right[Y]]
+    }
+    bottom_left_child = {
+      top_left:       top_left_child[:bottom_left],
+      top_right:      top_left_child[:bottom_right],
+      bottom_right:   bottom_right_child[:bottom_left],
+      bottom_left:    bottom_left
+    }
+
+    [ top_left_child,
+      top_right_child,
+      bottom_right_child,
+      bottom_left_child ].map { |node| QuadTree::Node.new(node) }
   end
+
+  private # ====================================================================
 
   def check_boundaries_presence(boundaries)
     missings = BOUNDARIES - boundaries.keys # This is why I love ruby :-)
@@ -64,4 +99,5 @@ class Node
     end
   end
 
+end
 end
