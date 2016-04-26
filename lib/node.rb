@@ -23,7 +23,7 @@ class Node
     # Raise error if one boundary is missing
     check_boundaries_presence(boundaries)
 
-    @childrens = Array.new(4) { nil }
+    @childrens = Array.new
     @points = Array.new
     @boundaries = OpenStruct.new(boundaries) # Syntaxic sugar, access hash like an object
     @width = top_right[X] - top_left[X] + 1
@@ -86,7 +86,10 @@ class Node
     [ top_left_child,
       top_right_child,
       bottom_right_child,
-      bottom_left_child ].map { |node| QuadTree::Node.new(node) }
+      bottom_left_child
+    ].each { |child| childrens << QuadTree::Node.new(child) }
+
+    childrens
   end
 
   private # ====================================================================

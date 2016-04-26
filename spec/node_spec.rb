@@ -52,32 +52,59 @@ RSpec.describe QuadTree::Node do
     let(:node) { QuadTree::Node.new(top_left: [0, 0], top_right: [99, 0],
                                     bottom_right: [99, 99], bottom_left: [0, 99]) }
 
-    context 'with more than 2 coordinates' do
-      it 'raise error' do
-        expect {
-          node.add_point(42, 42, 42)
-        }.to raise_error(ArgumentError)
+    context 'with a node with less than 4 point' do
+      context 'with more than 2 coordinates' do
+        it 'raise error' do
+          expect {
+            node.add_point(42, 42, 42)
+          }.to raise_error(ArgumentError)
+        end
+      end
+
+      context 'with a point inside boundaries' do
+        it 'add point to the node' do
+          node << [42, 42] << [21, 42]
+          node.add_point(21, 21)
+
+          expect(node.points.count).to eq(3)
+        end
+      end
+
+      context 'with a point outside boundaries' do
+        it 'raise error' do
+          expect {
+            node << [100, 0]
+          }.to raise_error(ArgumentError)
+
+          expect {
+            node << [-1, 0]
+          }.to raise_error(ArgumentError)
+        end
       end
     end
 
-    context 'with a point inside boundaries' do
-      it 'add point to the node' do
-        node << [42, 42] << [21, 42]
-        node.add_point(21, 21)
+    context 'with a node with 4 point' do
+      it 'subdivide the node and ventilate points to childrens nodes' do
+        node << [0, 0] << [10, 10] << [42, 42] << [21, 21]
 
-        expect(node.points.count).to eq(3)
+        node << [84, 84]
+
+        expect(node.points.count).to eq(0)
+        expect(node.childrens.count).to eq(4)
+
+        expect(node.childrens[0].points.count).to eq(4)
+        expect(node.childrens[2].points.count).to eq(1)
       end
     end
 
-    context 'with a point outside boundaries' do
-      it 'raise error' do
-        expect {
-          node << [100, 0]
-        }.to raise_error(ArgumentError)
+    context 'with a node with more than 4 points' do
+      it 'ventilate the point to childrens nodes' do
+        node << [0, 0] << [10, 10] << [42, 42] << [21, 21] << [84, 84]
 
-        expect {
-          node << [-1, 0]
-        }.to raise_error(ArgumentError)
+        node << [21, 84] << [84, 21]
+
+        expect(node.childrens[3].count).to eq(1)
+        expect(node.childrens[1].count).to eq(1)
       end
     end
   end
