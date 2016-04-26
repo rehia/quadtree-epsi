@@ -35,10 +35,16 @@ class Node
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
     raise ArgumentError, "Point #{point} is outside boundaries" unless own_point(point)
 
-    points << point
+    if points.count == 4
+      subdivide
+      points.each { |point| childrens.each { |child| child << point if child.own_point(point) } }
+      points.clear
+    end
 
-    if points.count > 4
-
+    if childrens.any?
+      childrens.each { |child| child << point if child.own_point(point) }
+    else
+      points << point
     end
 
     self # Return object himself to chain function call

@@ -102,9 +102,8 @@ RSpec.describe QuadTree::Node do
         node << [0, 0] << [10, 10] << [42, 42] << [21, 21] << [84, 84]
 
         node << [21, 84] << [84, 21]
-
-        expect(node.childrens[3].count).to eq(1)
-        expect(node.childrens[1].count).to eq(1)
+        expect(node.childrens[3].points.count).to eq(1)
+        expect(node.childrens[1].points.count).to eq(1)
       end
     end
   end
