@@ -37,15 +37,12 @@ class Node
 
     if points.count == 4
       subdivide
-      points.each { |point| childrens.each { |loc, child|
-        child << point if child.own_point point
-        }
-      }
+      ventilate_to_childrens points
       points.clear
     end
 
     if childrens.any?
-      childrens.each { |loc, child| child << point if child.own_point point  }
+      ventilate_to_childrens point
     else
       points << point
     end
@@ -97,6 +94,14 @@ class Node
   end
 
   private # ====================================================================
+
+  def ventilate_to_childrens(*points)
+    # Get 1-D array and then put point coordinates by pair again
+    points = points.flatten.each_slice(2).map { |point| point }
+    points.each do |point|
+      childrens.each { |loc, child| child << point if child.own_point point  }
+    end
+  end
 
   def check_attributes(attributes)
     missings = CTOR_ATTRIBUTES - attributes.keys # This is why I love ruby :-)
