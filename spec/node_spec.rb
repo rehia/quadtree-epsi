@@ -24,10 +24,6 @@ RSpec.describe QuadTree::Node do
         }.to raise_error(ArgumentError)
 
         expect {
-          QuadTree::Node.new(width: 100, height: 100, x: -42, y: 0)
-        }.to raise_error(ArgumentError)
-
-        expect {
           QuadTree::Node.new(width: -42, height: 100, x: 42, y: 42)
         }.to raise_error(ArgumentError)
       end
