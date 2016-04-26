@@ -1,5 +1,5 @@
-require 'byebug'
-require 'awesome_print'
-require './lib/grid.rb'
+require './lib/tree.rb'
 
 AwesomePrint.irb!
+
+puts "Hello from docker :-)"

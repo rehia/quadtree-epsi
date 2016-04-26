@@ -57,12 +57,8 @@ class Node
   alias_method :<<, :add_point # Syntaxic sugar
 
   def own_point(point)
-    if point[X] >= @x && point[X] < @x + @width &&
-       point[Y] >= @y && point[Y] < @y + @height
-      true
-    else
-      false
-    end
+    point[X] >= @x && point[X] < @x + @width &&
+    point[Y] >= @y && point[Y] < @y + @height
   end
 
   def subdivide
