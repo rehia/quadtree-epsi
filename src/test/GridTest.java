@@ -24,4 +24,11 @@ public class GridTest {
         assertEquals(grid.addDotWithinRange(dot), true);
     }
 
+    @Test
+    public void gridCannotHaveTwinDots() {
+        Grid grid = new Grid();
+        Dot dot = new Dot();
+        assertEquals(grid.doesNotOwn(dot), false);
+    }
+
 }

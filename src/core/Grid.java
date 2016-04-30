@@ -26,4 +26,8 @@ public class Grid {
     public boolean addDotWithinRange(Dot dot) {
         return dot.isIn(_range) ? _listOfDots.add(dot) : dot.isIn(_range);
     }
+
+    public boolean doesNotOwn(Dot dot) {
+        return false;
+    }
 }
