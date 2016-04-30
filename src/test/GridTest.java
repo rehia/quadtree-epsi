@@ -1,5 +1,6 @@
 package test;
 
+import core.Dot;
 import core.Grid;
 import org.junit.Test;
 
@@ -14,6 +15,13 @@ public class GridTest {
     public void gridHasOneDot() {
         Grid grid = new Grid();
         assertEquals(grid.numberOfDots(), 1);
+    }
+
+    @Test
+    public void gridCanAddDotsWithinRange() {
+        Grid grid = new Grid();
+        Dot dot = new Dot();
+        assertEquals(grid.addDotWithinRange(dot), true);
     }
 
 }

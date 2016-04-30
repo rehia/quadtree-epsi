@@ -16,4 +16,8 @@ public class Grid {
     public int numberOfDots() {
         return _listOfDots.size();
     }
+
+    public boolean addDotWithinRange(Dot dot) {
+        return true;
+    }
 }
