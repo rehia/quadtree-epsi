@@ -14,7 +14,7 @@ public class DotTest {
     public void dotIsInRange() {
         int range = 100;
         Dot dot = new Dot();
-        assertEquals(dot.isIn(range), true);
+        assertEquals(true, dot.isIn(range));
     }
 
 }

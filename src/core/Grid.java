@@ -8,15 +8,18 @@ import java.util.ArrayList;
 public class Grid {
     private ArrayList<Dot> _listOfDots;
     private int _range;
+    private Grid _upperLeft;
+    private Grid _upperRight;
+    private Grid _lowerLeft;
+    private Grid _lowerRight;
 
     public Grid() {
         this(100);
     }
 
-    public Grid(int range) {
+    private Grid(int range) {
         _range = range;
         _listOfDots = new ArrayList<>();
-        addDotWithinRange(new Dot());
     }
 
     public int numberOfDots() {
@@ -24,10 +27,29 @@ public class Grid {
     }
 
     public boolean addDotWithinRange(Dot dot) {
-        return dot.isIn(_range) ? _listOfDots.add(dot) : dot.isIn(_range);
+        if (numberOfDots() < 4) {
+            return dot.isIn(_range) ? _listOfDots.add(dot) : dot.isIn(_range);
+        } else {
+            return split();
+        }
+    }
+
+    private boolean split() {
+        _upperLeft = new Grid();
+        _upperRight = new Grid();
+        _lowerLeft = new Grid();
+        _lowerRight = new Grid();
+        return false;
     }
 
     public boolean doesNotOwn(Dot dot) {
-        return false;
+        for (Dot dotInList : _listOfDots) {
+            return dotInList.isNotTwin(dot);
+        }
+        return true;
+    }
+
+    public ArrayList<Dot> getListOfDots() {
+        return _listOfDots;
     }
 }
