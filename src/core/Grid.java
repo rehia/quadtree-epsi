@@ -7,10 +7,16 @@ import java.util.ArrayList;
  */
 public class Grid {
     private ArrayList<Dot> _listOfDots;
+    private int _range;
 
     public Grid() {
+        this(100);
+    }
+
+    public Grid(int range) {
+        _range = range;
         _listOfDots = new ArrayList<>();
-        _listOfDots.add(new Dot());
+        addDotWithinRange(new Dot());
     }
 
     public int numberOfDots() {
@@ -18,6 +24,6 @@ public class Grid {
     }
 
     public boolean addDotWithinRange(Dot dot) {
-        return true;
+        return dot.isIn(_range) ? _listOfDots.add(dot) : dot.isIn(_range);
     }
 }
