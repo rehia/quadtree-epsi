@@ -163,4 +163,17 @@ RSpec.describe QuadTree::Node do
     end
   end
 
+  describe '#to_s' do
+    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
+
+    it 'return printable string representation of tree' do
+        node << [0, 0] << [1, 1] << [2, 2] << [3, 3]
+        node << [42, 42] << [89, 65] << [65, 89] << [13, 70]
+
+        str = node.to_s
+
+        expect(str.count("\n")).to eq(9)
+    end
+  end
+
 end

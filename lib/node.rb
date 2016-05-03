@@ -11,6 +11,8 @@ class Node
 
   X, Y = 0, 1 # Syntaxic sugar
 
+  DUMP_OFFSET = 30
+
   CTOR_ATTRIBUTES = %i(width height x y)
 
   attr_accessor *CTOR_ATTRIBUTES, :childrens, :points # Class attributes
@@ -35,6 +37,42 @@ class Node
     @is_leaf = true
   end
 
+  def to_s(options = {})
+    ret = ""
+    options = { info: :points, offset: 0 }.merge options
+
+    node_header = "#{" " * options[:offset]}##{options[:offset] / DUMP_OFFSET + 1}"
+
+    if options[:info] == :points
+      msg = "#{@points.map { |e| e.join(",")}.join(" ") }"
+    else
+      msg = CTOR_ATTRIBUTES.map{ |attr| ["#{attr}:", self.send(attr)] }.map{ |e| e.join("") }.join(" ")
+    end
+
+    if @is_leaf
+      ret += "#{node_header} #{msg}\n"
+    else
+      options[:offset] += DUMP_OFFSET
+      ret += top_left.to_s(options)
+      ret += top_right.to_s(options)
+      ret += "#{node_header} #{msg}\n"
+      ret += bottom_right.to_s(options)
+      ret += bottom_left.to_s(options)
+    end
+
+    ret
+  end
+
+  def count_points
+    total = 0
+    unless @is_leaf
+      @childrens.to_h.values.each do |child|
+        total += child.count_points
+      end
+    end
+    total + points.count
+  end
+
   def add_point(*point) # Splat operator ensure we always get an array
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
@@ -49,7 +87,7 @@ class Node
     if childrens.to_h.any? && ! is_between_childrens(point)
       ventilate_to_childrens point
     else
-      points << point
+      points << point unless points.include? point
     end
 
     self # Return object himself to chain function call
