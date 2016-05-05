@@ -171,7 +171,7 @@ RSpec.describe QuadTree::Node do
         node << [42, 42] << [89, 65] << [65, 89] << [13, 70]
 
         str = node.to_s
-
+        puts node
         expect(str.count("\n")).to eq(9)
     end
   end
