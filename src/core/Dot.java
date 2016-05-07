@@ -23,10 +23,6 @@ public class Dot {
         return rand.nextInt((max - min) + 1) + min;
     }
 
-    public boolean isIn(int range) {
-        return _x <= range && _y <= range;
-    }
-
     boolean isNotTwin(Dot dot) {
         return dot.getX() != _x || dot.getY() != _y;
     }
