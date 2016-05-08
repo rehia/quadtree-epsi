@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by J on 30/04/2016.
@@ -193,5 +194,9 @@ public class Grid {
         //use to test method : SubgridIsHalfRange
         return this._repereGrid.getRange();
     }
+
+    public ArrayList<Dot> findNeighbourhood() {
+        return  new ArrayList<Dot>(); 
+        }
 
 }

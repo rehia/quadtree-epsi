@@ -139,5 +139,7 @@ public class GridTest {
         assertEquals(2,grid.depthOf(dotToFind));
     }
     
+    
+    
 
 }
