@@ -1,8 +1,6 @@
 package core;
 
-import java.awt.Point;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.Iterator;
 
 /**
@@ -11,22 +9,21 @@ import java.util.Iterator;
 public class Grid {
 
     private ArrayList<Dot> _listOfDots;
-    private Repere _repereDebutGrid;
-    private float _range;
+    private Repere _repereGrid;
     private Grid _upperLeft;
     private Grid _upperRight;
     private Grid _lowerLeft;
     private Grid _lowerRight;
 
     public Grid() {
-        this._range = 100;
-        this._repereDebutGrid = new Repere(0, 0);
+
+        this._repereGrid = new Repere();
         _listOfDots = new ArrayList<>();
     }
 
-    public Grid(float range, Repere repere) {
-        _range = range;
-        this._repereDebutGrid = repere;
+    public Grid(Repere repere) {
+
+        this._repereGrid = repere;
         _listOfDots = new ArrayList<>();
     }
 
@@ -67,11 +64,11 @@ public class Grid {
     }
 
     private boolean dotIsInYRange(Dot dot) {
-        return dot.getY() < this.getRangeY() && dot.getY() >= this._repereDebutGrid.getY();
+        return this._repereGrid.isInYRange(dot.getY());
     }
 
     private boolean dotIsInXRange(Dot dot) {
-        return dot.getX() < this.getRangeX() && dot.getX() >= this._repereDebutGrid.getX();
+        return this._repereGrid.isInXRange(dot.getX());
     }
 
     private boolean split() {
@@ -111,49 +108,29 @@ public class Grid {
     }
 
     private void createSubGrids() {
-        _upperLeft = new Grid(this._range / 2, this._repereDebutGrid);
-        _upperRight = new Grid(this._range / 2, this.makeRepere("upperRight"));
-        _lowerLeft = new Grid(this._range / 2, this.makeRepere("lowerLeft"));
-        _lowerRight = new Grid(this._range / 2, this.makeRepere("lowerRight"));
+        _upperLeft = new Grid(new Repere("upperLeft", this._repereGrid));
+        _upperRight = new Grid(new Repere("upperRight", this._repereGrid));
+        _lowerLeft = new Grid(new Repere("lowerLeft", this._repereGrid));
+        _lowerRight = new Grid(new Repere("lowerRight", this._repereGrid));
     }
 
-    public Repere makeRepere(String locationNewGrid) {
-        Repere newRepere = new Repere();
-        switch (locationNewGrid) {
-            case "upperRight":
-                newRepere.setX(this._repereDebutGrid.getX() + this._range / 2);
-                newRepere.setY(this._repereDebutGrid.getY());
-                break;
-            case "lowerLeft":
-                newRepere.setX(this._repereDebutGrid.getX());
-                newRepere.setY(this._repereDebutGrid.getY() + this._range / 2);
-                break;
-            case "lowerRight":
-                newRepere.setX(this._repereDebutGrid.getX() + this._range / 2);
-                newRepere.setY(this._repereDebutGrid.getY() + this._range / 2);
-                break;
+    public String afficheGrid() {
+        String affichage = "";
+        affichage += "grille de range " + this._repereGrid.getRange() + " qui commence : " + this._repereGrid.affiche();
+        for (Dot d : this._listOfDots) {
+            affichage += "\n";
+            affichage += d.affiche();
+        }
 
+        if (this._listOfDots.isEmpty()) {
+            affichage += "\nempty";
         }
-        return newRepere;
-    }
-    
-    public String afficheGrid(){
-       String affichage = "";
-        affichage += "grille de range " + this._range + " qui commence : " + this._repereDebutGrid.affiche();
-       for(Dot d : this._listOfDots){
-           affichage += "\n";
-        affichage += d.affiche();
+        if (GridHasSubGrid()) {
+            affichage += "\n" + this._upperLeft.afficheGrid();
+            affichage += "\n" + this._lowerLeft.afficheGrid();
+            affichage += "\n" + this._lowerRight.afficheGrid();
         }
-       
-       if(this._listOfDots.isEmpty()){
-           affichage+="\nempty";
-       }
-       if(GridHasSubGrid()){
-          affichage += "\n" + this._upperLeft.afficheGrid();
-          affichage += "\n" + this._lowerLeft.afficheGrid();
-          affichage += "\n" + this._lowerRight.afficheGrid();
-       }
-       return affichage;
+        return affichage;
     }
 
     public boolean doesNotOwn(Dot dot) {
@@ -167,20 +144,8 @@ public class Grid {
         return _listOfDots;
     }
 
-    private float getRangeY() {
-        return (float) this._repereDebutGrid.getY() + this._range;
-    }
-
-    public float getRangeX() {
-        return (float) this._repereDebutGrid.getX() + this._range;
-    }
-
     public Grid getUpperLeft() {
         return this._upperLeft;
-    }
-
-    public float getRange() {
-        return this._range;
     }
 
     public int numberOfDots() {
@@ -192,39 +157,41 @@ public class Grid {
     }
 
     public int depthOf(Dot dot) {
-        
-        if(GridHasNoSubGrid()){
-            return this.doesNotOwn(dot) ? 0:1;
-        }
-        else{
-           return depthOfSubGrid(dot);
-        }
-    
 
+        if (GridHasNoSubGrid()) {
+            return this.doesNotOwn(dot) ? 0 : 1;
+        } else {
+            return depthOfSubGrid(dot);
+        }
     }
-    
-     public boolean GridHasSubGrid() {
+
+    public boolean GridHasSubGrid() {
         return this._upperLeft != null;
     }
 
     public boolean GridHasNoSubGrid() {
         return this._upperLeft == null;
     }
-     public int depthOfSubGrid(Dot dot) {
-          if(this._upperLeft.dotIsInRange(dot)){
-              return 1+ this._upperLeft.depthOf(dot);
-            }
-            if(this._upperRight.dotIsInRange(dot)){
-            return 1+ this._upperRight.depthOf(dot);
-            }
-            if(this._lowerLeft.dotIsInRange(dot)){
-            return 1+ this._lowerLeft.depthOf(dot);
-            }
-            if(this._lowerRight.dotIsInRange(dot)){
-            return 1+ this._lowerRight.depthOf(dot);
-            }
-            return 0;
-     }
-    
+
+    public int depthOfSubGrid(Dot dot) {
+        if (this._upperLeft.dotIsInRange(dot)) {
+            return 1 + this._upperLeft.depthOf(dot);
+        }
+        if (this._upperRight.dotIsInRange(dot)) {
+            return 1 + this._upperRight.depthOf(dot);
+        }
+        if (this._lowerLeft.dotIsInRange(dot)) {
+            return 1 + this._lowerLeft.depthOf(dot);
+        }
+        if (this._lowerRight.dotIsInRange(dot)) {
+            return 1 + this._lowerRight.depthOf(dot);
+        }
+        return 0;
+    }
+
+    public float getRange() {
+        //use to test method : SubgridIsHalfRange
+        return this._repereGrid.getRange();
+    }
 
 }

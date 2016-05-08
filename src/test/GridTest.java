@@ -56,7 +56,7 @@ public class GridTest {
 
     @Test
     public void gridReturnFalseWhenDotNotInRange() {
-        Grid grid = new Grid(25, new Repere(0, 0));
+        Grid grid = new Grid( new Repere(0, 0,25));
         Dot dot = new Dot(26, 26);
         assertEquals(false, grid.addDot(dot));
     }
@@ -112,7 +112,7 @@ public class GridTest {
                 + "empty\n"
                 + "grille de range 50.0 qui commence : 50.0;50.0\n"
                 + "dot : 56,56";
-
+        System.err.println(grid.afficheGrid());
         assertEquals(true, expected.equals(grid.afficheGrid()));
     }
     
