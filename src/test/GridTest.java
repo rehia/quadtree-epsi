@@ -122,5 +122,14 @@ public class GridTest {
         grid.addDot(dot);
         assertEquals(1,grid.depthOf(dot));
     }
+    
+    @Test
+    public void return0WhenDotsNotExist(){
+        Grid grid = new Grid();
+        Dot dotAdded = new Dot(25,26);
+        Dot dotNotAdded = new Dot(0,0);
+        grid.addDot(dotAdded);
+        assertEquals(0,grid.depthOf(dotNotAdded));
+    }
 
 }

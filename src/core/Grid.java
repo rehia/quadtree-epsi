@@ -199,6 +199,9 @@ public class Grid {
     }
 
     public int depthOf(Dot dot) {
+        if(this.doesNotOwn(dot)){
+            return 0;
+        }
         return 1;
     }
 
