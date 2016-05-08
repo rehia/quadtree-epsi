@@ -199,10 +199,32 @@ public class Grid {
     }
 
     public int depthOf(Dot dot) {
-        if(this.doesNotOwn(dot)){
+        
+        if(this._upperLeft == null){
+            if(this.doesNotOwn(dot)){
             return 0;
+            }
+        
+            return 1;
+            
         }
-        return 1;
+        else{
+            if(this._upperLeft.dotIsInRange(dot)){
+              return 1+ this._upperLeft.depthOf(dot);
+          }
+            if(this._upperRight.dotIsInRange(dot)){
+            return 1+ this._upperRight.depthOf(dot);
+            }
+            if(this._lowerLeft.dotIsInRange(dot)){
+            return 1+ this._lowerLeft.depthOf(dot);
+            }
+            if(this._lowerRight.dotIsInRange(dot)){
+            return 1+ this._lowerRight.depthOf(dot);
+            }
+        }
+        return 0;
+        
+        
     }
 
 }

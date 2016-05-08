@@ -131,5 +131,13 @@ public class GridTest {
         grid.addDot(dotAdded);
         assertEquals(0,grid.depthOf(dotNotAdded));
     }
+    
+    @Test
+    public void return2WhenDotsIsVentile(){
+        Grid grid = initGridWith5Dots();
+        Dot dotToFind = new Dot(0,1);
+        assertEquals(2,grid.depthOf(dotToFind));
+    }
+    
 
 }
