@@ -151,6 +151,7 @@ public class Grid {
            affichage += "\n";
         affichage += d.affiche();
         }
+       
        if(this._listOfDots.isEmpty()){
            affichage+="\nempty";
        }
@@ -195,6 +196,10 @@ public class Grid {
 
     public Grid getUpperRight() {
         return this._upperRight;
+    }
+
+    public int depthOf(Dot dot) {
+        return 1;
     }
 
 }

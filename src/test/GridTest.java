@@ -115,5 +115,12 @@ public class GridTest {
 
         assertEquals(true, expected.equals(grid.afficheGrid()));
     }
+    
+    public void depthReturn1When1DotAdded(){
+        Grid grid = new Grid();
+        Dot dot = new Dot(25,26);
+        grid.addDot(dot);
+        assertEquals(1,grid.depthOf(dot));
+    }
 
 }
