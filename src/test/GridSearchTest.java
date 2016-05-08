@@ -55,6 +55,13 @@ public class GridSearchTest {
         assertEquals(true , grid.findNeighbourhood(dotCentral).containsAll(dotsExpected));
     }
 
+    @Test
+    public void returnEmptyListwhenDotNotNotExists() {
+        Grid grid = new Grid();
+        Dot dot = new Dot(1,2);
+        grid.addDot(dot);
+        assertEquals( new ArrayList<Dot>(), grid.findNeighbourhood(new Dot(1,1)));
+    }
     
 
 }

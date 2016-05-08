@@ -197,8 +197,12 @@ public class Grid {
 
     public ArrayList<Dot> findNeighbourhood(Dot dot) {
         ArrayList Neighbour = this._listOfDots;
-        Neighbour.remove(dot);
-        return Neighbour;
+        if (Neighbour.contains(dot)) {
+            Neighbour.remove(dot);
+            return Neighbour;
+        } else {
+            return new ArrayList<Dot>();
+        }
     }
 
 }
