@@ -17,6 +17,10 @@ public class Repere {
         
     }
     
+    public String affiche(){
+        return this.X +";"+ this.Y;
+    }
+    
     public Repere(float x, float y){
         this.X= x;
         this.Y = y;

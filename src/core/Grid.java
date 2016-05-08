@@ -143,6 +143,24 @@ public class Grid {
         }
         return newRepere;
     }
+    
+    public String afficheGrid(){
+       String affichage = "";
+        affichage += "grille de range " + this._range + " qui commence : " + this._repereDebutGrid.affiche();
+       for(Dot d : this._listOfDots){
+           affichage += "\n";
+        affichage += d.affiche();
+        }
+       if(this._listOfDots.isEmpty()){
+           affichage+="\nempty";
+       }
+       if(this._upperLeft != null){
+          affichage += "\n" + this._upperLeft.afficheGrid();
+          affichage += "\n" + this._lowerLeft.afficheGrid();
+          affichage += "\n" + this._lowerRight.afficheGrid();
+       }
+       return affichage;
+    }
 
     public boolean doesNotOwn(Dot dot) {
         for (Dot dotInList : _listOfDots) {

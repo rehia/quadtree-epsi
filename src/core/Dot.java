@@ -12,6 +12,10 @@ public class Dot {
     public Dot() {
         this(randInt(0, 100), randInt(0, 100));
     }
+    
+    public String affiche(){
+        return "dot : " +this._x + ","+this._y;
+    }
 
     public Dot(int x, int y) {
         _x = x;
