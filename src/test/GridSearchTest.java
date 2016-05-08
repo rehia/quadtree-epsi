@@ -33,11 +33,28 @@ public class GridSearchTest {
     public void returnEmptyListwhenNoDot() {
         Grid grid = new Grid();
         Dot dot = new Dot();
-        assertEquals( new ArrayList<Dot>(), grid.findNeighbourhood());
+        assertEquals( new ArrayList<Dot>(), grid.findNeighbourhood(dot));
     }
-
+    
    
     
+    
+    @Test
+    public void returnAllOtherDotWhenGridNotSplitted() {
+        Grid grid = new Grid();
+        Dot dotCentral = new Dot(0,1);
+        Dot Neighbour1 = new Dot(1,1);
+        Dot Neighbour2 = new Dot(1,2);
+        grid.addDot(dotCentral);
+        grid.addDot(Neighbour1);
+        grid.addDot(Neighbour2);
+        ArrayList dotsExpected = new ArrayList<Dot>();
+        dotsExpected.add(Neighbour1);
+        dotsExpected.add(Neighbour2);
+        
+        assertEquals(true , grid.findNeighbourhood(dotCentral).containsAll(dotsExpected));
+    }
+
     
 
 }

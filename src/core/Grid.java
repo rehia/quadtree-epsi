@@ -195,8 +195,10 @@ public class Grid {
         return this._repereGrid.getRange();
     }
 
-    public ArrayList<Dot> findNeighbourhood() {
-        return  new ArrayList<Dot>(); 
-        }
+    public ArrayList<Dot> findNeighbourhood(Dot dot) {
+        ArrayList Neighbour = this._listOfDots;
+        Neighbour.remove(dot);
+        return Neighbour;
+    }
 
 }
