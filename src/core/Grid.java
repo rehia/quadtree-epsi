@@ -32,8 +32,7 @@ public class Grid {
 
     public boolean addDot(Dot dotToAdd) {
 
-        if (this._upperLeft != null) {
-            System.err.println("ventilation!");
+        if (GridHasSubGrid()) {
             this.addDotToSubGrid(dotToAdd);
         }
 
@@ -54,9 +53,7 @@ public class Grid {
     }
 
     public boolean addDotWithinRange(Dot dotToAdd) {
-        System.err.println(dotToAdd.getY());
         if (this.dotIsInRange(dotToAdd)) {
-            System.err.println("dot added" + dotToAdd.getY());
             _listOfDots.add(dotToAdd);
             return true;
         } else {
@@ -66,11 +63,7 @@ public class Grid {
     }
 
     public boolean dotIsInRange(Dot dot) {
-        if (this.dotIsInXRange(dot) && this.dotIsInYRange(dot)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (this.dotIsInXRange(dot) && this.dotIsInYRange(dot));
     }
 
     private boolean dotIsInYRange(Dot dot) {
@@ -155,7 +148,7 @@ public class Grid {
        if(this._listOfDots.isEmpty()){
            affichage+="\nempty";
        }
-       if(this._upperLeft != null){
+       if(GridHasSubGrid()){
           affichage += "\n" + this._upperLeft.afficheGrid();
           affichage += "\n" + this._lowerLeft.afficheGrid();
           affichage += "\n" + this._lowerRight.afficheGrid();
@@ -200,18 +193,27 @@ public class Grid {
 
     public int depthOf(Dot dot) {
         
-        if(this._upperLeft == null){
-            if(this.doesNotOwn(dot)){
-            return 0;
-            }
-        
-            return 1;
-            
+        if(GridHasNoSubGrid()){
+            return this.doesNotOwn(dot) ? 0:1;
         }
         else{
-            if(this._upperLeft.dotIsInRange(dot)){
+           return depthOfSubGrid(dot);
+        }
+    
+
+    }
+    
+     public boolean GridHasSubGrid() {
+        return this._upperLeft != null;
+    }
+
+    public boolean GridHasNoSubGrid() {
+        return this._upperLeft == null;
+    }
+     public int depthOfSubGrid(Dot dot) {
+          if(this._upperLeft.dotIsInRange(dot)){
               return 1+ this._upperLeft.depthOf(dot);
-          }
+            }
             if(this._upperRight.dotIsInRange(dot)){
             return 1+ this._upperRight.depthOf(dot);
             }
@@ -221,10 +223,8 @@ public class Grid {
             if(this._lowerRight.dotIsInRange(dot)){
             return 1+ this._lowerRight.depthOf(dot);
             }
-        }
-        return 0;
-        
-        
-    }
+            return 0;
+     }
+    
 
 }
