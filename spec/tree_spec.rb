@@ -74,22 +74,27 @@ RSpec.describe QuadTree::Tree do
   end
 
   describe '#point_depth' do
+    let (:tree) { QuadTree::Tree.new.add(0, 21).add(21, 0).add(0, 1).add(40, 40)
+                                    .add(84, 84) }
 
     context 'with point in a leaf' do
       it 'return the point depth' do
-
+        expect(tree.point_depth(40, 40)).to eq(2)
+        expect(tree.point_depth([0, 21])).to eq(2)
       end
     end
 
     context 'with point in a node' do
       it 'return the point depth' do
+        tree << [49, 49]
 
+        expect(tree.point_depth(49, 49)).to eq(1)
       end
     end
 
     context 'with point not in tree' do
       it 'return 0' do
-
+        expect(tree.point_depth(84, 42)).to eq(0)
       end
     end
   end
