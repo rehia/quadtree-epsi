@@ -18,7 +18,9 @@ class Tree
   # Class declaration ==========================================================
 
   def initialize(node_attributes = {})
+    node_attributes = DEFAULT_NODE.merge node_attributes
 
+    @root = QuadTree::Node.new node_attributes
   end
 
   def point_depth(*point)
