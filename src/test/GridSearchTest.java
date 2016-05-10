@@ -1,8 +1,5 @@
-
 import core.Dot;
 import core.Grid;
-import core.Repere;
-import java.awt.Point;
 import java.util.ArrayList;
 import org.junit.Test;
 
@@ -27,6 +24,14 @@ public class GridSearchTest {
         grid.addDot(new Dot(0, 3));
         grid.addDot(new Dot(0, 4));
         return grid;
+    }
+    
+    private Grid add4LowerLeftDot(Grid g){
+        g.addDot(new Dot(26,5));
+        g.addDot(new Dot(27,4));
+        g.addDot(new Dot (27,5));
+        g.addDot(new Dot(30,4));
+        return g;
     }
 
     @Test
@@ -67,8 +72,19 @@ public class GridSearchTest {
         dotsExpected.add(new Dot(0, 1));
         dotsExpected.add(new Dot(0, 2));
         dotsExpected.add(new Dot(0, 3));
-
         assertEquals(dotsExpected, grid.findNeighbourhood(new Dot(0, 4)));
+    }
+    
+    @Test
+    public void returnTheDotsInTheSubGridLowerLeft() {
+        Grid grid = initGridWith5Dots();
+        grid = add4LowerLeftDot(grid);
+        ArrayList dotsExpected = new ArrayList<Dot>();
+        Dot dot_to_find  = new Dot(26,5);
+        dotsExpected.add(new Dot(27,4));
+        dotsExpected.add(new Dot (27,5));
+        dotsExpected.add(new Dot(30,4));
+        assertEquals(dotsExpected, grid.findNeighbourhood(dot_to_find));
     }
 
 }

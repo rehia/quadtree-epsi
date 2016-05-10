@@ -192,7 +192,7 @@ public class Grid {
         if (GridHasSubGrid()) {
             return findNeighbourhoodInSubGrids(dot);
         }
-        if (Neighbour.contains(dot)) { // attention, recherche par ref
+        if (Neighbour.contains(dot)) {
             Neighbour.remove(dot);
             return Neighbour;
         } else {
@@ -204,13 +204,13 @@ public class Grid {
         if (_upperLeft.dotIsInRange(dot)) {
             return _upperLeft.findNeighbourhood(dot);
         }
-        if (!_upperRight.findNeighbourhood(dot).isEmpty()) {
+        if (_upperRight.dotIsInRange(dot)) {
             return _upperRight.findNeighbourhood(dot);
         }
-        if (!_lowerLeft.findNeighbourhood(dot).isEmpty()) {
+        if (_lowerLeft.dotIsInRange(dot)) {
             return _lowerLeft.findNeighbourhood(dot);
         }
-        if (!_lowerRight.findNeighbourhood(dot).isEmpty()) {
+        if (_lowerRight.dotIsInRange(dot)) {
             return _lowerRight.findNeighbourhood(dot);
         }
         return new ArrayList<Dot>();
