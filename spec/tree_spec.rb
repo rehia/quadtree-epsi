@@ -112,28 +112,39 @@ RSpec.describe QuadTree::Tree do
   end
 
   describe '#find_neighbors' do
+    let (:match_group_1) { [[0, 21], [21, 0], [0, 1], [5, 5], [12, 12], [40, 40]] }
+    let (:match_group_2) { [[21, 84], [34, 67], [42, 84]] }
     let (:tree) do
-      QuadTree::Tree.new << [0, 21] << [21, 0] << [0, 1] << [40, 40]
+      tree = QuadTree::Tree.new
+      match_group_1.each { |point| tree << point }
+      match_group_2.each { |point| tree << point }
+      tree
     end
 
     context 'with neighbors' do
 
       context 'with point in a node' do
         it 'return points in neighborhood' do
+          tree << [84, 84] << [12, 12] << [24, 24]
 
+          expect(tree.find_neighbors(24, 24)).to eq(match_group_1)
         end
       end
 
       context 'with point in a leaf' do
         it 'return points in neighborhood' do
+          tree << [42, 72] << [84, 84] << [49, 49]
 
+          expect(tree.find_neighbors(42, 72)).to eq(match_group_2)
         end
       end
     end
 
     context 'without neightbors' do
       it 'return an empty array' do
+        tree << [84, 84]
 
+        expect(tree.find_neighbors(84, 84)).to eq([])
       end
     end
   end
