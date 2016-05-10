@@ -58,12 +58,9 @@ class Tree
       return depth if node.points.include? point
       return 0 if node.is_leaf?
 
-      ret = 0
-      node.childrens.values.each do |child|
-        ret += point_depth_rec(point, depth + 1, child)
+      node.childrens.values.inject(0) do |max, child|
+        max += point_depth_rec(point, depth + 1, child)
       end
-
-      ret
     end
 
     def get_random_points(count)
