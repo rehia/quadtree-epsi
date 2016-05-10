@@ -56,9 +56,12 @@ RSpec.describe QuadTree::Tree do
     let (:tree) { QuadTree::Tree.new }
 
     it 'delegate <<, add_point, add to root and return tree itself' do
+      # Create a double to receive methods delegation
       root = double("root")
+      # Set private variable to our double
       tree.instance_variable_set(:@root, root)
 
+      # Allow the double to receive :add_point method
       allow(root).to receive(:add_point)
       same_tree1 = tree.add_point [42, 42]
       expect(same_tree1).to eq(tree)
@@ -82,8 +85,9 @@ RSpec.describe QuadTree::Tree do
   end
 
   describe '#point_depth' do
-    let (:tree) { QuadTree::Tree.new.add(0, 21).add(21, 0).add(0, 1).add(40, 40)
-                                    .add(84, 84) }
+    let (:tree) do
+      QuadTree::Tree.new << [0, 21] << [21, 0] << [0, 1] << [40, 40] << [84, 84]
+    end
 
     context 'with point in a leaf' do
       it 'return the point depth' do
@@ -106,4 +110,32 @@ RSpec.describe QuadTree::Tree do
       end
     end
   end
+
+  describe '#find_neighbors' do
+    let (:tree) do
+      QuadTree::Tree.new << [0, 21] << [21, 0] << [0, 1] << [40, 40]
+    end
+
+    context 'with neighbors' do
+
+      context 'with point in a node' do
+        it 'return points in neighborhood' do
+
+        end
+      end
+
+      context 'with point in a leaf' do
+        it 'return points in neighborhood' do
+
+        end
+      end
+    end
+
+    context 'without neightbors' do
+      it 'return an empty array' do
+
+      end
+    end
+  end
+
 end

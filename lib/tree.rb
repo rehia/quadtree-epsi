@@ -15,6 +15,7 @@ class Tree
 
   def_delegators :@root, :to_s
 
+  # Delegates point adding method to @root and return the tree itself to chain calls
   %i(<< add_point add).each do |method_name|
     define_method(method_name) do |*point|
       @root.send method_name, point
@@ -30,6 +31,8 @@ class Tree
     @root = QuadTree::Node.new node_attributes
   end
 
+  # Return count random points
+  # if a block is given, random point is available directly inside of it
   def random_point(count = 1)
     points = get_random_points count
 
@@ -38,6 +41,7 @@ class Tree
     points
   end
 
+  # Return the depth of a given point
   def point_depth(*point)
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
@@ -45,6 +49,7 @@ class Tree
     point_depth_rec(point, 1, root)
   end
 
+  # Return an array of point in the neighborhood
   def find_neighbors(*point)
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2

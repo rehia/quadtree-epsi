@@ -7,5 +7,5 @@ QuadTree implementation in ruby.
 # Usage
 
   - Pull ruby2.2.0 and build image : ```docker build -t aschen/quadtree .```
-  - Launch program : ```docker run --rm aschen/quadtree```
+  - Launch program : ```docker run -it --rm aschen/quadtree```
   - Run tests : ```docker run --rm aschen/quadtree rspec -f d -c spec/```

@@ -6,4 +6,4 @@ WORKDIR /app/quadtree
 
 RUN gem install bundler && bundle install
 
-CMD ["ruby", "main.rb"]
+CMD ["irb", "-r",  "./main.rb"]
