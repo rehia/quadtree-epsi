@@ -79,6 +79,7 @@ RSpec.describe QuadTree::Tree do
 
     context 'with point in a leaf' do
       it 'return the point depth' do
+#        byebug
         expect(tree.point_depth(40, 40)).to eq(2)
         expect(tree.point_depth([0, 21])).to eq(2)
       end

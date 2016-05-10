@@ -30,22 +30,22 @@ RSpec.describe QuadTree::Node do
     end
   end
 
-  describe '#own_point' do
+  describe '#own_point?' do
     # Lazy evaluated value, cached only in the same test
     let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
 
     context 'with a point in node' do
       it 'return true' do
-        expect(node.own_point([42, 42])).to eq(true)
-        expect(node.own_point([0, 0])).to eq(true)
-        expect(node.own_point([99, 99])).to eq(true)
+        expect(node.own_point?([42, 42])).to eq(true)
+        expect(node.own_point?([0, 0])).to eq(true)
+        expect(node.own_point?([99, 99])).to eq(true)
       end
     end
 
     context 'with a point out of node' do
       it 'return false' do
-        expect(node.own_point([-1, 42])).to eq(false)
-        expect(node.own_point([42, 100])).to eq(false)
+        expect(node.own_point?([-1, 42])).to eq(false)
+        expect(node.own_point?([42, 100])).to eq(false)
       end
     end
   end

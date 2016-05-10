@@ -42,7 +42,7 @@ class Tree
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
 
-    # Some code ...
+    point_depth_rec(point, 1, root)
   end
 
   def find_neighbors(*point)
@@ -53,6 +53,18 @@ class Tree
   end
 
   private
+
+    def point_depth_rec(point, depth, node)
+      return depth if node.points.include? point
+      return 0 if node.is_leaf?
+
+      ret = 0
+      node.childrens.values.each do |child|
+        ret += point_depth_rec(point, depth + 1, child)
+      end
+
+      ret
+    end
 
     def get_random_points(count)
       x_range = (@root.x)..(@root.width)-1

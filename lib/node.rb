@@ -77,7 +77,7 @@ class Node
   def add_point(*point) # Splat operator ensure we always get an array
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
-    raise ArgumentError, "Point #{point} is outside node" unless own_point(point)
+    raise ArgumentError, "Point #{point} is outside node" unless own_point?(point)
 
     if is_leaf? && points.count == 4
       subdivide
@@ -94,9 +94,9 @@ class Node
     self # Return object himself to chain function call
   end
   alias_method :<<, :add_point # Syntaxic sugar
-  alias_method :add, :add_point 
+  alias_method :add, :add_point
 
-  def own_point(point)
+  def own_point?(point)
     point[X] >= @x && point[X] < @x + @width &&
     point[Y] >= @y && point[Y] < @y + @height
   end
@@ -141,14 +141,14 @@ class Node
   private # ====================================================================
 
   def between_childrens?(point)
-    @childrens.values.compact.count { |child| child.own_point point } > 1
+    @childrens.values.compact.count { |child| child.own_point? point } > 1
   end
 
   def ventilate_to_childrens(*points)
     # Get 1-D array and then put point coordinates by pair again
     points = points.flatten.each_slice(2).map { |point| point }
     points.each do |point|
-      @childrens.values.compact.each { |child| child << point if child.own_point point }
+      @childrens.values.compact.each { |child| child << point if child.own_point? point }
     end
   end
 
