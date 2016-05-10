@@ -45,13 +45,9 @@ class Node
     node_header = "#{" " * options[:offset]}##{options[:offset] / DUMP_OFFSET + 1}"
 
     if options[:info] == :points
-      msg = @points.map { |e|
-        e.join(",")
-      }.join(" ")
+      msg = @points.map { |e| e.join(",") }.join(" ")
     else
-      msg = CTOR_ATTRIBUTES.map { |attr|
-        "#{attr}:#{self.send attr}"
-      }.join(" ")
+      msg = CTOR_ATTRIBUTES.map { |attr| "#{attr}:#{self.send attr}" }.join(" ")
     end
 
     if is_leaf?
