@@ -26,7 +26,7 @@ class Tree
   def random_point(count = 1)
     points = get_random_points count
 
-    points.each { |point| yield self, point } if block_given?
+    points.each { |point| yield point } if block_given?
 
     points
   end
