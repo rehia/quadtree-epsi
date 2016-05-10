@@ -56,20 +56,28 @@ RSpec.describe QuadTree::Tree do
     let (:tree) { QuadTree::Tree.new }
 
     it 'delegate <<, add_point, add to root and return tree itself' do
+      root = double("root")
+      tree.instance_variable_set(:@root, root)
+
+      allow(root).to receive(:add_point)
       same_tree1 = tree.add_point [42, 42]
       expect(same_tree1).to eq(tree)
 
+      allow(root).to receive(:add)
       same_tree2 = tree.add 21, 42
       expect(same_tree2).to eq(tree)
 
+      allow(root).to receive(:<<)
       same_tree3 = tree << [42, 21]
       expect(same_tree3).to eq(tree)
-
-      expect(tree.root.points.count).to eq(3)
     end
 
     it 'delegate to_s to root' do
-       expect(tree.to_s).to eq(tree.root.to_s)
+        root = double("root")
+        tree.instance_variable_set(:@root, root)
+
+        allow(root).to receive(:to_s)
+        tree.to_s
     end
   end
 
@@ -79,7 +87,6 @@ RSpec.describe QuadTree::Tree do
 
     context 'with point in a leaf' do
       it 'return the point depth' do
-#        byebug
         expect(tree.point_depth(40, 40)).to eq(2)
         expect(tree.point_depth([0, 21])).to eq(2)
       end

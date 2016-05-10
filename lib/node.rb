@@ -54,11 +54,13 @@ class Node
       node_string << "#{node_header} #{msg}\n"
     else
       options[:offset] += DUMP_OFFSET
-      [ top_left.to_s(options),
+      [
+        top_left.to_s(options),
         top_right.to_s(options),
         "#{node_header} #{msg}\n",
         bottom_right.to_s(options),
-        bottom_left.to_s(options) ].each { |s| node_string << s }
+        bottom_left.to_s(options)
+      ].each { |s| node_string << s }
     end
 
     node_string
