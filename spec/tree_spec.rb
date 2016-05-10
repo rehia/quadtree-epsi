@@ -67,6 +67,10 @@ RSpec.describe QuadTree::Tree do
 
       expect(tree.root.points.count).to eq(3)
     end
+
+    it 'delegate to_s to root' do
+       expect(tree.to_s).to eq(tree.root.to_s)
+    end
   end
 
   describe '#point_depth' do
