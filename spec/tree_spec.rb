@@ -26,7 +26,6 @@ RSpec.describe QuadTree::Tree do
     end
   end
 
-
   describe '#random_point' do
     let (:tree) { QuadTree::Tree.new }
 
@@ -51,6 +50,43 @@ RSpec.describe QuadTree::Tree do
         expect(tree.root.points.count).to eq(4)
       end
     end
+  end
 
+  describe '#meta_delegate_to_root' do
+    let (:tree) { QuadTree::Tree.new }
+
+    it 'delegate <<, add_point, add to root and return tree itself' do
+      same_tree1 = tree.add_point [42, 42]
+      expect(same_tree1).to eq(tree)
+
+      same_tree2 = tree.add 21, 42
+      expect(same_tree2).to eq(tree)
+
+      same_tree3 = tree << [42, 21]
+      expect(same_tree3).to eq(tree)
+
+      expect(tree.root.points.count).to eq(3)
+    end
+  end
+
+  describe '#point_depth' do
+
+    context 'with point in a leaf' do
+      it 'return the point depth' do
+
+      end
+    end
+
+    context 'with point in a node' do
+      it 'return the point depth' do
+
+      end
+    end
+
+    context 'with point not in tree' do
+      it 'return 0' do
+
+      end
+    end
   end
 end

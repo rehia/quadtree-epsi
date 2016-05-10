@@ -13,7 +13,14 @@ class Tree
 
   attr_reader :root
 
-  def_delegators :@root, :<<, :add_point
+  def_delegators :@root, :to_s
+
+  %i(<< add_point add).each do |method_name|
+    define_method(method_name) do |*point|
+      @root.send method_name, point
+      self
+    end
+  end
 
   # Class declaration ==========================================================
 

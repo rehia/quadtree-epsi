@@ -94,6 +94,7 @@ class Node
     self # Return object himself to chain function call
   end
   alias_method :<<, :add_point # Syntaxic sugar
+  alias_method :add, :add_point 
 
   def own_point(point)
     point[X] >= @x && point[X] < @x + @width &&
@@ -133,11 +134,11 @@ class Node
     @childrens.values # Return nodes
   end
 
-  private # ====================================================================
-
   def is_leaf?
     @childrens.values.compact.empty?
   end
+
+  private # ====================================================================
 
   def between_childrens?(point)
     @childrens.values.compact.count { |child| child.own_point point } > 1
