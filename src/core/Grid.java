@@ -2,7 +2,6 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by J on 30/04/2016.
@@ -17,31 +16,26 @@ public class Grid {
     private Grid _lowerRight;
 
     public Grid() {
-
         this._repereGrid = new Repere();
         _listOfDots = new ArrayList<>();
     }
 
+    //constructor for subgrids
     public Grid(Repere repere) {
-
         this._repereGrid = repere;
         _listOfDots = new ArrayList<>();
     }
 
     public boolean addDot(Dot dotToAdd) {
-
         if (GridHasSubGrid()) {
-            this.addDotToSubGrid(dotToAdd);
+            return this.addDotToSubGrid(dotToAdd);
         }
-
         if (this.addDotWithinRange(dotToAdd)) {
-
             if (this.listeOfDotIsFull()) {
                 return split();
             } else {
                 return true;
             }
-
         }
         return false;
     }
@@ -99,11 +93,9 @@ public class Grid {
         }
         if (this._lowerLeft.dotIsInRange(dotToAdd)) {
             return this._lowerLeft.addDot(dotToAdd);
-
         }
         if (this._lowerRight.dotIsInRange(dotToAdd)) {
             return this._lowerRight.addDot(dotToAdd);
-
         }
         return false;
     }
@@ -197,12 +189,31 @@ public class Grid {
 
     public ArrayList<Dot> findNeighbourhood(Dot dot) {
         ArrayList Neighbour = this._listOfDots;
-        if (Neighbour.contains(dot)) {
+        if (GridHasSubGrid()) {
+            return findNeighbourhoodInSubGrids(dot);
+        }
+        if (Neighbour.contains(dot)) { // attention, recherche par ref
             Neighbour.remove(dot);
             return Neighbour;
         } else {
             return new ArrayList<Dot>();
         }
+    }
+
+    private ArrayList<Dot> findNeighbourhoodInSubGrids(Dot dot) {
+        if (_upperLeft.dotIsInRange(dot)) {
+            return _upperLeft.findNeighbourhood(dot);
+        }
+        if (!_upperRight.findNeighbourhood(dot).isEmpty()) {
+            return _upperRight.findNeighbourhood(dot);
+        }
+        if (!_lowerLeft.findNeighbourhood(dot).isEmpty()) {
+            return _lowerLeft.findNeighbourhood(dot);
+        }
+        if (!_lowerRight.findNeighbourhood(dot).isEmpty()) {
+            return _lowerRight.findNeighbourhood(dot);
+        }
+        return new ArrayList<Dot>();
     }
 
 }

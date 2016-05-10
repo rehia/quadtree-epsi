@@ -12,9 +12,13 @@ public class Dot {
     public Dot() {
         this(randInt(0, 100), randInt(0, 100));
     }
-    
-    public String affiche(){
-        return "dot : " +this._x + ","+this._y;
+
+    public boolean equals(Dot d) {
+        return d.getX() == this._x && d.getY() == this._y;
+    }
+
+    public String affiche() {
+        return "dot : " + this._x + "," + this._y;
     }
 
     public Dot(int x, int y) {
@@ -37,5 +41,20 @@ public class Dot {
 
     public int getY() {
         return _y;
+    }
+
+    // override method from arraylist to search by value and not by reference
+    @Override
+    public boolean equals(Object object) {
+        boolean result = false;
+        if (object == null || object.getClass() != getClass()) {
+            result = false;
+        } else {
+            Dot d = (Dot) object;
+            if (this.getX() == d.getX() && this.getY() == d.getY()) {
+                result = true;
+            }
+        }
+        return result;
     }
 }
