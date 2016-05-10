@@ -127,7 +127,7 @@ RSpec.describe QuadTree::Tree do
         it 'return points in neighborhood' do
           tree << [84, 84] << [12, 12] << [24, 24]
 
-          expect(tree.find_neighbors(24, 24)).to eq(match_group_1)
+          expect(tree.find_neighbors(24, 24)).to match_array(match_group_1)
         end
       end
 
@@ -135,12 +135,12 @@ RSpec.describe QuadTree::Tree do
         it 'return points in neighborhood' do
           tree << [42, 72] << [84, 84] << [49, 49]
 
-          expect(tree.find_neighbors(42, 72)).to eq(match_group_2)
+          expect(tree.find_neighbors(42, 72)).to match_array(match_group_2)
         end
       end
     end
 
-    context 'without neightbors' do
+    context 'without neighbors' do
       it 'return an empty array' do
         tree << [84, 84]
 

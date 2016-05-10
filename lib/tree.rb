@@ -32,7 +32,7 @@ class Tree
   end
 
   # Return count random points
-  # if a block is given, random point is available directly inside of it
+  # if a block is given, random point is available directly inside it
   def random_point(count = 1)
     points = get_random_points count
 
@@ -54,10 +54,35 @@ class Tree
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
 
-    # Some code ...
+    find_neighbors_rec(point, root)
   end
 
   private
+
+    def find_neighbors_rec(point, node)
+      if node.points.include? point
+        if node.is_leaf?
+          return node.points - [point]
+        else
+          return node.childrens.values.inject([]) do |neighbors, child|
+            neighbors += collect_childs_points(child)
+          end
+        end
+      end
+      return [] if node.is_leaf?
+
+      node.childrens.values.inject([]) do |neighbors, child|
+        neighbors += find_neighbors_rec(point, child)
+      end
+    end
+
+    def collect_childs_points(node)
+      return node.points if node.is_leaf?
+
+      node.points + node.childrens.values.inject([]) do |points, child|
+        points += collect_childs_points(child)
+      end
+    end
 
     def point_depth_rec(point, depth, node)
       return depth if node.points.include? point
