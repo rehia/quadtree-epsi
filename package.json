@@ -4,7 +4,8 @@
   "description": "TDD Project",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha --reporter nyan",
+    "test:watch":"npm test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   "homepage": "https://github.com/mnivoliez/quadtree-epsi#readme",
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-react": "^5.1.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.4"
   }
