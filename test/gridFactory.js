@@ -18,6 +18,23 @@ describe('Test of the grid factory', function () {
       });
       done();
     });
+  });
 
+  describe('Test the filling of a grid with random point', function () {
+
+    it('Should add 50 points', function(done) {
+      let grid = gridFactory.createGrid();
+      grid = gridFactory.fillGrid(grid);
+      let nbPoints = 0;
+      grid.forEach(function(line) {
+        line.forEach(function(column) {
+          if(column === 'point') {
+            nbPoints++;
+          }
+        });
+      });
+      expect(nbPoints).to.equal(50);
+      done();
+    });
   });
 });
