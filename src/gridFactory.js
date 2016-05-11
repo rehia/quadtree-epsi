@@ -14,12 +14,15 @@ module.exports.createGrid = function() {
 module.exports.fillGrid = function (grid) {
   let nbPoints = 0;
   let resultGrid = grid;
-  resultGrid.forEach(function (line){
-    line.forEach(function(column) {
-      if(nbPoints < 50 && Math.floor((Math.random() * 10) + 1) < 7) {
-        column = 'point';
-      }
+  while(nbPoints < 50) {
+    resultGrid.forEach(function (line){
+      line.forEach(function(column) {
+        if(nbPoints < 50 && Math.floor((Math.random() * 10) + 1) < 5) {
+          line[line.indexOf(column)] = 'point';
+          nbPoints++;
+        }
+      });
     });
-  });
+  }
   return resultGrid;
 };
