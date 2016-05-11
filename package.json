@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/mnivoliez/quadtree-epsi/issues"
   },
-  "homepage": "https://github.com/mnivoliez/quadtree-epsi#readme"
+  "homepage": "https://github.com/mnivoliez/quadtree-epsi#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.4"
+  }
 }
