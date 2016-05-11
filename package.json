@@ -1,0 +1,24 @@
+{
+  "name": "quadtree-epsi",
+  "version": "1.0.0",
+  "description": "TDD Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnivoliez/quadtree-epsi.git"
+  },
+  "keywords": [
+    "TDD",
+    "NodeJs",
+    "QuadTree"
+  ],
+  "author": "mnivoliez <mathieu.nivoliez@laposte.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnivoliez/quadtree-epsi/issues"
+  },
+  "homepage": "https://github.com/mnivoliez/quadtree-epsi#readme"
+}
