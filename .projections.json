@@ -1,11 +1,11 @@
 {
   "src/*.js" : {
     "type":"source",
-    "alternante":"test/{}.js"
+    "alternate":"test/{}.js"
   },
 
   "test/*.js" : {
     "type":"test",
-    "alternante":"src/{}.js"
+    "alternate":"src/{}.js"
   }
 }
