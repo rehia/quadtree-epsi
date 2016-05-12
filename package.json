@@ -1,0 +1,30 @@
+{
+  "name": "quadtree-epsi",
+  "version": "1.0.0",
+  "description": "QuadTree library, well tested and covered in JS with mocha and chai",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha test/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhanbIT/quadtree-epsi.git"
+  },
+  "keywords": [
+    "quadtree",
+    "tdd",
+    "js",
+    "agile",
+    "epsi",
+    "rhanb"
+  ],
+  "author": "rhanbIT & keryanS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhanbIT/quadtree-epsi/issues"
+  },
+  "homepage": "https://github.com/rhanbIT/quadtree-epsi#readme",
+  "dependencies": {
+    "chai": "^3.5.0"
+  }
+}
