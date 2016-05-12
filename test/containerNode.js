@@ -30,5 +30,9 @@ describe('Test of treeNode', function() {
       done();
     });
 
+    it('Should create container representing 1/4 of its size', function(done){
+
+    });
+
   });
 });
