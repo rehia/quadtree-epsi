@@ -25,8 +25,8 @@ describe('Test of treeNode', function() {
 
     it('Should be the parent of a the added point', function(done){
       rootNode.addNode(new LeafNode(1,2));
-      let leaf = rootNode.getChildren().shift();
-      expect(leaf.getParent).to.equal(rootNode);
+      let leaf = rootNode.getChildren()[0];
+      expect(leaf.getParent()).to.equal(rootNode);
       done();
     });
 
