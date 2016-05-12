@@ -27,6 +27,7 @@ describe('Test of treeNode', function() {
       rootNode.addNode(new LeafNode(1,2));
       let leaf = rootNode.getChildren().shift();
       expect(leaf.getParent).to.equal(rootNode);
+      done();
     });
 
   });
