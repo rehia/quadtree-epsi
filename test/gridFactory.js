@@ -48,13 +48,19 @@ describe('Test of the grid factory', function () {
         let column = 0;
         while(!pointAfterNullFound && column < grid[line].length){
           let pointValue = grid[line][column];
-          pointFound = pointValue === 'point';
-          nullAfterPointFound = pointFound && pointValue === null;
-          pointAfterNullFound = nullAfterPointFound && pointValue === 'point';
+          if(!pointFound && pointValue === 'point') {
+            pointFound = true;
+          } else if (!nullAfterPointFound && pointFound && pointValue === null) {
+            nullAfterPointFound = true;
+          } else if (nullAfterPointFound && pointValue === 'point') {
+            pointAfterNullFound = true;
+          }
           column++;
         }
         line++;
       }
+      expect(pointFound).to.be.true;
+      expect(nullAfterPointFound).true;
       expect(pointAfterNullFound).to.be.true;
       done();
     });
