@@ -9,6 +9,7 @@ class ContainerNode extends TreeNode {
   }
 
   addNode(node) {
+    node.setParent(this);
     this.children.push(node);
   }
 

@@ -9,6 +9,10 @@ class TreeNode {
     return this.parent;
   }
 
+  setParent (parent) {
+    this.parent = parent;
+  }
+
   isRoot() {
     return this.parent === null;
   }
