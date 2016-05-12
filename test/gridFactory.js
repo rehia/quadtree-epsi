@@ -36,5 +36,27 @@ describe('Test of the grid factory', function () {
       expect(nbPoints).to.equal(50);
       done();
     });
+
+    it('Should add ramdom point', function(done) {
+      let grid = gridFactory.createGrid();
+      grid = gridFactory.fillGrid(grid);
+      let pointFound = false;
+      let nullAfterPointFound = false;
+      let pointAfterNullFound = false;
+      let line = 0;
+      while(!pointAfterNullFound && line < grid.length){
+        let column = 0;
+        while(!pointAfterNullFound && column < grid[line].length){
+          let pointValue = grid[line][column];
+          pointFound = pointValue === 'point';
+          nullAfterPointFound = pointFound && pointValue === null;
+          pointAfterNullFound = nullAfterPointFound && pointValue === 'point';
+          column++;
+        }
+        line++;
+      }
+      expect(pointAfterNullFound).to.be.true;
+      done();
+    });
   });
 });
