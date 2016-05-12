@@ -12,17 +12,21 @@ describe('Test of treeNode', function() {
 
     beforeEach(function() {
       rootNode = new ContainerNode();
-      rootNode.addNode(new LeafNode(22,33));
-      rootNode.addNode(new LeafNode(33,22));
     });
 
-    it('Should add a point single point', function(done){
+    it('Should add a point single point to a node', function(done){
       rootNode.addNode(new LeafNode(1,2));
       rootNode.getChildren().forEach(function(child) {
         expect(child).to.be.an.instanceof(LeafNode);
       });
-      expect(rootNode.getChildren()).to.have.lengthOf(3);
+      expect(rootNode.getChildren()).to.have.lengthOf(1);
       done();
+    });
+
+    it('Should be the parent of a the added point', function(done){
+      rootNode.addNode(new LeafNode(1,2));
+      let leaf = rootNode.getChildren().shift();
+      expect(leaf.getParent).to.equal(rootNode);
     });
 
   });
