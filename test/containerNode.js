@@ -30,8 +30,18 @@ describe('Test of treeNode', function() {
       done();
     });
 
-    it('Should create container representing 1/4 of its size', function(done){
-
+    it('Should create container', function(done){
+      for(let i = 0; i<5; i++) {
+        rootNode.addNode(new LeafNode(i, i+3));
+      }
+      let counter = 0;
+      rootNode.getChildren().forEach(function(child) {
+        if(child instanceof ContainerNode) {
+          counter++;
+        }
+      });
+      expect(counter).to.equal(1);
+      done();
     });
 
   });
