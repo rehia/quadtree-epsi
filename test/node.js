@@ -1,6 +1,7 @@
 'use strict'
 var Node = require('../prototypes/node'),
   Coordinate = require('../prototypes/coordinate'),
+  zoneEnum = require('../enumerators/zone'),
   expect = require('chai').expect;
 var test = describe('node', function() {
   var testNode = new Node(new Coordinate(0, 0), new Coordinate(1, 1), 'NE');
@@ -65,6 +66,7 @@ var test = describe('node', function() {
   });
   it('Children length must not be grater than 4 to push a new point', function() {
     var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
+
     for (var i = 0; i < 4; i++) {
       dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1), 'NONE'));
     }
@@ -73,12 +75,21 @@ var test = describe('node', function() {
   });
   it('Points length must not be grater than 4 to push a new point', function() {
     var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
+    dumpNode.addChildNode(new Node(new Coordinate(101, 101), new Coordinate(120, 120), 'NONE'))
     for (var i = 0; i < 5; i++) {
       dumpNode.addPoint(new Coordinate(i, i));
     }
     expect(dumpNode.getPoints()).to.have.length.below(5);
-    dumpNode = undefined;
   });
+  it('If a Node has already 4 point the new Point should be added to Children', function () {
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NW');
+    dumpNode.addChildNode(new Node(new Coordinate(50, 50), new Coordinate(90, 90), 'NW'));
+    for (var i = 0; i < 4; i++) {
+      dumpNode.addPoint(new Coordinate(i, i));
+    }
+    dumpNode.addPoint(new Coordinate(51, 51));
+    expect(dumpNode.getChildNodes()[0].getPoints().length).to.equals(1);
+  })
   it('Adding a Coordinate to the Points list should throw an error if the Coordinate is out of the current node', function() {
     var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
     expect(dumpNode.addPoint(new Coordinate(101, 101))).to.be.false

@@ -43,9 +43,13 @@ Node.prototype.setPoints = function(newPoints) {
 };
 
 Node.prototype.addPoint = function(newPoint) {
+  console.log(this.points, this.points.length);
   if (!(this.points.length < 4)) {
-    //TODO
+    this.childNodes[0].points.push(newPoint);
+
+    //this.childNodes[0].addPoint(validatePointValue(newPoint));
   } else {
+    console.log(newPoint.x < this.centerCoordinates.getX());
     var out = (newPoint.x < this.centerCoordinates.getX() || newPoint.y < this.centerCoordinates.getY() || newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getX() || newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getY());
     if (out) {
       return false;
