@@ -1,26 +1,26 @@
-function Point(x, y) {
+function Coordinate(x, y) {
   this.x = validateCoordinateValue(x);
   this.y = validateCoordinateValue(y);
 };
-Point.prototype.getX = function() {
+Coordinate.prototype.getX = function() {
   return this.x;
 };
-Point.prototype.setX = function(newX) {
+Coordinate.prototype.setX = function(newX) {
   this.x = validateCoordinateValue(newX);
 };
-Point.prototype.getY = function() {
+Coordinate.prototype.getY = function() {
   return this.y;
 };
-Point.prototype.setY = function(newY) {
+Coordinate.prototype.setY = function(newY) {
   this.y = validateCoordinateValue(newY);
 };
 function validateCoordinateValue(valueToValidate) {
   if (typeof valueToValidate !== "number") {
-    throw new Error("Point coordinate must be a number");
+    throw new Error("Coordinate coordinate must be a number");
   }
   if (valueToValidate < 0) {
-    throw new Error("Point coordinate must be grater than zero");
+    throw new Error("Coordinate coordinate must be grater than zero");
   }
   return valueToValidate;
 };
-module.exports = Point;
+module.exports = Coordinate;

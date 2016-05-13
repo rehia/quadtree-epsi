@@ -1,1 +1,2 @@
-require('./point');
+require('./coordinate');
+require('./node');
