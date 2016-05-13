@@ -1,30 +1,24 @@
 var Coordinate = require('./coordinate');
 function Node (centerCoordinates, halfDimension) {
-  if (!(centerCoordinates instanceof Coordinate)) {
-    throw new Error("Node must have Coordinate as attribute value");
-  }
-  if (!(halfDimension instanceof Coordinate)) {
-    throw new Error("Node must have Coordinate as attribute value");
-  }
-  this.centerCoordinates = centerCoordinates;
-  this.halfDimension = halfDimension;
+  this.centerCoordinates = validateNodeValue(centerCoordinates);
+  this.halfDimension = validateNodeValue(halfDimension);
 };
 Node.prototype.getCenterCoordinates = function () {
   return this.centerCoordinates;
 };
 Node.prototype.setCenterCoordinates = function (newCenterCoordinates) {
-  if (!(newCenterCoordinates instanceof Coordinate)) {
-    throw new Error("Node must have Coordinate as attribute value");
-  }
-  this.centerCoordinates = newCenterCoordinates;
+  this.centerCoordinates = validateNodeValue(newCenterCoordinates);
 };
 Node.prototype.getHalfDimension = function () {
   return this.getHalfDimension;
 };
 Node.prototype.setHalfDimension = function (newHalfDimension) {
-  if (!(newHalfDimension instanceof Coordinate)) {
+  this.halfDimension = validateNodeValue(newHalfDimension);
+}
+function validateNodeValue (valueToValidate){
+  if (!(valueToValidate instanceof Coordinate)) {
     throw new Error("Node must have Coordinate as attribute value");
   }
-  this.halfDimension = newHalfDimension;
-}
+  return valueToValidate;
+};
 module.exports = Node;
