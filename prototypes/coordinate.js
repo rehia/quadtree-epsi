@@ -1,3 +1,4 @@
+'use strict'
 function Coordinate(x, y) {
   this.x = validateCoordinateValue(x);
   this.y = validateCoordinateValue(y);

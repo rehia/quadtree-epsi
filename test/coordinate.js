@@ -1,3 +1,4 @@
+'use strict'
 var Coordinate = require('../prototypes/coordinate'),
   expect = require('chai').expect;
 var test = describe('coordinate', function() {
