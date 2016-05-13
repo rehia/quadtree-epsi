@@ -43,7 +43,11 @@ Node.prototype.setPoints = function(newPoints) {
 };
 
 Node.prototype.addPoint = function(newPoint) {
-  this.points.push(validatePointValue(newPoint));
+  if (this.points.length < 4) {
+      this.points.push(validatePointValue(newPoint));
+  } else {
+    //TODO
+  }
 };
 
 Node.prototype.getChildNodes = function() {

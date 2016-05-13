@@ -71,5 +71,12 @@ var test = describe('node', function() {
     dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1), 'NONE'));
     expect(dumpNode.getChildNodes()).to.have.length.below(5);
   });
+  it('Points length must not be grater than 4 to push a new point', function() {
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
+    for (var i = 0; i < 5; i++) {
+      dumpNode.addPoint(new Coordinate(i, i));
+    }
+    expect(dumpNode.getPoints()).to.have.length.below(5);
+  });
 });
 module.exports = test;
