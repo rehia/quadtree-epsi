@@ -24,15 +24,18 @@ class ContainerNode extends TreeNode {
     return this.children;
   }
 
-  [_addContainer]() {
-    let container = new ContainerNode();
-    container.setParent(this);
-    this[_pushNode](container);
+  [_addContainer] () {
+    for(let i=0; i < 4; i++) {
+      let container = new ContainerNode();
+      container.setParent(this);
+      this[_pushNode](container);
+    }
   }
 
   [_pushNode] (node) {
     this.children.push(node);
   }
+
 }
 
 
