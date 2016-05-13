@@ -1,39 +1,106 @@
 'use strict'
-var Coordinate = require('./coordinate');
-function Node (centerCoordinates, halfDimension) {
+var Coordinate = require('./coordinate'),
+  zoneEnum = require('../enumerators/zone');
+
+function Node(centerCoordinates, halfDimension, zone) {
   this.centerCoordinates = validatePointValue(centerCoordinates);
-  this.halfDimension = validatePointValue(halfDimension);
+  this.halfDimension = validateHalfDimensionValue(this.centerCoordinates, halfDimension);
+  this.zone = zone;
   this.points = [];
   this.childNodes = [];
 };
-Node.prototype.getCenterCoordinates = function () {
+
+Node.prototype.getCenterCoordinates = function() {
   return this.centerCoordinates;
 };
-Node.prototype.setCenterCoordinates = function (newCenterCoordinates) {
+
+Node.prototype.setCenterCoordinates = function(newCenterCoordinates) {
   this.centerCoordinates = validatePointValue(newCenterCoordinates);
 };
-Node.prototype.getHalfDimension = function () {
+
+Node.prototype.getHalfDimension = function() {
   return this.getHalfDimension;
 };
-Node.prototype.setHalfDimension = function (newHalfDimension) {
+
+Node.prototype.setHalfDimension = function(newHalfDimension) {
   this.halfDimension = validatePointValue(newHalfDimension);
 };
-Node.prototype.getPoints = function () {
+
+Node.prototype.getZone = function() {
+  return this.zone;
+};
+
+Node.prototype.setZone = function(newZone) {
+  this.zone = validateZoneValue(newZone);
+};
+
+Node.prototype.getPoints = function() {
   return this.points;
 };
-Node.prototype.setPoints = function (newPoints) {
+
+Node.prototype.setPoints = function(newPoints) {
   this.points = validatePointsTableValue(newPoints);
 };
-function validatePointsTableValue(pointsTableToValidate) {
-  pointsTableToValidate.forEach(function (pointToValidate, index) {
-    validatePointValue(pointToValidate);
-  });
-  return pointsTableToValidate;
+
+Node.prototype.addPoint = function(newPoint) {
+  this.points.push(validatePointValue(newPoint));
 };
-function validatePointValue (pointToValidate){
+
+Node.prototype.getChildNodes = function() {
+  return this.childNodes;
+};
+
+Node.prototype.setChildNodes = function(newChildNodes) {
+  this.childNodes = validateNodesTableValue(newChildNodes);
+};
+
+Node.prototype.addChildNode = function(newChildNode) {
+
+  this.childNodes.push(validateNodeChildValue(newChildNode));
+};
+
+function validatePointValue(pointToValidate) {
   if (!(pointToValidate instanceof Coordinate)) {
     throw new Error("Must be a Coordinate");
   }
   return pointToValidate;
+};
+
+function validatePointsTableValue(pointsTableToValidate) {
+  pointsTableToValidate.forEach(function(pointToValidate, index) {
+    validatePointValue(pointToValidate);
+  });
+  return pointsTableToValidate;
+};
+
+function validateHalfDimensionValue(centerCoordinatesToCompareWith, halfDimensionToValidate) {
+  halfDimensionToValidate = validatePointValue(halfDimensionToValidate);
+  if (centerCoordinatesToCompareWith.x === halfDimensionToValidate.x || centerCoordinatesToCompareWith.y === halfDimensionToValidate.y) {
+    throw new Error("centerCoordinates must be different from halfDimension");
+  }
+  return halfDimensionToValidate;
+};
+function validateZoneValue(zoneToValidate) {
+  if (typeof zoneToValidate !== "string") {
+    throw new Error("Must be a string");
+  }
+  if (!zoneEnum[zoneToValidate]) {
+    throw new Error("Must be a value from the enumerator Zone");
+  }
+  return zoneToValidate;
+};
+
+function validateNodesTableValue(nodesTableToValidate) {
+  nodesTableToValidate.forEach(function(nodeToValidate, index) {
+    validateNodeValue(nodeToValidate);
+  });
+  return nodesTableToValidate;
+};
+
+function validateNodeValue(nodeToValidate) {
+  if (!(nodeToValidate instanceof Node)) {
+    throw new Error("Must be a Node");
+  }
+  return nodeToValidate;
 };
 module.exports = Node;
