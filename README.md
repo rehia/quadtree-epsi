@@ -25,8 +25,8 @@ QuadTree implementation in ruby.
 require './lib/tree.rb'
 
 # Create QuadTree
-tree = QuadTree::Tree.new # => #<QuadTree::Tree: width=100.0, @height=100.0, @x=0.0, @y=0.0>
-tree = QuadTree::Tree.new(width: 42, height: 42) # => #<QuadTree::Tree: width=42.0, @height=42.0, @x=0.0, @y=0.0>
+tree = QuadTree::Tree.new # => #<QuadTree::Tree: @x_max=100.0, @y_max=100.0, @x=0.0, @y=0.0>
+tree = QuadTree::Tree.new(x_max: 42, y_max: 42) # => #<QuadTree::Tree: @x_max=42.0, @y_max=42.0, @x=0.0, @y=0.0>
 
 # Print tree (node infos + points)
 puts tree # => nil
