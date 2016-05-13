@@ -9,7 +9,7 @@ class Tree
 
   extend Forwardable
 
-  DEFAULT_NODE = { width: 100, height: 100, x: 0, y: 0 }
+  DEFAULT_NODE = { x_max: 100, y_max: 100, x: 0, y: 0 }
 
   attr_reader :root
 
@@ -95,12 +95,12 @@ class Tree
     end
 
     def get_random_points(count)
-      x_range = (@root.x.to_i)..(@root.width.to_i)-1
-      y_range = (@root.y.to_i)..(@root.height.to_i)-1
+      x_range = (@root.x.to_i)..(@root.x_max.to_i)
+      y_range = (@root.y.to_i)..(@root.y_max.to_i)
       points = []
 
       count.times do
-        break if points.count == @root.width * @root.height
+        break if points.count == (@root.x_max + 1) * (@root.x_max + 1)
 
         point = []
         begin

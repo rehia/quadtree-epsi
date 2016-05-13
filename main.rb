@@ -10,6 +10,7 @@ end
 
 define_method(:add_point) do
   _tree_.random_point(1) do |point|
+    puts tree
     puts "Point added : #{point}"
     _tree_ << point
     puts "Total points : #{_tree_.root.count_points}"

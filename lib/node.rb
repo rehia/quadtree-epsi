@@ -13,7 +13,7 @@ class Node
 
   DUMP_OFFSET = 42
 
-  CTOR_ATTRIBUTES = %i(width height x y)
+  CTOR_ATTRIBUTES = %i(x y x_max y_max)
 
   attr_accessor *CTOR_ATTRIBUTES, :childrens, :points # Class attributes
 
@@ -29,10 +29,10 @@ class Node
     # Raise error if one attribute is missing or invalid
     check_attributes(attributes)
 
-    @width = attributes[:width].to_f
-    @height = attributes[:height].to_f
     @x = attributes[:x].to_f
     @y = attributes[:y].to_f
+    @x_max = attributes[:x_max].to_f
+    @y_max = attributes[:y_max].to_f
 
     @childrens = Childrens.new
     @points = Array.new
@@ -92,8 +92,9 @@ class Node
 
     if is_leaf? && points.count == 4
       subdivide
-      ventilate_to_childrens points
-      points.clear
+      points_to_ventilate = @points.select { |p| ! between_childrens?(p) }
+      ventilate_to_childrens points_to_ventilate
+      @points = @points - points_to_ventilate
     end
 
     if is_node? && ! between_childrens?(point)
@@ -108,8 +109,8 @@ class Node
   alias_method :add, :add_point
 
   def own_point?(point)
-    point[X] >= @x && point[X] < @x + @width &&
-    point[Y] >= @y && point[Y] < @y + @height
+    point[X] >= @x && point[X] <= @x_max &&
+    point[Y] >= @y && point[Y] <= @y_max
   end
 
   def is_leaf?
@@ -123,30 +124,28 @@ class Node
   private # ====================================================================
 
   def subdivide
-    x_mid = (@x + @width) / 2.0
-    y_mid = (@y + @height) / 2.0
-    child_width = @width / 2.0
-    child_height = @height / 2.0
+    child_x_max = (@x_max - @x) / 2.0
+    child_y_max = (@y_max - @y) / 2.0
 
     top_left = {
       x: @x,
       y: @y
     }
     top_right = {
-      x: @x + child_width,
+      x: @x + child_x_max,
       y: @y
     }
     bottom_right = {
-      x: @x + child_width,
-      y: @y + child_height
+      x: @x + child_x_max,
+      y: @y + child_y_max
     }
     bottom_left = {
       x: @x,
-      y: @y + child_height
+      y: @y + child_y_max
     }
 
     [top_left, top_right, bottom_right, bottom_left].each do |child|
-      child.merge! width: child_width, height: child_height
+      child.merge! x_max: child[:x] + child_x_max, y_max: child[:y] + child_y_max
     end
 
     @childrens.top_left = Node.new top_left
@@ -158,7 +157,8 @@ class Node
   end
 
   def between_childrens?(point)
-    @childrens.values.compact.count { |child| child.own_point? point } > 1
+    max_bounds = @childrens.map { |c| [c.x_max, c.y_max] }.flatten.uniq
+    max_bounds.include?(point[X]) || max_bounds.include?(point[Y])
   end
 
   def ventilate_to_childrens(*points)
@@ -176,8 +176,8 @@ class Node
       raise ArgumentError, "You must provide 4 attributes (#{missings.join(', ')} are missing)"
     end
 
-    if attributes[:height] <= 0 || attributes[:width] <= 0
-      raise ArgumentError, "Width and height must be greater than 0"
+    if attributes[:x_max] < attributes[:x] || attributes[:y_max] < attributes[:y]
+      raise ArgumentError, "x_max and y_max must be respectively greater than x and y"
     end
   end
 

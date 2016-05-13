@@ -8,10 +8,10 @@ RSpec.describe QuadTree::Node do
 
     context 'with valid boundaries' do
       it 'create node with specified size and coordinates' do
-        node = QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0)
+        node = QuadTree::Node.new(x_max: 100, y_max: 100, x: 0, y: 0)
 
-        expect(node.width).to eq(100)
-        expect(node.height).to eq(100)
+        expect(node.x_max).to eq(100)
+        expect(node.y_max).to eq(100)
         expect(node.x).to eq(0)
         expect(node.y).to eq(0)
       end
@@ -20,11 +20,11 @@ RSpec.describe QuadTree::Node do
     context 'with invalid or incomplete size or coordinates' do
       it 'raise error' do
         expect {
-          QuadTree::Node.new(width: 100, height: 100, x: 0)
+          QuadTree::Node.new(x_max: 100, y_max: 100, x: 0)
         }.to raise_error(ArgumentError)
 
         expect {
-          QuadTree::Node.new(width: -42, height: 100, x: 42, y: 42)
+          QuadTree::Node.new(x_max: -42, y_max: 100, x: 42, y: 42)
         }.to raise_error(ArgumentError)
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe QuadTree::Node do
 
   describe '#own_point?' do
     # Lazy evaluated value, cached only in the same test
-    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
+    let(:node) { QuadTree::Node.new(x_max: 100, y_max: 100, x: 0, y: 0) }
 
     context 'with a point in node' do
       it 'return true' do
@@ -45,13 +45,13 @@ RSpec.describe QuadTree::Node do
     context 'with a point out of node' do
       it 'return false' do
         expect(node.own_point?([-1, 42])).to eq(false)
-        expect(node.own_point?([42, 100])).to eq(false)
+        expect(node.own_point?([42, 101])).to eq(false)
       end
     end
   end
 
   describe '#add_point (or <<)' do
-    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
+    let(:node) { QuadTree::Node.new(x_max: 100, y_max: 100, x: 0, y: 0) }
 
     context 'with a node with less than 4 point' do
       context 'with more than 2 coordinates' do
@@ -74,7 +74,7 @@ RSpec.describe QuadTree::Node do
       context 'with a point outside boundaries' do
         it 'raise error' do
           expect {
-            node << [100, 0]
+            node << [101, 0]
           }.to raise_error(ArgumentError)
 
           expect {
@@ -121,41 +121,81 @@ RSpec.describe QuadTree::Node do
     end
 
     context 'with a point between 2 nodes' do
-      it 'never happend' do
+      it 'point stay associated with parent node' do
+        node << [0, 0] << [1, 1] << [2, 2] << [3, 3]
+
+        node << [50, 50] << [50, 21] << [84, 50] << [50, 84]
+
+        expect(node.points.count).to eq(4)
+        expect(node.top_left.points.count).to eq(4)
+        expect(node.top_right.points.count).to eq(0)
+        expect(node.bottom_right.points.count).to eq(0)
+        expect(node.bottom_left.points.count).to eq(0)
       end
     end
   end
 
   describe '#subdivide' do
-    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
+    let(:node) { QuadTree::Node.new(x_max: 100, y_max: 100, x: 0, y: 0) }
 
-    it 'create 4 equals child nodes' do
-        top_left, top_right, bottom_right, bottom_left = node.send :subdivide
+    context 'with depth of 1' do
+      it 'create 4 equals child nodes' do
+          top_left, top_right, bottom_right, bottom_left = node.send :subdivide
 
-        expect(top_left.width).to eq(50)
-        expect(top_left.height).to eq(50)
-        expect(top_left.x).to eq(0)
+          expect(top_left.x).to eq(0)
+          expect(top_left.x_max).to eq(50)
+          expect(top_left.y).to eq(0)
+          expect(top_left.y_max).to eq(50)
+
+          expect(top_right.x).to eq(50)
+          expect(top_right.x_max).to eq(100)
+          expect(top_right.y).to eq(0)
+          expect(top_right.y_max).to eq(50)
+
+          expect(bottom_right.x).to eq(50)
+          expect(bottom_right.x_max).to eq(100)
+          expect(bottom_right.y).to eq(50)
+          expect(bottom_right.y_max).to eq(100)
+
+          expect(bottom_left.x).to eq(0)
+          expect(bottom_left.x_max).to eq(50)
+          expect(bottom_left.y).to eq(50)
+          expect(bottom_left.y_max).to eq(100)
+      end
+    end
+
+    context 'with depth of 2' do
+      it 'create 4 equals child nodes' do
+        # Use send() to test private method
+        top_right = node.send(:subdivide)[1]
+
+        top_left, top_right, bottom_right, bottom_left = top_right.send :subdivide
+
+        expect(top_left.x).to eq(50)
+        expect(top_left.x_max).to eq(75)
         expect(top_left.y).to eq(0)
+        expect(top_left.y_max).to eq(25)
 
-        expect(top_right.width).to eq(50)
-        expect(top_right.height).to eq(50)
-        expect(top_right.x).to eq(50)
+        expect(top_right.x).to eq(75)
+        expect(top_right.x_max).to eq(100)
         expect(top_right.y).to eq(0)
+        expect(top_right.y_max).to eq(25)
 
-        expect(bottom_right.width).to eq(50)
-        expect(bottom_right.height).to eq(50)
-        expect(bottom_right.x).to eq(50)
-        expect(bottom_right.y).to eq(50)
+        expect(bottom_right.x).to eq(75)
+        expect(bottom_right.x_max).to eq(100)
+        expect(bottom_right.y).to eq(25)
+        expect(bottom_right.y_max).to eq(50)
 
-        expect(bottom_left.width).to eq(50)
-        expect(bottom_left.height).to eq(50)
-        expect(bottom_left.x).to eq(0)
-        expect(bottom_left.y).to eq(50)
+        expect(bottom_left.x).to eq(50)
+        expect(bottom_left.x_max).to eq(75)
+        expect(bottom_left.y).to eq(25)
+        expect(bottom_left.y_max).to eq(50)
+      end
     end
   end
 
   describe '#to_s' do
-    let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
+    let(:node) { QuadTree::Node.new(x_max: 100, y_max: 100, x: 0, y: 0) }
 
     it 'return printable string representation of tree' do
         node << [0, 0] << [1, 1] << [2, 2] << [3, 3]
