@@ -19,10 +19,11 @@ end
 
 tree.random_point(100) { |point| tree << point }
 
+puts ""
+puts "Tree generated with 100 random points"
+puts ""
+
 define_method(:help_me) do
-  puts ""
-  puts "Tree generated with 100 random points"
-  puts ""
   puts "Usage : "
   puts "  Display this help:\t\t\t\thelp_me"
   puts "  Print graphic representation of the tree:\tputs tree"
