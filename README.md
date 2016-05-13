@@ -4,6 +4,9 @@ QuadTree implementation in ruby.
 
 ([Original README](README_ORIGINAL.md))
 
+Arnaud Passelaigue
+Adrien Maret
+
 # Usage
 
 ## Docker

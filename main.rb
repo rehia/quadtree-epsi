@@ -1,7 +1,5 @@
 require './lib/tree.rb'
 
-puts "\nHello from docker :-)"
-
 _tree_ = QuadTree::Tree.new
 
 define_method(:tree) do
