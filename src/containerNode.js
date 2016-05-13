@@ -9,6 +9,7 @@ class ContainerNode extends TreeNode {
   constructor() {
     super();
     this.children = [];
+    this.size = 0;
   }
 
   addNode(node) {
@@ -24,9 +25,18 @@ class ContainerNode extends TreeNode {
     return this.children;
   }
 
+  getSize() {
+    return this.size;
+  }
+
+  setSize(size) {
+    this.size = size;
+  }
+
   [_addContainer] () {
     for(let i=0; i < 4; i++) {
       let container = new ContainerNode();
+      container.setSize(this.size/4);
       container.setParent(this);
       this[_pushNode](container);
     }

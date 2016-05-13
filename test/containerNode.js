@@ -6,7 +6,7 @@ const ContainerNode = require('./../src/containerNode');
 const LeafNode = require('./../src/leafNode');
 
 describe('Test of treeNode', function() {
-  describe('Test adding point', function() {
+  describe('Test adding point without creating conatiner', function() {
 
     let rootNode;
 
@@ -30,6 +30,18 @@ describe('Test of treeNode', function() {
       done();
     });
 
+  });
+
+  describe('Test of container creation', function() {
+
+    let rootNode;
+
+    beforeEach(function() {
+      rootNode = new ContainerNode();
+      rootNode.setSize(10);
+    });
+
+
     it('Should create 4 containers', function(done){
       for(let i = 0; i<5; i++) {
         rootNode.addNode(new LeafNode(i, i+3));
@@ -50,8 +62,9 @@ describe('Test of treeNode', function() {
       }
       rootNode.getChildren().forEach(function(child) {
         if(child instanceof ContainerNode) {
-          expect(child.size).to.be.a('Number');
-          expect(child.size).to.equal(rootNode.size/4);
+          expect(child.getSize()).to.be.a('Number');
+          expect(child.getSize()).to.not.equal(0);
+          expect(child.getSize()).to.equal(rootNode.size/4);
         }
       });
       done();
