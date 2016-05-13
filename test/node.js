@@ -28,8 +28,8 @@ var test = describe('node', function() {
       testNode.setHalfDimension(0);
     }).to.throw("Must be a Coordinate");
   });
-  it('should throw error because halfDimension muste be different from centerCoordinates', function () {
-    expect(function () {
+  it('should throw error because halfDimension muste be different from centerCoordinates', function() {
+    expect(function() {
       new Node(new Coordinate(0, 0), new Coordinate(0, 0));
     }).to.throw("centerCoordinates must be different from halfDimension");
   });
@@ -62,6 +62,14 @@ var test = describe('node', function() {
     expect(function() {
       testNode.setChildNodes([new Node(new Coordinate(0, 0), new Coordinate(0, 0))]);
     }).to.not.throw('Must be a Node');
+  });
+  it('Children length must not be grater than 4 to push a new point', function() {
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
+    for (var i = 0; i < 4; i++) {
+      dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1), 'NONE'));
+    }
+    dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1), 'NONE'));
+    expect(dumpNode.getChildNodes()).to.have.length.below(5);
   });
 });
 module.exports = test;

@@ -55,8 +55,11 @@ Node.prototype.setChildNodes = function(newChildNodes) {
 };
 
 Node.prototype.addChildNode = function(newChildNode) {
-
-  this.childNodes.push(validateNodeChildValue(newChildNode));
+  if (this.childNodes.length < 4) {
+      this.childNodes.push(validateNodeValue(newChildNode));
+  } else {
+    //TODO
+  }
 };
 
 function validatePointValue(pointToValidate) {
