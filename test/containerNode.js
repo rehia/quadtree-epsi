@@ -30,7 +30,7 @@ describe('Test of treeNode', function() {
       done();
     });
 
-    it('Should create container', function(done){
+    it('Should create 4 containers', function(done){
       for(let i = 0; i<5; i++) {
         rootNode.addNode(new LeafNode(i, i+3));
       }
@@ -40,7 +40,7 @@ describe('Test of treeNode', function() {
           counter++;
         }
       });
-      expect(counter).to.equal(1);
+      expect(counter).to.equal(4);
       done();
     });
   });
