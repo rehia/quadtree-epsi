@@ -29,8 +29,6 @@ Un noeud du quadtree ne peut disposer au maximum que de 4 points (convention pri
 
 De proche en proche, cette structure devient un arbre, dans laquelle une branche a 0 ou 4 descendants. A chaque noeud est associé une profondeur.
 
-![Arbre](http://2012books.lardbucket.org/books/geographic-information-system-basics/section_08/4ef2103c1582b29f8a7c37c8e10006c9.jpg)
-
 On doit pouvoir interroger le quadtree de 2 façons :
 
 - d'une part, pour connaître la profondeur d'un point dans l'arbre, en passant les coordonnées X,Y du point. 
