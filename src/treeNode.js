@@ -3,6 +3,8 @@
 class TreeNode {
   constructor() {
     this.parent = null;
+    this.x = 0;
+    this.y = 0;
   }
 
   getParent () {
