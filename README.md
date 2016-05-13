@@ -56,6 +56,7 @@ tree.count_points # => 42
 
 # Collect all points in tree
 tree.collect_points # => [[21, 33], [56, 26] ... ]
+
 # Find point depth
 tree.point_depth [42, 42] # => 1
 
