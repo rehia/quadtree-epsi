@@ -6,7 +6,7 @@ const ContainerNode = require('./../src/containerNode');
 const LeafNode = require('./../src/leafNode');
 
 describe('Test of treeNode', function() {
-  describe('Test of add point', function() {
+  describe('Test adding point', function() {
 
     let rootNode;
 
@@ -43,6 +43,5 @@ describe('Test of treeNode', function() {
       expect(counter).to.equal(1);
       done();
     });
-
   });
 });
