@@ -43,10 +43,15 @@ Node.prototype.setPoints = function(newPoints) {
 };
 
 Node.prototype.addPoint = function(newPoint) {
-  if (this.points.length < 4) {
-      this.points.push(validatePointValue(newPoint));
-  } else {
+  if (!(this.points.length < 4)) {
     //TODO
+  } else {
+    var out = (newPoint.x < this.centerCoordinates.getX() || newPoint.y < this.centerCoordinates.getY() || newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getX() || newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getY());
+    if (out) {
+      return false;
+    } else {
+      this.points.push(validatePointValue(newPoint));
+    }
   }
 };
 

@@ -77,6 +77,11 @@ var test = describe('node', function() {
       dumpNode.addPoint(new Coordinate(i, i));
     }
     expect(dumpNode.getPoints()).to.have.length.below(5);
+    dumpNode = undefined;
+  });
+  it('Adding a Coordinate to the Points list should throw an error if the Coordinate is out of the current node', function() {
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
+    expect(dumpNode.addPoint(new Coordinate(101, 101))).to.be.false
   });
 });
 module.exports = test;
