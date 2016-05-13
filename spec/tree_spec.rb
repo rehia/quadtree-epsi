@@ -167,9 +167,9 @@ RSpec.describe QuadTree::Tree do
     let(:tree) { QuadTree::Tree.new }
 
       it 'return number of points in node and childrens' do
-        points = tree.random_point(100) { |point| tree << point }
+        tree.random_point(500) { |point| tree << point }
 
-        expect(tree.count_points).to eq(points.size)
+        expect(tree.count_points).to eq(500)
       end
   end
 

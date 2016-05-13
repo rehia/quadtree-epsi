@@ -1,6 +1,6 @@
 require './lib/tree.rb'
 
-puts "Hello from docker :-)"
+puts "\nHello from docker :-)"
 
 _tree_ = QuadTree::Tree.new
 
@@ -17,11 +17,7 @@ define_method(:add_point) do
   end
 end
 
-_points_ = tree.random_point(100) { |point| tree << point }
-
-define_method(:points) do
-  _points_
-end
+tree.random_point(100) { |point| tree << point }
 
 define_method(:help_me) do
   puts ""
