@@ -43,5 +43,19 @@ describe('Test of treeNode', function() {
       expect(counter).to.equal(4);
       done();
     });
+
+    it('Each container should be 1/4 the size of their parent', function (done){
+      for(let i = 0; i<5; i++) {
+        rootNode.addNode(new LeafNode(i, i+3));
+      }
+      rootNode.getChildren().forEach(function(child) {
+        if(child instanceof ContainerNode) {
+          expect(child.size).to.be.a('Number');
+          expect(child.size).to.equal(rootNode.size/4);
+        }
+      });
+      done();
+    });
+
   });
 });
