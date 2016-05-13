@@ -1,18 +1,26 @@
 function Point(x, y) {
-   if (typeof x === 'undefined' || typeof y === 'undefined') {
-     throw new Error("Point can't be construct with no values");
-   }
-   if (x < 0 || y < 0) {
-     throw new Error("Point can't be construct with negative coordinate");
-   }
-   this.x = x;
-   this.y = y;
- };
-
- Point.prototype.getX = function() {
-   return this.x;
- };
- Point.prototype.getY = function() {
-   return this.y;
- };
- module.exports = Point;
+  this.x = validateCoordinateValue(x);
+  this.y = validateCoordinateValue(y);
+};
+Point.prototype.getX = function() {
+  return this.x;
+};
+Point.prototype.setX = function(newX) {
+  this.x = validateCoordinateValue(newX);
+};
+Point.prototype.getY = function() {
+  return this.y;
+};
+Point.prototype.setY = function(newY) {
+  this.y = validateCoordinateValue(newY);
+};
+function validateCoordinateValue(valueToValidate) {
+  if (typeof valueToValidate !== "number") {
+    throw new Error("Point coordinate must be a number");
+  }
+  if (valueToValidate < 0) {
+    throw new Error("Point coordinate must be grater than zero");
+  }
+  return valueToValidate;
+};
+module.exports = Point;

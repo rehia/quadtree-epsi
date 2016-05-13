@@ -5,7 +5,7 @@ var test = describe('point', function() {
   it('point construct with empty constructor should throw error', function() {
     expect(function() {
       new Point();
-    }).to.throw("Point can't be construct with no values");
+    }).to.throw("Point coordinate must be a number");
   });
   it('point have x property', function() {
     expect(pointTest).to.have.property('x');
@@ -25,12 +25,32 @@ var test = describe('point', function() {
   it('point construct with negative parameter x should throw error', function() {
     expect(function() {
       new Point(-1, 0);
-    }).to.throw("Point can't be construct with negative coordinate");
+    }).to.throw("Point coordinate must be grater than zero");
   });
-  it('point construct with negative parameter y', function() {
+  it('point construct with negative parameter y should throw error', function() {
     expect(function() {
       new Point(0, -1);
-    }).to.throw("Point can't be construct with negative coordinate");
+    }).to.throw("Point coordinate must be grater than zero");
+  });
+  it('point updated with negative parameter y should throw error', function() {
+    expect(function() {
+      pointTest.setY(-1)
+    }).to.throw("Point coordinate must be grater than zero");
+  });
+  it('point updated with negative parameter x should throw error', function() {
+    expect(function() {
+      pointTest.setX(-1)
+    }).to.throw("Point coordinate must be grater than zero");
+  });
+  it('point updated with x undefined value should throw error', function() {
+    expect(function() {
+      pointTest.setX()
+    }).to.throw("Point coordinate must be a number");
+  });
+  it('point updated with y undefined value should throw error', function() {
+    expect(function() {
+      pointTest.setY()
+    }).to.throw("Point coordinate must be a number");
   });
 });
 module.exports = test;
