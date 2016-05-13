@@ -39,15 +39,15 @@ class Node
   end
 
   def to_s(options = {})
-    options = { info: [:points, :coord], offset: 0 }.merge options
+    options = { info: [:points, :node], offset: 0 }.merge options
 
     node_header = "#{" " * options[:offset]}##{options[:offset] / DUMP_OFFSET + 1}"
 
-    msg = [if options[:info].include? :coord
+    msg = [if options[:info].include? :node
       CTOR_ATTRIBUTES.map { |attr| "#{attr}:#{self.send attr}" }.join(" ")
     end,
     if options[:info].include? :points
-      " " + @points.map { |e| e.join(",") }.join(" ")
+      @points.map { |e| e.join(",") }.join(" ")
     end].compact.join(' | ')
 
     node_string = ""
@@ -112,6 +112,16 @@ class Node
     point[Y] >= @y && point[Y] < @y + @height
   end
 
+  def is_leaf?
+    @childrens.values.compact.empty?
+  end
+
+  def is_node?
+    ! is_leaf?
+  end
+
+  private # ====================================================================
+
   def subdivide
     x_mid = (@x + @width) / 2.0
     y_mid = (@y + @height) / 2.0
@@ -146,16 +156,6 @@ class Node
 
     @childrens.values # Return nodes
   end
-
-  def is_leaf?
-    @childrens.values.compact.empty?
-  end
-
-  def is_node?
-    ! is_leaf?
-  end
-
-  private # ====================================================================
 
   def between_childrens?(point)
     @childrens.values.compact.count { |child| child.own_point? point } > 1

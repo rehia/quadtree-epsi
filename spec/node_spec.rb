@@ -130,7 +130,7 @@ RSpec.describe QuadTree::Node do
     let(:node) { QuadTree::Node.new(width: 100, height: 100, x: 0, y: 0) }
 
     it 'create 4 equals child nodes' do
-        top_left, top_right, bottom_right, bottom_left = node.subdivide
+        top_left, top_right, bottom_right, bottom_left = node.send :subdivide
 
         expect(top_left.width).to eq(50)
         expect(top_left.height).to eq(50)

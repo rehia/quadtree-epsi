@@ -26,11 +26,11 @@ RSpec.describe QuadTree::Tree do
     end
   end
 
-  describe '#random_points' do
+  describe '#random_point' do
     let (:tree) { QuadTree::Tree.new }
 
     it 'return distinct random points' do
-      points = tree.random_points(42)
+      points = tree.random_point(42)
 
       expect(points.uniq.count).to eq(42)
     end
@@ -39,7 +39,7 @@ RSpec.describe QuadTree::Tree do
       tree = QuadTree::Tree.new(width: 5, height: 5)
       frame_points = (0..4).map {|x| (0..4).map {|y| [x, y] } }.flatten(1)
 
-      points = tree.random_points(42)
+      points = tree.random_point(42)
 
       expect(points.uniq.count).to eq(25)
       expect(points).to match_array(frame_points)
@@ -47,8 +47,8 @@ RSpec.describe QuadTree::Tree do
 
     context 'with block given' do
       it 'yield the random point' do
-        tree.random_points(1) { |point| tree << point }
-        tree.random_points(3) { |point| tree << point }
+        tree.random_point(1) { |point| tree << point }
+        tree.random_point(3) { |point| tree << point }
 
         expect(tree.root.points.count).to eq(4)
       end
@@ -84,6 +84,17 @@ RSpec.describe QuadTree::Tree do
 
         allow(root).to receive(:to_s)
         tree.to_s
+    end
+
+    it 'delegate collect_points and count_points to root' do
+      root = double("root")
+      tree.instance_variable_set(:@root, root)
+
+      allow(root).to receive(:collect_points)
+      tree.collect_points
+
+      allow(root).to receive(:count_points)
+      tree.count_points
     end
   end
 
@@ -140,7 +151,7 @@ RSpec.describe QuadTree::Tree do
     let(:tree) { QuadTree::Tree.new }
 
       it 'return number of points in node and childrens' do
-        tree.random_points(500) { |point| tree << point }
+        tree.random_point(500) { |point| tree << point }
 
         expect(tree.root.count_points).to eq(500)
       end

@@ -13,7 +13,7 @@ class Tree
 
   attr_reader :root
 
-  def_delegators :@root, :to_s
+  def_delegators :@root, :to_s, :collect_points, :count_points
 
   # Delegates point adding method to @root and return the tree itself to chain calls
   %i(<< add_point add).each do |method_name|
@@ -33,12 +33,12 @@ class Tree
 
   # Return count random points
   # if a block is given, random point is available directly inside it
-  def random_points(count = 1)
+  def random_point(count = 1)
     points = get_random_points count
 
     points.each { |point| yield point } if block_given?
 
-    points
+    points.count == 1 ? points.flatten(1) : points
   end
 
   # Return the depth of a given point
