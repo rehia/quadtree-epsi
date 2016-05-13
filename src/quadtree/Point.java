@@ -5,8 +5,6 @@
  */
 package quadtree;
 
-import java.util.List;
-
 /**
  *
  * @author vsouche
@@ -16,10 +14,26 @@ public class Point {
     private int _y;
     
 
+    public Point() {
+        
+    }
+    
     public Point(int x, int y) {
         this._x = x;
         this._y = y;
     }
+    
+    public Point generatePoint(int maxSize) {
+        int lower = 0;
+        int higher = maxSize;
+        
+        int randomX = (int)(Math.random() * (higher-lower)) + lower;
+        int randomY = (int)(Math.random() * (higher-lower)) + lower;
+        
+        Point random = new Point(randomX, randomY);
+        return random;
+   }
+    
     
     public int getX() {
         return _x;
@@ -35,6 +49,12 @@ public class Point {
 
     public void setY(int y) {
         this._y = y;
+    }
+   
+  
+    @Override
+    public String toString() {
+        return "(" + this._x + "," + this._y + ")";
     }
     
     
