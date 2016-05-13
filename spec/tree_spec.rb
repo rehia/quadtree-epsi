@@ -26,33 +26,36 @@ RSpec.describe QuadTree::Tree do
     end
   end
 
-  describe '#random_point' do
+  describe '#random_points' do
     let (:tree) { QuadTree::Tree.new }
 
     it 'return distinct random points' do
-      points = tree.random_point(42)
+      points = tree.random_points(42)
 
-      expect(points.count).to eq(42)
+      expect(points.uniq.count).to eq(42)
     end
 
     it 'return point between the node boundaries' do
-      tree = QuadTree::Tree.new(width: 10, height: 10)
-      points = tree.random_point(200)
+      tree = QuadTree::Tree.new(width: 5, height: 5)
+      frame_points = (0..4).map {|x| (0..4).map {|y| [x, y] } }.flatten(1)
 
-      expect(points.count).to eq(100)
+      points = tree.random_points(42)
+
+      expect(points.uniq.count).to eq(25)
+      expect(points).to match_array(frame_points)
     end
 
     context 'with block given' do
       it 'yield the random point' do
-        tree.random_point(1) { |point| tree << point }
-        tree.random_point(3) { |point| tree << point }
+        tree.random_points(1) { |point| tree << point }
+        tree.random_points(3) { |point| tree << point }
 
         expect(tree.root.points.count).to eq(4)
       end
     end
   end
 
-  describe '#meta_delegate_to_root' do
+  describe '#metaprogramming' do
     let (:tree) { QuadTree::Tree.new }
 
     it 'delegate <<, add_point, add to root and return tree itself' do
@@ -96,14 +99,6 @@ RSpec.describe QuadTree::Tree do
       end
     end
 
-    context 'with point in a node' do
-      it 'return the point depth' do
-        tree << [49, 49]
-
-        expect(tree.point_depth(49, 49)).to eq(1)
-      end
-    end
-
     context 'with point not in tree' do
       it 'return 0' do
         expect(tree.point_depth(84, 42)).to eq(0)
@@ -123,14 +118,6 @@ RSpec.describe QuadTree::Tree do
 
     context 'with neighbors' do
 
-      context 'with point in a node' do
-        it 'return points in neighborhood' do
-          tree << [84, 84] << [12, 12] << [24, 24]
-
-          expect(tree.find_neighbors(24, 24)).to match_array(match_group_1)
-        end
-      end
-
       context 'with point in a leaf' do
         it 'return points in neighborhood' do
           tree << [42, 72] << [84, 84] << [49, 49]
@@ -148,5 +135,16 @@ RSpec.describe QuadTree::Tree do
       end
     end
   end
+
+  describe '#count_points' do
+    let(:tree) { QuadTree::Tree.new }
+
+      it 'return number of points in node and childrens' do
+        tree.random_points(500) { |point| tree << point }
+
+        expect(tree.root.count_points).to eq(500)
+      end
+  end
+
 
 end

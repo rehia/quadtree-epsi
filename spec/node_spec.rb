@@ -121,16 +121,7 @@ RSpec.describe QuadTree::Node do
     end
 
     context 'with a point between 2 nodes' do
-      it 'point stay associated with parent node' do
-        node << [0, 0] << [1, 1] << [2, 2] << [3, 3]
-
-        node << [49, 49] << [49, 21] << [84, 49] << [49, 84]
-
-        expect(node.points.count).to eq(4)
-        expect(node.top_left.points.count).to eq(4)
-        expect(node.top_right.points.count).to eq(0)
-        expect(node.bottom_right.points.count).to eq(0)
-        expect(node.bottom_left.points.count).to eq(0)
+      it 'never happend' do
       end
     end
   end
@@ -148,18 +139,18 @@ RSpec.describe QuadTree::Node do
 
         expect(top_right.width).to eq(50)
         expect(top_right.height).to eq(50)
-        expect(top_right.x).to eq(49)
+        expect(top_right.x).to eq(50)
         expect(top_right.y).to eq(0)
 
         expect(bottom_right.width).to eq(50)
         expect(bottom_right.height).to eq(50)
-        expect(bottom_right.x).to eq(49)
-        expect(bottom_right.y).to eq(49)
+        expect(bottom_right.x).to eq(50)
+        expect(bottom_right.y).to eq(50)
 
         expect(bottom_left.width).to eq(50)
         expect(bottom_left.height).to eq(50)
         expect(bottom_left.x).to eq(0)
-        expect(bottom_left.y).to eq(49)
+        expect(bottom_left.y).to eq(50)
     end
   end
 
@@ -171,9 +162,9 @@ RSpec.describe QuadTree::Node do
         node << [42, 42] << [89, 65] << [65, 89] << [13, 70]
 
         str = node.to_s
-        puts node
         expect(str.count("\n")).to eq(9)
     end
   end
+
 
 end

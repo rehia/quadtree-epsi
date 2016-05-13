@@ -11,7 +11,7 @@ class Node
 
   X, Y = 0, 1 # Syntaxic sugar
 
-  DUMP_OFFSET = 30
+  DUMP_OFFSET = 42
 
   CTOR_ATTRIBUTES = %i(width height x y)
 
@@ -29,27 +29,28 @@ class Node
     # Raise error if one attribute is missing or invalid
     check_attributes(attributes)
 
-    @width = attributes[:width]
-    @height = attributes[:height]
-    @x = attributes[:x]
-    @y = attributes[:y]
+    @width = attributes[:width].to_f
+    @height = attributes[:height].to_f
+    @x = attributes[:x].to_f
+    @y = attributes[:y].to_f
 
     @childrens = Childrens.new
     @points = Array.new
   end
 
   def to_s(options = {})
-    options = { info: :points, offset: 0 }.merge options
+    options = { info: [:points, :coord], offset: 0 }.merge options
 
-    node_string = ""
     node_header = "#{" " * options[:offset]}##{options[:offset] / DUMP_OFFSET + 1}"
 
-    if options[:info] == :points
-      msg = @points.map { |e| e.join(",") }.join(" ")
-    else
-      msg = CTOR_ATTRIBUTES.map { |attr| "#{attr}:#{self.send attr}" }.join(" ")
-    end
+    msg = [if options[:info].include? :coord
+      CTOR_ATTRIBUTES.map { |attr| "#{attr}:#{self.send attr}" }.join(" ")
+    end,
+    if options[:info].include? :points
+      " " + @points.map { |e| e.join(",") }.join(" ")
+    end].compact.join(' | ')
 
+    node_string = ""
     if is_leaf?
       node_string << "#{node_header} #{msg}\n"
     else
@@ -76,6 +77,14 @@ class Node
     total + points.count
   end
 
+  def collect_points(node = self)
+    return node.points if node.is_leaf?
+
+    node.points + node.childrens.values.inject([]) do |points, child|
+      points += collect_points(child)
+    end
+  end
+
   def add_point(*point) # Splat operator ensure we always get an array
     point.flatten! # Ensure we have 1-D array
     raise ArgumentError, "More than 2 coordinates received" if point.size > 2
@@ -87,7 +96,7 @@ class Node
       points.clear
     end
 
-    if ! is_leaf? && ! between_childrens?(point)
+    if is_node? && ! between_childrens?(point)
       ventilate_to_childrens point
     else
       points << point unless points.include? point
@@ -104,6 +113,8 @@ class Node
   end
 
   def subdivide
+    x_mid = (@x + @width) / 2.0
+    y_mid = (@y + @height) / 2.0
     child_width = @width / 2.0
     child_height = @height / 2.0
 
@@ -112,16 +123,16 @@ class Node
       y: @y
     }
     top_right = {
-      x: @x + child_width - 1,
+      x: @x + child_width,
       y: @y
     }
     bottom_right = {
-      x: @x + child_width - 1,
-      y: @y + child_height - 1
+      x: @x + child_width,
+      y: @y + child_height
     }
     bottom_left = {
       x: @x,
-      y: @y + child_height -1
+      y: @y + child_height
     }
 
     [top_left, top_right, bottom_right, bottom_left].each do |child|
@@ -138,6 +149,10 @@ class Node
 
   def is_leaf?
     @childrens.values.compact.empty?
+  end
+
+  def is_node?
+    ! is_leaf?
   end
 
   private # ====================================================================

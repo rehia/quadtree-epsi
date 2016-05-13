@@ -33,7 +33,7 @@ class Tree
 
   # Return count random points
   # if a block is given, random point is available directly inside it
-  def random_point(count = 1)
+  def random_points(count = 1)
     points = get_random_points count
 
     points.each { |point| yield point } if block_given?
@@ -69,6 +69,7 @@ class Tree
           end
         end
       end
+
       return [] if node.is_leaf?
 
       node.childrens.values.inject([]) do |neighbors, child|
@@ -94,8 +95,8 @@ class Tree
     end
 
     def get_random_points(count)
-      x_range = (@root.x)..(@root.width)-1
-      y_range = (@root.y)..(@root.height)-1
+      x_range = (@root.x.to_i)..(@root.width.to_i)-1
+      y_range = (@root.y.to_i)..(@root.height.to_i)-1
       points = []
 
       count.times do
