@@ -7,8 +7,10 @@ package model;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -35,4 +37,15 @@ public class NodeTest {
     public void tearDown() {
     }
     
+    @Test
+    public void aNodeWithoutChildenIsALeaf(){
+        //G
+        Node node = new Node(0,0,100,100);
+        
+        //W
+        boolean isLeaf = node.isLeaf();
+        
+        //T
+        assertEquals(true,isLeaf);
+    }
 }

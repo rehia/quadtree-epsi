@@ -31,4 +31,8 @@ public class Node {
     public int countPoints(){
         return this.points.size();
     } 
+    
+    public boolean isLeaf(){
+        return this.children.size() == 0;
+    }
 }
