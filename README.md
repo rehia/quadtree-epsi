@@ -7,15 +7,15 @@
 
 ## Dependencies installation
 
-  - npm install
+    - npm install
 
 ## Launch tests:
 
-  - npm test
+    - npm test
 
 ## Open demo:
 
-  - double click on index.html
+    - double click on index.html
 
 # quadtree-epsi
 Projet de développement pour la mise en oeuvre de TDD et des principes de Clean Code, autour du Quadtree
