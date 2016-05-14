@@ -1,18 +1,19 @@
 # Rendu
 
-  Requirements:
+## Requirements
 
-    - Have Node installed of your computer.
+    - Node installed of your computer.
+    - Mocha installed globaly.
 
-  Dependencies installation:
+## Dependencies installation
 
   - npm install
 
-  Launch tests:
+## Launch tests:
 
   - npm test
 
-  Open demo:
+## Open demo:
 
   - double click on index.html
 
