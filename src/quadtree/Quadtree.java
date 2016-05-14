@@ -12,8 +12,8 @@ public class Quadtree {
 	private final int nbPointMax = 4;
 	private boolean nbPointMaxAtteint;
 	private ArrayList<Point>ListeDePoint;
-	private int QuadtreeTailleX = 100;
-	private int QuadtreeTailleY = 100;
+	private float QuadtreeTailleX = 100;
+	private float QuadtreeTailleY = 100;
 	
 	
 	public Quadtree getNordOuest() {
@@ -52,18 +52,18 @@ public class Quadtree {
 	public void setListeDePoint(ArrayList<Point> listeDePoint) {
 		ListeDePoint = listeDePoint;
 	}
-	public int getQuadtreeTailleX() {
+	public float getQuadtreeTailleX() {
 		return QuadtreeTailleX;
 	}
-	public void setQuadtreeTailleX(int quadtreeTailleX) {
-		QuadtreeTailleX = quadtreeTailleX;
+	public void setQuadtreeTailleX(float f) {
+		QuadtreeTailleX = f;
 	}
 	
-	public int getQuadtreeTailleY() {
+	public float getQuadtreeTailleY() {
 		return QuadtreeTailleY;
 	}
-	public void setQuadtreeTailleY(int quadtreeTailleY) {
-		QuadtreeTailleY = quadtreeTailleY;
+	public void setQuadtreeTailleY(float f) {
+		QuadtreeTailleY = f;
 	}
 	public int getNbPointMax() {
 		return nbPointMax;
@@ -97,6 +97,10 @@ public class Quadtree {
 	{
 		boolean estSurlaLigne = false;
 		
+		if (p.getX() == this.getQuadtreeTailleX() || p.getX() == 0 || p.getY() == this.getQuadtreeTailleY() || p.getY() == 0  ) 
+		{
+			estSurlaLigne =  true;
+		}
 		/*
 		 * TO_DO : La méthode doit verrifier la position du point par rapport à la taille du quadtree censé le contenir
 		*/

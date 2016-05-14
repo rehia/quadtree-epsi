@@ -32,8 +32,21 @@ public class QuadtreeTest {
 		quadParent.subdividion();
 		quadchild = quadParent.getNordeEst();
 		
-		assertEquals(new Long(quadParent.getQuadtreeTailleX()/4), new Long (quadchild.getQuadtreeTailleX()));
-		assertEquals(new Long(quadParent.getQuadtreeTailleY()/4), new Long (quadchild.getQuadtreeTailleY()));
+		assertEquals(new Long((long) (quadParent.getQuadtreeTailleX()/4)), new Long ((long) quadchild.getQuadtreeTailleX()));
+		assertEquals(new Long((long) (quadParent.getQuadtreeTailleY()/4)), new Long ((long) quadchild.getQuadtreeTailleY()));
+	}
+	
+	@Test
+	public void checkIfthePointisOnTheLine()
+	{
+		boolean isOnLine = false;
+		Quadtree quad = new Quadtree();
+		Point p = new Point(100, 50);
+		
+		isOnLine = quad.estSurLaLigne(p);
+		
+		assertTrue(isOnLine);
+		
 	}
 
 }
