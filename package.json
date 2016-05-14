@@ -4,7 +4,7 @@
   "description": "QuadTree library, well tested and covered in JS with mocha and chai",
   "main": "main.js",
   "scripts": {
-    "test": "mocha test/main.js"
+    "test": "mocha quadtree/test/main.js"
   },
   "repository": {
     "type": "git",

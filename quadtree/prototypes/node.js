@@ -89,6 +89,7 @@ Node.prototype.addPoint = function(newPoint) {
   } else {
     this.points.push(validatePointValue(newPoint));
   }
+  return true;
 };
 
 Node.prototype.splitInFourNodes = function() {
