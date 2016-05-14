@@ -1,17 +1,20 @@
 package quadtree;
 
 public class Point {
-	
-    float x;
-    float y;
     
-    public Point(float x, float y){
-        this.x=x;
-        this.y=y;
+    public int abcisseX;
+    public int abcisseY;
+    
+    public Point(int x, int y){
+        this.abcisseX=x;
+        this.abcisseY=y;
     }
-	
-     public Point(int max, int min){
-        this.abcisseX = (int)(Math.random() * (max-min));
-        this.abcisseX = (int)(Math.random() * (max-min));
+    
+    public Point(int max, int min, boolean random){
+        if (random == true){
+            this.abcisseX = (int)(Math.random() * (max-min));
+            this.abcisseX = (int)(Math.random() * (max-min));
+        }
     }
+    
 }
