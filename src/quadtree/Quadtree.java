@@ -72,20 +72,20 @@ public class Quadtree {
 	public void subdividion()
 	{
 		this.setNordeEst(new Quadtree());
-		this.getNordeEst().setQuadtreeTailleX(QuadtreeTailleX/4);
-		this.getNordeEst().setQuadtreeTailleY(QuadtreeTailleY/4);
+		this.getNordeEst().setQuadtreeTailleX(QuadtreeTailleX/2);
+		this.getNordeEst().setQuadtreeTailleY(QuadtreeTailleY/2);
 		
 		this.setNordOuest(new Quadtree());
-		this.getNordOuest().setQuadtreeTailleX(QuadtreeTailleX/4);
-		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/4);
+		this.getNordOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
+		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
 		
 		this.setSudEst(new Quadtree());
-		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/4);
-		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/4);
+		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/2);
+		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/2);
 		
 		this.setSudOuest(new Quadtree());
-		this.getSudOuest().setQuadtreeTailleX(QuadtreeTailleX/4);
-		this.getSudOuest().setQuadtreeTailleY(QuadtreeTailleY/4);
+		this.getSudOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
+		this.getSudOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
 	}
 	
 	public void insertionEnListe (Point p)

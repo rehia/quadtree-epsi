@@ -32,8 +32,8 @@ public class QuadtreeTest {
 		quadParent.subdividion();
 		quadchild = quadParent.getNordeEst();
 		
-		assertEquals(new Long((long) (quadParent.getQuadtreeTailleX()/4)), new Long ((long) quadchild.getQuadtreeTailleX()));
-		assertEquals(new Long((long) (quadParent.getQuadtreeTailleY()/4)), new Long ((long) quadchild.getQuadtreeTailleY()));
+		assertEquals(new Long((long) (quadParent.getQuadtreeTailleX()/2)), new Long ((long) quadchild.getQuadtreeTailleX()));
+		assertEquals(new Long((long) (quadParent.getQuadtreeTailleY()/2)), new Long ((long) quadchild.getQuadtreeTailleY()));
 	}
 	
 	@Test
