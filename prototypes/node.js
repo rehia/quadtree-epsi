@@ -15,13 +15,34 @@ Node.prototype.getCenterCoordinates = function() {
 Node.prototype.setCenterCoordinates = function(newCenterCoordinates) {
   this.centerCoordinates = validatePointValue(newCenterCoordinates);
 };
+Node.prototype.getCenterCoordinatesX = function() {
+  return this.centerCoordinates.getX();
+}
+Node.prototype.getCenterCoordinatesY = function() {
+  return this.centerCoordinates.getY();
+};
 
 Node.prototype.getHalfDimension = function() {
-  return this.getHalfDimension;
+  return this.halfDimension;
 };
 
 Node.prototype.setHalfDimension = function(newHalfDimension) {
   this.halfDimension = validatePointValue(newHalfDimension);
+};
+
+Node.prototype.getHalfDimensionX = function() {
+  return this.halfDimension.getX();
+};
+Node.prototype.getHalfDimensionY = function() {
+  return this.halfDimension.getY();
+};
+
+Node.prototype.getWidth = function() {
+  return this.getHalfDimension().getX() - this.getCenterCoordinates().getX();
+};
+
+Node.prototype.getHeight = function() {
+  return this.getHalfDimension().getY() - this.getCenterCoordinates().getY();
 };
 
 Node.prototype.getPoints = function() {
@@ -32,45 +53,68 @@ Node.prototype.setPoints = function(newPoints, index) {
   this.points = validatePointsTableValue(newPoints);
 };
 
-Node.prototype.addPoint = function(newPoint, index) {
-  var out = (newPoint.x < this.centerCoordinates.getX() ||  newPoint.y < this.centerCoordinates.getY() ||  newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getX() ||  newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getY());
-  if (out) {
-    console.log('return false');
+Node.prototype.emptyPoints = function() {
+  this.points = [];
+};
+
+Node.prototype.getLengthOfPoints = function() {
+  return this.getPoints().length;
+};
+
+Node.prototype.isFullOfPoints = function() {
+  console.log(this.getLengthOfPoints() < 4);
+  return !(this.getLengthOfPoints() < 4);
+};
+
+Node.prototype.isOutOfHalfDimension = function(newPoint) {
+  return (newPoint.getX() < this.getCenterCoordinatesX() ||  newPoint.getY() < this.getCenterCoordinatesY() ||  newPoint.getX() > this.getHalfDimensionX() ||  newPoint.getY() > this.getHalfDimensionY());
+};
+
+Node.prototype.addPointToAllChildNodes = function(point) {
+  this.getChildNodes().forEach(function(childNode, index) {
+    childNode.addPoint(point);
+  });
+};
+
+Node.prototype.addPoint = function(newPoint) {
+  if (this.isOutOfHalfDimension(newPoint)) {
     return false;
   }
-  if (!(this.points.length < 4)) {
+  if (this.isFullOfPoints()) {
     if (this.hasNoChild()) {
-      var centerX = this.halfDimension.x / 2;
-      var centerY = this.halfDimension.y / 2;
-      var halfDimensionX = (this.halfDimension.x - this.centerCoordinates.x) / 2;
-      var halfDimensionY = (this.halfDimension.y - this.centerCoordinates.y) / 2;
-      var newHalfDimension = new Coordinate(halfDimensionX, halfDimensionY);
-      this.addChildNode(new Node(new Coordinate(this.centerCoordinates.x, this.centerCoordinates.y), newHalfDimension));
-      this.addChildNode(new Node(new Coordinate(centerX, this.centerCoordinates.y), new Coordinate(this.halfDimension.x, newHalfDimension.y)));
-      this.addChildNode(new Node(new Coordinate(this.centerCoordinates.x, centerY), new Coordinate(newHalfDimension.x, this.halfDimension.y)));
-      this.addChildNode(new Node(new Coordinate(centerX, this.centerCoordinates.y), this.halfDimension));
-      var _this = this;
-      this.points.forEach(function(point, index) {
-        _this.childNodes[0].addPoint(point, index);
-        _this.childNodes[1].addPoint(point, index);
-        _this.childNodes[2].addPoint(point, index);
-        _this.childNodes[3].addPoint(point, index);
-      });
-      console.log(this.childNodes[0]);
-      this.points = [];
+      this.splitInFourNodes();
     }
-    console.log(newPoint);
-    this.childNodes[0].addPoint(newPoint);
-    this.childNodes[1].addPoint(newPoint);
-    this.childNodes[2].addPoint(newPoint);
-    this.childNodes[3].addPoint(newPoint);
+    this.addPointToAllChildNodes(newPoint);
 
   } else {
-      this.points.push(validatePointValue(newPoint));
-      console.log('add point ', index, this.points);
+    this.points.push(validatePointValue(newPoint));
   }
 };
 
+Node.prototype.splitInFourNodes = function() {
+  this.createFourNodes();
+  var _this = this;
+  this.getPoints().forEach(function(point, index) {
+    _this.addPointToAllChildNodes(point);
+  });
+  this.emptyPoints();
+};
+
+Node.prototype.createFourNodes = function() {
+  var halfDimensionX = this.getHalfDimensionX(),
+    halfDimensionY = this.getHalfDimensionY(),
+    centerCoordinatesX = this.getCenterCoordinatesX(),
+    centerCoordinatesY = this.getCenterCoordinatesY(),
+    newCenterCoordinatesX = halfDimensionX / 2,
+    newCenterCoordinatesY = halfDimensionY / 2,
+    newHalfDimensionX = (halfDimensionX - centerCoordinatesX) / 2,
+    newHalfDimensionY = (halfDimensionY - centerCoordinatesY) / 2,
+    newHalfDimension = new Coordinate(newHalfDimensionX, newHalfDimensionY);
+  this.addChildNode(new Node(this.getCenterCoordinates(), newHalfDimension));
+  this.addChildNode(new Node(new Coordinate(newCenterCoordinatesX, centerCoordinatesY), new Coordinate(halfDimensionX, newHalfDimensionY)));
+  this.addChildNode(new Node(new Coordinate(centerCoordinatesX, newCenterCoordinatesY), new Coordinate(newHalfDimensionX, halfDimensionY)));
+  this.addChildNode(new Node(new Coordinate(newCenterCoordinatesX, centerCoordinatesY), this.getHalfDimension()));
+};
 Node.prototype.hasNoChild = function() {
   return this.childNodes.length === 0;
 };

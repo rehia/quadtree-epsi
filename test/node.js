@@ -55,12 +55,12 @@ var test = describe('node', function() {
   });
   it('Children length must not be grater than 4 to push a new point', function() {
     var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
-
     for (var i = 0; i < 4; i++) {
       dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1)));
     }
-    dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1)));
-    expect(dumpNode.getChildNodes()).to.have.length.below(5);
+    expect(function () {
+      dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1)));
+    }).to.throw("Node can't have more than 4 child");
   });
   it('Points length must not be grater than 4 to push a new point', function() {
     var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
