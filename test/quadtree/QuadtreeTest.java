@@ -22,5 +22,18 @@ public class QuadtreeTest {
 		assertEquals(new Long(4), new Long(nbPointMax));
 		
 	}
+	
+	@Test
+	public void createQuadtreeWithGoodSizeForXAnDY()
+	{
+		Quadtree quadParent = new Quadtree();
+		Quadtree quadchild = new Quadtree();
+		
+		quadParent.subdividion();
+		quadchild = quadParent.getNordeEst();
+		
+		assertEquals(new Long(quadParent.getQuadtreeTailleX()/4), new Long (quadchild.getQuadtreeTailleX()));
+		assertEquals(new Long(quadParent.getQuadtreeTailleY()/4), new Long (quadchild.getQuadtreeTailleY()));
+	}
 
 }

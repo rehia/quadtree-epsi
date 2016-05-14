@@ -12,8 +12,8 @@ public class Quadtree {
 	private final int nbPointMax = 4;
 	private boolean nbPointMaxAtteint;
 	private ArrayList<Point>ListeDePoint;
-	private int QuadtreeTailleX;
-	private int QuadtreeTailleY;
+	private int QuadtreeTailleX = 100;
+	private int QuadtreeTailleY = 100;
 	
 	
 	public Quadtree getNordOuest() {
