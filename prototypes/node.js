@@ -116,8 +116,12 @@ Node.prototype.createFourNodes = function() {
   this.addChildNode(new Node(new Coordinate(newCenterCoordinatesX, centerCoordinatesY), this.getHalfDimension()));
 };
 Node.prototype.hasNoChild = function() {
-  return this.childNodes.length === 0;
+  return this.getChildNodes().length === 0;
 };
+
+Node.prototype.hasNotToManyChild = function () {
+  return this.getChildNodes().length < 4;
+}
 Node.prototype.getChildNodes = function() {
   return this.childNodes;
 };
@@ -127,7 +131,7 @@ Node.prototype.setChildNodes = function(newChildNodes) {
 };
 
 Node.prototype.addChildNode = function(newChildNode) {
-  if (this.childNodes.length < 4) {
+  if (this.hasNotToManyChild()) {
     this.childNodes.push(validateNodeValue(newChildNode));
   } else {
     throw new Error("Node can't have more than 4 child");
