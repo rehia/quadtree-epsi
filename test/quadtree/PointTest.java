@@ -1,4 +1,5 @@
 
+import junit.framework.Assert;
 import quadtree.Point;
 import quadtree.Quadtree;
 
@@ -7,8 +8,6 @@ import quadtree.Quadtree;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -21,16 +20,44 @@ public class PointTest {
     @Test
 	public void pointIsInTheQuadTree()
 	{
-		//Arrange
-                Point monpoint;
-		Quadtree quad = new Quadtree();
-		
-		//Act
-		monpoint = new Point(20,40);
-		
-		//Assert
-		//test si 20 est compris entre xmin et xmax, idem pour 40 compris entre ymin et ymax
-		
+            //Arrange
+            boolean isInTheQuadTree = false;
+            Point monpoint;
+            Quadtree quad = new Quadtree(0,0,100,100);
+
+            //Act
+            monpoint = new Point(20,40);
+            isInTheQuadTree = VerifyIsInTheQuadTree(monpoint, isInTheQuadTree);
+            
+            //Assert
+            Assert.assertEquals(isInTheQuadTree, true);
 	}
-    
+        
+        public void randomPointIsInTheQuadTree(){
+            
+            //Arrange
+            boolean isInTheQuadTree = false;
+            Point monpoint;
+            Quadtree quad = new Quadtree(0,0,100,100);
+            
+            //Act
+            monpoint = new Point(0,100,true);
+            isInTheQuadTree = VerifyIsInTheQuadTree(monpoint, isInTheQuadTree);
+            
+            //Assert
+            Assert.assertEquals(isInTheQuadTree, true);
+            
+            
+        }
+        
+        private boolean VerifyIsInTheQuadTree(Point monpoint, boolean isInTheQuadTree) {
+        if (monpoint.abcisseX > 0 && monpoint.abcisseX < 100){
+            if(monpoint.abcisseY > 0 && monpoint.abcisseY < 100){
+                isInTheQuadTree = true;
+            }
+        }
+        return isInTheQuadTree;
+    }
+        
 }
+
