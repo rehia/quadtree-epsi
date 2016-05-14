@@ -101,9 +101,6 @@ public class Quadtree {
 		{
 			estSurlaLigne =  true;
 		}
-		/*
-		 * TO_DO : La méthode doit verrifier la position du point par rapport à la taille du quadtree censé le contenir
-		*/
 		return estSurlaLigne;
 	}
 	
