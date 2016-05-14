@@ -1,11 +1,9 @@
 'use strict'
-var Coordinate = require('./coordinate'),
-  zoneEnum = require('../enumerators/zone');
+var Coordinate = require('./coordinate');
 
-function Node(centerCoordinates, halfDimension, zone) {
+function Node(centerCoordinates, halfDimension) {
   this.centerCoordinates = validatePointValue(centerCoordinates);
   this.halfDimension = validateHalfDimensionValue(this.centerCoordinates, halfDimension);
-  this.zone = zone;
   this.points = [];
   this.childNodes = [];
 };
@@ -26,14 +24,6 @@ Node.prototype.setHalfDimension = function(newHalfDimension) {
   this.halfDimension = validatePointValue(newHalfDimension);
 };
 
-Node.prototype.getZone = function() {
-  return this.zone;
-};
-
-Node.prototype.setZone = function(newZone) {
-  this.zone = validateZoneValue(newZone);
-};
-
 Node.prototype.getPoints = function() {
   return this.points;
 };
@@ -43,14 +33,29 @@ Node.prototype.setPoints = function(newPoints) {
 };
 
 Node.prototype.addPoint = function(newPoint) {
-  console.log(this.points, this.points.length);
   if (!(this.points.length < 4)) {
+    if (this.hasNoChild()) {
+      var centerX = this.halfDimension.x / 2;
+      var centerY = this.halfDimension.y / 2;
+      var halfDimensionX = (this.halfDimension.x - this.centerCoordinates.x) / 2;
+      var halfDimensionY = (this.halfDimension.y - this.centerCoordinates.y) / 2;
+      var newHalfDimension = new Coordinate(halfDimensionX, halfDimensionY);
+      this.childNodes.push(new Node(new Coordinate(this.centerCoordinates.x, this.centerCoordinates.y), newHalfDimension));
+      this.childNodes.push(new Node(new Coordinate(centerX, this.centerCoordinates.y), new Coordinate(this.halfDimension.x, newHalfDimension.y)));
+      this.childNodes.push(new Node(new Coordinate(this.centerCoordinates.x, centerY), new Coordinate(newHalfDimension.x, this.halfDimension.y)));
+      this.childNodes.push(new Node(new Coordinate(centerX, this.centerCoordinates.y), this.halfDimension));
+      var _this = this;
+      this.points.forEach(function(point, index) {
+        _this.childNodes[0].addPoint(point);
+        _this.childNodes[1].addPoint(point);
+        _this.childNodes[2].addPoint(point);
+        _this.childNodes[3].addPoint(point);
+      });
+      this.points = [];
+    }
     this.childNodes[0].points.push(newPoint);
-
-    //this.childNodes[0].addPoint(validatePointValue(newPoint));
   } else {
-    console.log(newPoint.x < this.centerCoordinates.getX());
-    var out = (newPoint.x < this.centerCoordinates.getX() || newPoint.y < this.centerCoordinates.getY() || newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getX() || newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getY());
+    var out = (newPoint.x < this.centerCoordinates.getX() ||  newPoint.y < this.centerCoordinates.getY() ||  newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getX() ||  newPoint.getX() > this.halfDimension.getX() - this.centerCoordinates.getY());
     if (out) {
       return false;
     } else {
@@ -59,6 +64,9 @@ Node.prototype.addPoint = function(newPoint) {
   }
 };
 
+Node.prototype.hasNoChild = function() {
+  return this.childNodes.length === 0;
+};
 Node.prototype.getChildNodes = function() {
   return this.childNodes;
 };
@@ -69,7 +77,7 @@ Node.prototype.setChildNodes = function(newChildNodes) {
 
 Node.prototype.addChildNode = function(newChildNode) {
   if (this.childNodes.length < 4) {
-      this.childNodes.push(validateNodeValue(newChildNode));
+    this.childNodes.push(validateNodeValue(newChildNode));
   } else {
     //TODO
   }
@@ -95,15 +103,6 @@ function validateHalfDimensionValue(centerCoordinatesToCompareWith, halfDimensio
     throw new Error("centerCoordinates must be different from halfDimension");
   }
   return halfDimensionToValidate;
-};
-function validateZoneValue(zoneToValidate) {
-  if (typeof zoneToValidate !== "string") {
-    throw new Error("Must be a string");
-  }
-  if (!zoneEnum[zoneToValidate]) {
-    throw new Error("Must be a value from the enumerator Zone");
-  }
-  return zoneToValidate;
 };
 
 function validateNodesTableValue(nodesTableToValidate) {

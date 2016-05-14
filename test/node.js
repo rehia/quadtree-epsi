@@ -1,10 +1,9 @@
 'use strict'
 var Node = require('../prototypes/node'),
   Coordinate = require('../prototypes/coordinate'),
-  zoneEnum = require('../enumerators/zone'),
   expect = require('chai').expect;
 var test = describe('node', function() {
-  var testNode = new Node(new Coordinate(0, 0), new Coordinate(1, 1), 'NE');
+  var testNode = new Node(new Coordinate(0, 0), new Coordinate(1, 1));
   it('should throw error when centerCoordinates value is not construct with an instance of Coordinate', function() {
     expect(function() {
       new Node(0, new Coordinate(0, 0));
@@ -44,16 +43,6 @@ var test = describe('node', function() {
       testNode.setPoints([new Point(0, 0), new Point(1, 2)]);
     }).to.not.throw("Must be a Coordinate");
   });
-  it('set zone with an other value than one of the enumerator Zone should throw error', function() {
-    expect(function() {
-      testNode.setZone('test');
-    }).to.throw("Must be a value from the enumerator Zone");
-  });
-  it('set zone with an other value than one of the enumerator Zone should throw error', function() {
-    expect(function() {
-      testNode.setZone('NE');
-    }).to.not.throw("Must be a value from the enumerator Zone");
-  });
   it('set nodesChild with a tab with a value which is not an instance of Node should throw an error', function() {
     expect(function() {
       testNode.setChildNodes([0, 2]);
@@ -65,25 +54,25 @@ var test = describe('node', function() {
     }).to.not.throw('Must be a Node');
   });
   it('Children length must not be grater than 4 to push a new point', function() {
-    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
 
     for (var i = 0; i < 4; i++) {
-      dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1), 'NONE'));
+      dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1)));
     }
-    dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1), 'NONE'));
+    dumpNode.addChildNode(new Node(new Coordinate(i, i), new Coordinate(i + 1, i + 1)));
     expect(dumpNode.getChildNodes()).to.have.length.below(5);
   });
   it('Points length must not be grater than 4 to push a new point', function() {
-    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
-    dumpNode.addChildNode(new Node(new Coordinate(101, 101), new Coordinate(120, 120), 'NONE'))
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
+    dumpNode.addChildNode(new Node(new Coordinate(101, 101), new Coordinate(120, 120)))
     for (var i = 0; i < 5; i++) {
       dumpNode.addPoint(new Coordinate(i, i));
     }
     expect(dumpNode.getPoints()).to.have.length.below(5);
   });
   it('If a Node has already 4 point the new Point should be added to Children', function () {
-    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NW');
-    dumpNode.addChildNode(new Node(new Coordinate(50, 50), new Coordinate(90, 90), 'NW'));
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
+    dumpNode.addChildNode(new Node(new Coordinate(50, 50), new Coordinate(90, 90)));
     for (var i = 0; i < 4; i++) {
       dumpNode.addPoint(new Coordinate(i, i));
     }
@@ -91,8 +80,17 @@ var test = describe('node', function() {
     expect(dumpNode.getChildNodes()[0].getPoints().length).to.equals(1);
   })
   it('Adding a Coordinate to the Points list should throw an error if the Coordinate is out of the current node', function() {
-    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100), 'NONE');
-    expect(dumpNode.addPoint(new Coordinate(101, 101))).to.be.false
+    var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
+    expect(dumpNode.addPoint(new Coordinate(101, 101))).to.be.false;
   });
+  it('Node should splite itself when add point and if it has 4 points', function () {
+      var dumpNode = new Node(new Coordinate(0, 0), new Coordinate(100, 100));
+      for (var i = 0; i < 4; i++) {
+        dumpNode.addPoint(new Coordinate(i, i));
+      }
+      dumpNode.addPoint(new Coordinate(40, 39));
+      expect(dumpNode.getPoints().length).to.equals(0);
+  });
+
 });
 module.exports = test;
