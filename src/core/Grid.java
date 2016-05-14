@@ -188,7 +188,7 @@ public class Grid {
     }
 
     public ArrayList<Dot> findNeighbourhood(Dot dot) {
-        ArrayList Neighbour = this._listOfDots;
+        ArrayList<Dot> Neighbour = this._listOfDots;
         if (GridHasSubGrid()) {
             return findNeighbourhoodInSubGrids(dot);
         }

@@ -1,7 +1,10 @@
+package test;
+
 import core.Dot;
 import core.Grid;
-import java.util.ArrayList;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
