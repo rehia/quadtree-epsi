@@ -97,7 +97,7 @@ public class Quadtree {
 	{
 		boolean estSurlaLigne = false;
 		
-		if (p.getX() == this.getQuadtreeTailleX() || p.getX() == 0 || p.getY() == this.getQuadtreeTailleY() || p.getY() == 0  ) 
+		if (p.getAbcisseX() == this.getQuadtreeTailleX() || p.getAbcisseX() == 0 || p.getAbcisseY() == this.getQuadtreeTailleY() || p.getAbcisseY() == 0  ) 
 		{
 			estSurlaLigne =  true;
 		}

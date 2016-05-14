@@ -46,10 +46,10 @@ public class QuadtreeTest {
 		boolean isOnLine4 = false;
 		
 		Quadtree quad = new Quadtree();
-		Point p = new Point(quad.getQuadtreeTailleX(), 50);
+		Point p = new Point((int)quad.getQuadtreeTailleX(), 50);
 		Point p1 = new Point(0, 20);
 		Point p2 = new Point(20, 0);
-		Point p3 = new Point(20, quad.getQuadtreeTailleY());
+		Point p3 = new Point(20, (int)quad.getQuadtreeTailleY());
 		Point p4 = new Point(10, 10);
 		
 		isOnLine = quad.estSurLaLigne(p);
