@@ -12,7 +12,9 @@ public class Quadtree {
 	private final int nbPointMax = 4;
 	private boolean nbPointMaxAtteint;
 	private ArrayList<Point>ListeDePoint;
-	private int QuadtreeTaille;
+	private int QuadtreeTailleX;
+	private int QuadtreeTailleY;
+	
 	
 	public Quadtree getNordOuest() {
 		return nordOuest;
@@ -50,11 +52,18 @@ public class Quadtree {
 	public void setListeDePoint(ArrayList<Point> listeDePoint) {
 		ListeDePoint = listeDePoint;
 	}
-	public int getQuadtreeTaille() {
-		return QuadtreeTaille;
+	public int getQuadtreeTailleX() {
+		return QuadtreeTailleX;
 	}
-	public void setQuadtreeTaille(int quadtreeTaille) {
-		QuadtreeTaille = quadtreeTaille;
+	public void setQuadtreeTailleX(int quadtreeTailleX) {
+		QuadtreeTailleX = quadtreeTailleX;
+	}
+	
+	public int getQuadtreeTailleY() {
+		return QuadtreeTailleY;
+	}
+	public void setQuadtreeTailleY(int quadtreeTailleY) {
+		QuadtreeTailleY = quadtreeTailleY;
 	}
 	public int getNbPointMax() {
 		return nbPointMax;
@@ -63,16 +72,35 @@ public class Quadtree {
 	public void subdividion()
 	{
 		this.setNordeEst(new Quadtree());
-		this.getNordeEst().setQuadtreeTaille(QuadtreeTaille/4);
+		this.getNordeEst().setQuadtreeTailleX(QuadtreeTailleX/4);
+		this.getNordeEst().setQuadtreeTailleY(QuadtreeTailleY/4);
 		
 		this.setNordOuest(new Quadtree());
-		this.getNordOuest().setQuadtreeTaille(QuadtreeTaille/4);
+		this.getNordOuest().setQuadtreeTailleX(QuadtreeTailleX/4);
+		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/4);
 		
 		this.setSudEst(new Quadtree());
-		this.getSudEst().setQuadtreeTaille(QuadtreeTaille/4);
+		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/4);
+		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/4);
 		
 		this.setSudOuest(new Quadtree());
-		this.getSudOuest().setQuadtreeTaille(QuadtreeTaille/4);
+		this.getSudOuest().setQuadtreeTailleX(QuadtreeTailleX/4);
+		this.getSudOuest().setQuadtreeTailleY(QuadtreeTailleY/4);
+	}
+	
+	public void insertionEnListe (Point p)
+	{
+		this.getListeDePoint().add(p);
+	}
+	
+	public boolean estSurLaLigne(Point p)
+	{
+		boolean estSurlaLigne = false;
+		
+		/*
+		 * TO_DO : La méthode doit verrifier la position du point par rapport à la taille du quadtree censé le contenir
+		*/
+		return estSurlaLigne;
 	}
 	
 	
