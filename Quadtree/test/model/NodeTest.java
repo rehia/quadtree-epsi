@@ -123,4 +123,20 @@ public class NodeTest {
         //T
         assertEquals(true,hasReachedCapacity);
     }
+    
+    @Test
+    public void shouldNodeClearPointsListWhenSplitInLeaves(){                    
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point = new Point(0,0);
+        node.push(point);
+        
+        //W 
+        node.splitInLeaves();
+        int numberOfPointsInNode = node.countPoints();
+        
+        //T
+        assertEquals(0,numberOfPointsInNode);
+    }
+    
 }

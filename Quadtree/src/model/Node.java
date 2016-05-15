@@ -72,4 +72,17 @@ public class Node {
         return !this.isLeaf() || this.countPoints() == 4;
     }
     
+    public void splitInLeaves(){
+        //create Node leaves
+        this.createLeaves();
+        //push all points in children
+        for (Point point : this.points){
+            this.children.get(0).push(point);
+            this.children.get(1).push(point);
+            this.children.get(2).push(point);
+            this.children.get(3).push(point);
+        }
+        //clear node points before push in children
+        this.points.clear();
+    }
 }
