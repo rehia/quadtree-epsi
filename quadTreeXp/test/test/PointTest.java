@@ -37,7 +37,8 @@ public class PointTest {
         assertEquals(10, point.getX(), 0);
     }
     
-    @Test public void translateMarcheSurY(){
+    @Test 
+    public void translateMarcheSurY(){
         point.translate(5, 10);
         assertEquals(20, point.getY(), 0);
     }
