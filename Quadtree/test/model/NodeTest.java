@@ -153,4 +153,21 @@ public class NodeTest {
         assertEquals(true,child1IsLeaf);
     }
     
+    @Test
+    public void shouldPush1PointToChildren(){                
+        //G
+        Node node = new Node(0,0,100,100);
+        node.splitInLeaves();
+        //Point in first child : 0<x<50 && 0<y<50
+        Point point = new Point(25,25);
+        node.pushToChildren(point);
+        
+        //W
+        Node child1 = node.getChildNodeByPosition(0);
+        int numberOfPointsInNode = child1.countPoints();
+        
+        //T
+        assertEquals(1,numberOfPointsInNode);        
+    }
+    
 }

@@ -43,13 +43,13 @@ public class Node {
         double halfHeight = this.height / 2;
         
         //NW
-        this.children.add(new Node(this.x,middleY,halfWidth,halfHeight));
-        //NE
-        this.children.add(new Node(middleX,middleY,halfWidth,halfHeight));
-        //SE
-        this.children.add(new Node(middleX,this.y,halfWidth,halfHeight));
-        //SW
         this.children.add(new Node(this.x,this.y,halfWidth,halfHeight));
+        //NE
+        this.children.add(new Node(middleX,this.y,halfWidth,halfHeight));
+        //SE
+        this.children.add(new Node(middleX,middleY,halfWidth,halfHeight));
+        //SW
+        this.children.add(new Node(this.x,middleY,halfWidth,halfHeight));
     }
 
     public boolean push(Point point) {
@@ -88,5 +88,11 @@ public class Node {
     
     public Node getChildNodeByPosition(int leafPosition){
         return this.children.get(leafPosition);
+    }
+    
+    public void pushToChildren(Point point){
+        for(Node childNode : this.children){
+            childNode.push(point);
+        }
     }
 }
