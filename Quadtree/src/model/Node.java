@@ -115,4 +115,12 @@ public class Node {
             return depth + 1;
         }
     }
+    
+    public int getDepthLevelByPoint(Point point){
+        if(this.isLeaf()){
+            return 1;
+        }
+        return 0;
+    }
+    
 }

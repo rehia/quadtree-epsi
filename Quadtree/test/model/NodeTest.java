@@ -251,4 +251,21 @@ public class NodeTest {
         //T
         assertEquals(3, nodeMaxDepth);        
     }
+    
+    @Test
+    public void shouldGetDepthByPointOfFirstDepthLevel(){
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(20,20);
+        
+        node.push(point1);
+        
+        //W        
+        int nodeMaxDepth = node.getDepthLevelByPoint(point1);
+        
+        //T
+        assertEquals(1, nodeMaxDepth);        
+    }
+    
+    
 }
