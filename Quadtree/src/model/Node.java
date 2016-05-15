@@ -51,4 +51,11 @@ public class Node {
         //SW
         this.children.add(new Node(this.x,this.y,halfWidth,halfHeight));
     }
+
+    public boolean push(Point point) {
+        this.points.add(point);
+        return true;
+    }
+    
+    
 }

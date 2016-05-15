@@ -61,4 +61,18 @@ public class NodeTest {
         //T
         assertEquals(false,isLeaf);
     }
+    
+    @Test
+    public void shouldPush1Point(){                
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point = new Point(0,0);
+        
+        //W
+        node.push(point);
+        int numberOfPointsInNode = node.countPoints();
+        
+        //T
+        assertEquals(1,numberOfPointsInNode);
+    }
 }
