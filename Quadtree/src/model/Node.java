@@ -53,8 +53,19 @@ public class Node {
     }
 
     public boolean push(Point point) {
+        if(isOutOfBounds(point)){
+            return false;
+        }
         this.points.add(point);
+        
         return true;
+    }
+    
+    public boolean isOutOfBounds(Point point){
+        return point.getX() < this.x ||
+                point.getX() >= this.x + width ||
+                point.getY() < this.y ||
+                point.getY() >= this.y + height;
     }
     
     

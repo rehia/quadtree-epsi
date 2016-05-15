@@ -92,4 +92,18 @@ public class NodeTest {
         //T
         assertEquals(4,numberOfPointsInNode);
     }
+    
+    @Test
+    public void shouldntPushWhenPointIsOutOfBounds(){               
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point = new Point(200,200);
+        
+        //W
+        node.push(point);
+        int numberOfPointsInNode = node.countPoints();
+        
+        //T
+        assertEquals(0,numberOfPointsInNode);
+    }
 }
