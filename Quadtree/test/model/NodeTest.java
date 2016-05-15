@@ -75,4 +75,21 @@ public class NodeTest {
         //T
         assertEquals(1,numberOfPointsInNode);
     }
+    
+    @Test
+    public void shouldPush4Points(){                
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point = new Point(0,0);
+        
+        //W
+        node.push(point);
+        node.push(point);
+        node.push(point);
+        node.push(point);
+        int numberOfPointsInNode = node.countPoints();
+        
+        //T
+        assertEquals(4,numberOfPointsInNode);
+    }
 }
