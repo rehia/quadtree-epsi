@@ -31,19 +31,31 @@ public class Rectangle {
     }
 
     public int pointOrigine(String coordonnee){
-        int resultat;
+        int result;
         if("X".equals(coordonnee)){
-            resultat = origine.getX();
+            result = origine.getX();
         } else {
-            resultat = origine.getY();
+            result = origine.getY();
         }
-        return resultat;
+        return result;
     }    
     
     public boolean contient(Point point) {
         int px = point.getX();
         int py = point.getY();
         return px >= origine.getX() && py >= origine.getY() && px <= origine.getX() + largeur && py <= origine.getY() + hauteur;
+    }
+    
+    public boolean estVide(){
+        return rectangles.isEmpty();
+    }
+    
+    public boolean ajouter(Point point){
+        return points.add(point);
+    }
+    
+    public int nombreDePoints(){
+        return points.size();
     }
     
     public boolean ajouter(Rectangle rectangle){
