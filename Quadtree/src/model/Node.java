@@ -106,7 +106,13 @@ public class Node {
     public int getMaxDepth(){
         if(this.isLeaf()){
            return 1; 
-        }    
-        return 0;
+        } 
+        else {
+            int depth = this.getChildNodeByPosition(0).getMaxDepth();
+            depth = Math.max(depth,this.getChildNodeByPosition(1).getMaxDepth());
+            depth = Math.max(depth,this.getChildNodeByPosition(2).getMaxDepth());
+            depth = Math.max(depth,this.getChildNodeByPosition(3).getMaxDepth());
+            return depth + 1;
+        }
     }
 }

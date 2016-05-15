@@ -222,4 +222,33 @@ public class NodeTest {
         assertEquals(1, nodeMaxDepth);
         
     }
+    
+    @Test
+    public void shouldGetDepth3(){
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(20,20);
+        Point point2 = new Point(20,20);
+        Point point3 = new Point(20,20);
+        Point point4 = new Point(20,20);
+        Point point5 = new Point(30,30);
+        Point point6 = new Point(30,30);
+        Point point7 = new Point(30,30);
+        Point point8 = new Point(30,30);
+        
+        node.push(point1);
+        node.push(point2);
+        node.push(point3);
+        node.push(point4);
+        node.push(point5);
+        node.push(point6);
+        node.push(point7);
+        node.push(point8);
+        
+        //W        
+        int nodeMaxDepth = node.getMaxDepth();
+        
+        //T
+        assertEquals(3, nodeMaxDepth);        
+    }
 }
