@@ -68,5 +68,8 @@ public class Node {
                 point.getY() >= this.y + height;
     }
     
+    public boolean hasReachedCapacity(){
+        return !this.isLeaf() || this.countPoints() == 4;
+    }
     
 }
