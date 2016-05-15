@@ -139,4 +139,18 @@ public class NodeTest {
         assertEquals(0,numberOfPointsInNode);
     }
     
+    @Test
+    public void shouldGetChildNodeByHisPosition(){                   
+        //G
+        Node node = new Node(0,0,100,100);
+        node.splitInLeaves();
+        
+        //W : children of empty node are leaves
+        Node child1 = node.getChildNodeByPosition(0);
+        boolean child1IsLeaf = child1.isLeaf();
+        
+        //T
+        assertEquals(true,child1IsLeaf);
+    }
+    
 }
