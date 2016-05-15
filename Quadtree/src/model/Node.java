@@ -53,11 +53,15 @@ public class Node {
     }
 
     public boolean push(Point point) {
-        if(isOutOfBounds(point)){
+        if(this.isOutOfBounds(point)){
             return false;
         }
-        this.points.add(point);
-        
+        if(this.hasReachedCapacity()){
+            this.pushToChildren(point);
+        }
+        else {
+            this.points.add(point);
+        }
         return true;
     }
     

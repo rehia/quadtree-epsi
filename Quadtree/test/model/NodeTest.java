@@ -146,11 +146,11 @@ public class NodeTest {
         node.splitInLeaves();
         
         //W : children of empty node are leaves
-        Node child1 = node.getChildNodeByPosition(0);
-        boolean child1IsLeaf = child1.isLeaf();
+        Node childNorthWest = node.getChildNodeByPosition(0);
+        boolean childNorthWestIsLeaf = childNorthWest.isLeaf();
         
         //T
-        assertEquals(true,child1IsLeaf);
+        assertEquals(true,childNorthWestIsLeaf);
     }
     
     @Test
@@ -163,11 +163,11 @@ public class NodeTest {
         node.pushToChildren(point);
         
         //W
-        Node child1 = node.getChildNodeByPosition(0);
-        int numberOfPointsInNode = child1.countPoints();
+        Node childNorthWest = node.getChildNodeByPosition(0);
+        int numberOfPointsInChildNode = childNorthWest.countPoints();
         
         //T
-        assertEquals(1,numberOfPointsInNode);        
+        assertEquals(1,numberOfPointsInChildNode);        
     }
     
     @Test
@@ -179,11 +179,35 @@ public class NodeTest {
         node.pushToChildren(point);
         
         //W
-        Node child1 = node.getChildNodeByPosition(0);
-        int numberOfPointsInNode = child1.countPoints();
+        Node childNorthWest = node.getChildNodeByPosition(0);
+        int numberOfPointsInChildNode = childNorthWest.countPoints();
         
         //T
-        assertEquals(1,numberOfPointsInNode);          
+        assertEquals(1,numberOfPointsInChildNode);          
+    }
+    
+    @Test
+    public void shouldPushToChildrenWhenHasReachedCapacity(){             
+        //G
+        Node node = new Node(0,0,100,100);
+        //1 point stay in node and 4 points in North West Child Node
+        Point point1 = new Point(10,10);
+        Point point2 = new Point(20,20);
+        Point point3 = new Point(30,30);
+        Point point4 = new Point(40,40);
+        Point point5 = new Point(50,50);
+        node.pushToChildren(point1);
+        node.pushToChildren(point2);
+        node.pushToChildren(point3);
+        node.pushToChildren(point4);
+        node.pushToChildren(point5);
+        
+        //W
+        Node childNorthWest = node.getChildNodeByPosition(0);
+        int numberOfPointsInChildNode = childNorthWest.countPoints();
+        
+        //T
+        assertEquals(4,numberOfPointsInChildNode);         
     }
     
 }
