@@ -91,6 +91,9 @@ public class Node {
     }
     
     public void pushToChildren(Point point){
+        if(this.isLeaf()){
+            this.splitInLeaves();
+        }
         for(Node childNode : this.children){
             childNode.push(point);
         }
