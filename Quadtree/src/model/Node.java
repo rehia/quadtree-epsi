@@ -102,4 +102,11 @@ public class Node {
             childNode.push(point);
         }
     }
+    
+    public int getMaxDepth(){
+        if(this.isLeaf()){
+           return 1; 
+        }    
+        return 0;
+    }
 }

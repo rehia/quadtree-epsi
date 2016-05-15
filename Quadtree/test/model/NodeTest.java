@@ -196,18 +196,30 @@ public class NodeTest {
         Point point3 = new Point(30,30);
         Point point4 = new Point(40,40);
         Point point5 = new Point(50,50);
-        node.pushToChildren(point1);
-        node.pushToChildren(point2);
-        node.pushToChildren(point3);
-        node.pushToChildren(point4);
-        node.pushToChildren(point5);
+        node.push(point1);
+        node.push(point2);
+        node.push(point3);
+        node.push(point4);
+        node.push(point5);
         
         //W
         Node childNorthWest = node.getChildNodeByPosition(0);
         int numberOfPointsInChildNode = childNorthWest.countPoints();
         
         //T
-        assertEquals(4,numberOfPointsInChildNode);         
+        assertEquals(4,numberOfPointsInChildNode);  
     }
     
+    @Test
+    public void parentNodeOnlyIsDepth1(){
+        //G
+        Node node = new Node(0,0,100,100);
+        
+        //W        
+        int nodeMaxDepth = node.getMaxDepth();
+        
+        //T
+        assertEquals(1, nodeMaxDepth);
+        
+    }
 }
