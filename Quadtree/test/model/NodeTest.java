@@ -38,19 +38,36 @@ public class NodeTest {
     }
     
     @Test
-    public void ExistePoint(){
+    public void CountPoint(){
     
     //GIVEN
     Node node = new Node(0,100,50,50);
     Point point1 = new Point(0,0);
+    Point point2 = new Point(0,100);
+    Point point3 = new Point(100,0);
+    Point point4 = new Point(100,100);
     
     //WHEN
     node.pushPoint(point1);
+    node.pushPoint(point2);
+    node.pushPoint(point3);
+    node.pushPoint(point4);
+    
     int nbPoint = node.countPoint();
     
     //THEN
-    assertEquals(1,nbPoint);
+    assertEquals(4,nbPoint);
+    }
+    
+    @Test
+    public void ExistPoint(){
+    Point point = new Point(10,8);
+    
+    assertEquals(point.getX(),10);
+    assertEquals(point.getY(),8);
     
     }
+    
+    
     
 }

@@ -15,17 +15,19 @@ import java.util.List;
  */
 public class Node {
     
-    int x, y, width, height;
+    double x, y, width, height;
     List<Point> listPoint;
+    List<Node> nodeChildren;
     
     
 
-    public Node(int x, int y, int width, int height) {
+    public Node(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.listPoint = new ArrayList<>();
+        
     }
 
     void pushPoint(Point point1) {
