@@ -19,4 +19,10 @@ Quadtree.prototype.addPoint = function (newPoint) {
     this.points.push(newPoint);
   }
 };
+
+Quadtree.prototype.toString = function () {
+  console.log("Origin Node.........");
+  this.originNode.toString();
+};
+
 module.exports = Quadtree;

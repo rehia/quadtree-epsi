@@ -12,5 +12,22 @@ var test = describe('quadtree', function() {
     expect(dumpQuadtree.getPoints()).to.be.an('array');
     expect(dumpQuadtree.getPoints().length).to.equals(0);
   });
+  it('should toString the quadtree', function () {
+    var dumpRandom = function () {
+      return Math.floor(Math.random()*(100-0+1)+0);
+    };
+    var index = 0;
+    var execute = function () {
+      console.log(index);
+      if (index < 50) {
+          dumpQuadtree.addPoint(new Coordinate(dumpRandom(), dumpRandom()));
+          index++;
+      } else {
+        dumpQuadtree.toString();
+        clearInterval(this);
+      }
+    };
+    setInterval(execute, 100);
+  });
 });
 module.exports = test;

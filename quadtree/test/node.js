@@ -77,7 +77,6 @@ var test = describe('node', function() {
     dumpNode.addPoint(new Coordinate(51, 51));
     var result;
     dumpNode.getChildNodes().forEach(function (child, index) {
-      console.log(child)
       if (child.points.length > 0) {
         result = true;
       }

@@ -62,7 +62,6 @@ Node.prototype.getLengthOfPoints = function() {
 };
 
 Node.prototype.isFullOfPoints = function() {
-  console.log(this.getLengthOfPoints() < 4);
   return !(this.getLengthOfPoints() < 4);
 };
 
@@ -138,6 +137,27 @@ Node.prototype.addChildNode = function(newChildNode) {
     throw new Error("Node can't have more than 4 child");
   }
 };
+
+Node.prototype.toString = function (index, indentation) {
+  if (this.hasNoChild()) {
+    console.log([indentation, indentation, "Leaf"].join(""));
+    //console.log(this.getChildNodes());
+  } else {
+    if (!index) {
+      index = 0;
+    }
+    if (!indentation) {
+      indentation = "";
+    }
+    index++;
+    indentation = [indentation, "............"].join("");
+    this.childNodes[0].toString(index, indentation);
+    this.childNodes[1].toString(index, indentation);
+    console.log([indentation, "Level ", index].join(""));
+    this.childNodes[2].toString(index, indentation);
+    this.childNodes[3].toString(index, indentation);
+  }
+}
 
 function validatePointValue(pointToValidate) {
   if (!(pointToValidate instanceof Coordinate)) {
