@@ -2,6 +2,8 @@ package quadtree;
 
 import static org.junit.Assert.*;
 
+import java.io.Console;
+
 import org.junit.Test;
 
 public class QuadtreeTest {
@@ -64,6 +66,18 @@ public class QuadtreeTest {
 		assertTrue(isOnLine3);
 		assertFalse(isOnLine4);
 		
+	}
+	
+	@Test
+	public void insertIntoTheList()
+	{
+		Point p = new Point(10, 10);
+		Quadtree quad =  new Quadtree();
+		
+		quad.insertionEnListe(p);
+		System.out.println("Ici");
+		
+		assertEquals(new Long (1), new Long (quad.getListeDePoint().size()));
 	}
 
 }

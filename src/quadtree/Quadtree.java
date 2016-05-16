@@ -16,6 +16,11 @@ public class Quadtree {
 	private float QuadtreeTailleY = 100;
 	private int profondeur = 0;
 	
+	public Quadtree()
+	{
+		this.ListeDePoint = new ArrayList<Point>();
+	}
+	
 	
 	public Quadtree getNordOuest() {
 		return nordOuest;
