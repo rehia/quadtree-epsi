@@ -32,5 +32,21 @@ public class NodeTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldSplitNodeIntoFourChildrenNodesWhenMaximumPointCapacityIsReached() {
+		Node node = new Node(0, 0, 100, 100);
+
+		node.push(new XY( 0, 50));
+		node.push(new XY(20, 40));
+		node.push(new XY(40, 30));
+		node.push(new XY(60, 20));
+		node.push(new XY(80, 10));
+		
+		int expected = 4;
+		int actual = node.getChildren().size();
+		
+		assertEquals(expected, actual);
+	}
 
 }
