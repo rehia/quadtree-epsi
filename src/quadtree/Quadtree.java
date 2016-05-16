@@ -108,11 +108,14 @@ public class Quadtree {
 
 	public void insertionEnListe (Point p)
 	{
-		this.getListeDePoint().add(p);
 		
-		if(this.getListeDePoint().size() > 4)
+		if(this.getListeDePoint().size() < 4)
 		{
-			this.subdivision();
+			this.getListeDePoint().add(p);
+		}
+		else 
+		{
+			this.subdivision();	
 		}
 	}
 	

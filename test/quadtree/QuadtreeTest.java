@@ -3,6 +3,7 @@ package quadtree;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import java.util.Random;
 
 public class QuadtreeTest {
 
@@ -76,6 +77,20 @@ public class QuadtreeTest {
 		System.out.println("Ici");
 		
 		assertEquals(new Long (1), new Long (quad.getListeDePoint().size()));
+	}
+	
+	@Test
+	public void checkIfTheMaxForAQuadtreeIsreachedAndCantOverPassed()
+	{
+		Quadtree quad =  new Quadtree();
+		Random nb = new Random();
+		
+		for (int i = 0; i<5 ; i++)
+		{
+			quad.insertionEnListe(new Point(nb.nextInt(100 - 0 +1)+0, nb.nextInt(100 - 0 +1)+0));
+		}
+		
+		assertEquals(new Long(4), new Long (quad.getListeDePoint().size()));
 	}
 
 }
