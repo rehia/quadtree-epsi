@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -315,6 +316,36 @@ public class NodeTest {
         
         //T
         assertEquals(2, nodeMaxDepth); 
+    }
+    
+    @Test
+    public void shouldGetNeighboursOfPoint(){        
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(51,51);
+        Point point2 = new Point(55,55);
+        Point point3 = new Point(60,60);
+        Point point4 = new Point(58,58);
+        
+        Point point5 = new Point(0,70);
+        Point point6 = new Point(20,20);
+        
+        node.push(point1);
+        node.push(point2);
+        node.push(point3);
+        node.push(point4);
+        node.push(point5);
+        node.push(point6);
+        
+        //W        
+        List<Point> neighbours = node.getNeighbours(point3);
+        String strNeighbours = "";
+        for(Point neighbour : neighbours){
+            strNeighbours += neighbour.toString();
+        }
+                
+        //T
+        assertEquals("(51,51)(55,55)(60,60)(58,58)", strNeighbours); 
     }
     
 }

@@ -148,4 +148,14 @@ public class Node {
         return nodePosition;
     }
     
+    public List<Point> getNeighboursOfPoint(Point point){
+        if(this.isLeaf()){
+            return this.points;
+        }
+        else {
+            int nodePosition = this.getNodePositionByPoint(point);
+            return this.getChildNodeByPosition(nodePosition)
+                .getNeighboursOfPoint(point);    
+        }
+    }
 }
