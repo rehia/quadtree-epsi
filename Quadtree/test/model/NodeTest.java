@@ -267,5 +267,54 @@ public class NodeTest {
         assertEquals(1, nodeMaxDepth);        
     }
     
+    @Test
+    public void shouldGetDepthByPointOfThirdDepthLevel(){        
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(5,5);
+        Point point2 = new Point(10,10);
+        Point point3 = new Point(15,15);
+        Point point4 = new Point(20,20);
+        
+        Point point5 = new Point(30,30);
+        
+        node.push(point1);
+        node.push(point2);
+        node.push(point3);
+        node.push(point4);
+        node.push(point5);
+        
+        //W        
+        int nodeMaxDepth = node.getDepthLevelByPoint(point1);
+        
+        //T
+        assertEquals(3, nodeMaxDepth); 
+    }
+    
+    @Test
+    public void shouldGetDepthByPointOf2ndDepthLevel(){        
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(51,51);
+        Point point2 = new Point(55,55);
+        Point point3 = new Point(60,60);
+        Point point4 = new Point(58,58);
+        
+        Point point5 = new Point(70,70);
+        Point point6 = new Point(20,20);
+        
+        node.push(point1);
+        node.push(point2);
+        node.push(point3);
+        node.push(point4);
+        node.push(point5);
+        node.push(point6);
+        
+        //W        
+        int nodeMaxDepth = node.getDepthLevelByPoint(point6);
+        
+        //T
+        assertEquals(2, nodeMaxDepth); 
+    }
     
 }

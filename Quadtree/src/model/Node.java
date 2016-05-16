@@ -33,7 +33,7 @@ public class Node {
     } 
     
     public boolean isLeaf(){
-        return this.children.size() == 0;
+        return this.children.isEmpty();
     }
     
     public void createLeaves(){
@@ -118,9 +118,34 @@ public class Node {
     
     public int getDepthLevelByPoint(Point point){
         if(this.isLeaf()){
-            return 1;
+            return 1;   
         }
-        return 0;
+        
+        int nodePosition = this.getNodePositionByPoint(point);
+        int depth = this.getChildNodeByPosition(nodePosition)
+                .getDepthLevelByPoint(point);    
+        
+        return depth + 1;
+    }
+    
+    public int getNodePositionByPoint(Point point) {
+
+        //0 : NW, 1 : NE, 2 : SE, 3 : SW
+        int nodePosition = 0;
+
+        if (point.getX() > (this.x + this.width) / 2) {
+            nodePosition += 1;
+        }
+        if (point.getY() > (this.y + this.height) / 2) {
+            nodePosition += 2;
+        }
+        if (nodePosition == 2){
+            nodePosition = 3;
+        } else if(nodePosition == 3){
+            nodePosition = 2;
+        }
+
+        return nodePosition;
     }
     
 }
