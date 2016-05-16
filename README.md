@@ -1,4 +1,4 @@
-# quadtree-epsi
+# Rendu du TP Quadtree-epsi
 Projet de développement pour la mise en oeuvre de TDD et des principes de Clean Code, autour du Quadtree
 
 Rendu du groupe I4 Classe composé de Nicolas Riquelme, Nicholas Dareau et Hippolyte Lacroix
