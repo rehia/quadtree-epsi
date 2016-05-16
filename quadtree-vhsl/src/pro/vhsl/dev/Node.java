@@ -74,19 +74,56 @@ public class Node {
 		this.children = children;
 	}
 
+	public Node getNorthWest() {
+		if(northWest == null)
+			return new Node(0, 0, 0, 0);
+		return northWest;
+	}
+
+	public Node getNorthEast() {
+		if(northEast == null)
+			return new Node(0, 0, 0, 0);
+		return northEast;
+	}
+
+	public Node getSouthWest() {
+		if(southWest == null)
+			return new Node(0, 0, 0, 0);
+		return southWest;
+	}
+
+	public Node getSouthEast() {
+		if(southEast == null)
+			return new Node(0, 0, 0, 0);
+		return southEast;
+	}
+
 	public boolean push(XY point) {
 		boolean success = false;
 		if(this.isNotInBound(point))
 			return success;
 		
-		if(this.points.size() < MAXIMUM_POINT_CAPACITY){
-			this.points.add(point);
-			success = true;
-		} else {
-			this.split();
+		while(!success) {
+			if(!this.hasChildren()) {
+				if(this.points.size() < MAXIMUM_POINT_CAPACITY){
+					this.points.add(point);
+					success = true;
+				} else {
+					this.split();
+				}
+			} else {
+				if(!this.pushPointIntoChildren(point))
+					this.points.add(point);
+				
+				success = true;
+			}
 		}
 		
 		return success;
+	}
+
+	private boolean hasChildren() {
+		return this.children != null && this.children.size() > 0;
 	}
 
 	private void split() {
@@ -101,6 +138,23 @@ public class Node {
 		this.southEast = new Node(middleX, middleY, halfWidth, halfHeight);
 		
 		updateChildrenList();
+		
+		pushPointsIntoChildren();
+	}
+
+	private void pushPointsIntoChildren() {
+		List<XY> pointsLeft = new ArrayList<>();
+		for(XY point : this.points){
+			if(	!pushPointIntoChildren(point) ) {
+				pointsLeft.add(point);
+			}
+		}
+		this.points = pointsLeft;
+	}
+
+	private boolean pushPointIntoChildren(XY point) {
+		return 	this.northWest.push(point) || this.northEast.push(point) ||
+				this.southWest.push(point) || this.southEast.push(point);
 	}
 
 	private void updateChildrenList() {
