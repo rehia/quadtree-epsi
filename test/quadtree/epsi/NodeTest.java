@@ -27,7 +27,7 @@ public class NodeTest {
 
     @Before
     public void setUp() {
-        node = new Node(new Coordinates(0, 0), 100, 100);
+        node = new Node(new Coordinates(1, 1), 100, 100);
     }
 
     @After
@@ -35,16 +35,15 @@ public class NodeTest {
     }
 
     @Test
-
-    public void placeSonsWell() {
-        givenIHaveANode();
+    public void sonsWellPlaced() {
+        givenIHaveANode(new Node(new Coordinates(1, 1), 100, 100));
         whenICreateItsSons();
-        thenTheirCenterAre(new Coordinates(0, 0), new Coordinates(50, 0), new Coordinates(0, 50), new Coordinates(50, 50));
+        thenTheirOriginAre(new Coordinates(1, 1), new Coordinates(50, 1), new Coordinates(1, 50), new Coordinates(50, 50));
     }
 
     @Test
     public void giveTheRightLength() {
-        givenIHaveANode();
+        givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
         whenICreateItsSons();
         thenTheLengthIs(50);
     }
@@ -53,15 +52,32 @@ public class NodeTest {
     public void divisionNotRound() {
         givenIHaveANodeWhereCenterIsOdd();
         whenICreateItsSons();
-        thenTheNewNodeAreNotOveraping();
+        thenTheNewNodeAreNotOverlaping();
     }
-@Test
-public void addPointInTheRightNode(){
-     givenIHaveANode();
-     whenIAddAPoint(new Coordinates(12,26));
-     itGetsIntoTheRightNode();
-}
-    private void givenIHaveANode() {
+
+    @Test
+    public void addPointInTheRightNode() {
+        givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+        whenIAddAPoint(new Coordinates(12, 26));
+        itGetsIntoTheRightNode(0);
+    }
+
+   
+
+
+    @Test
+    public void profExample() {
+        givenIHaveANode(new Node(new Coordinates(1, 1), 100, 100));
+        whenIAddAPoint(new Coordinates(10, 10));
+        whenIAddAPoint(new Coordinates(60, 20));
+        whenIAddAPoint(new Coordinates(80, 80));
+        whenIAddAPoint(new Coordinates(20, 40));
+        whenIAddAPoint(new Coordinates(45, 50));
+        thenIHaveMyPointsInTheRightPlace();
+    }
+
+    private void givenIHaveANode(Node node) {
+        this.node = node;
     }
 
     private void whenICreateItsSons() {
@@ -69,7 +85,7 @@ public void addPointInTheRightNode(){
 
     }
 
-    private void thenTheirCenterAre(Coordinates expectedcenter1, Coordinates expectedcenter2, Coordinates expectedcenter3, Coordinates expectedcenter4) {
+    private void thenTheirOriginAre(Coordinates expectedcenter1, Coordinates expectedcenter2, Coordinates expectedcenter3, Coordinates expectedcenter4) {
         assertThat(node.getOriginInSons(0), is(equalTo(expectedcenter1)));
         assertThat(node.getOriginInSons(1), is(equalTo(expectedcenter2)));
         assertThat(node.getOriginInSons(2), is(equalTo(expectedcenter3)));
@@ -85,7 +101,7 @@ public void addPointInTheRightNode(){
         node = new Node(new Coordinates(0, 0), 25, 25);
     }
 
-    private void thenTheNewNodeAreNotOveraping() {
+    private void thenTheNewNodeAreNotOverlaping() {
         assertThat(node.getLenghtInSons(0) + node.getLenghtInSons(1), is(equalTo(node.getLenght())));
         assertThat(node.getWidthInSons(0) + node.getWidthInSons(2), is(equalTo(node.getWidth())));
 
@@ -95,8 +111,19 @@ public void addPointInTheRightNode(){
         node.addPoint(point);
     }
 
-    private void itGetsIntoTheRightNode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void itGetsIntoTheRightNode(int point) {
+        assertThat((node.getPointXInPoint(point) >= node.getOriginX()) && (node.getPointXInPoint(point) <= node.getOriginX() + node.getLenght()/2-1), is(true));
+        assertThat((node.getPointYInPoint(point) >= node.getOriginY()) && (node.getPointYInPoint(point) <= node.getOriginY() + node.getWidth()/2-1), is(true));
+
+    }
+
+    private void thenIHaveMyPointsInTheRightPlace() {
+        assertThat(node.getPoint(0), is(equalTo(new Coordinates(45, 50))));
+        assertThat(node.getSon(0).getPoint(0), is(equalTo(new Coordinates(10, 10))));
+        assertThat(node.getSon(0).getPoint(1), is(equalTo(new Coordinates(20, 40))));
+        assertThat(node.getSon(1).getPoint(0), is(equalTo(new Coordinates(60, 20))));
+        assertThat(node.getSon(3).getPoint(0), is(equalTo(new Coordinates(80, 80))));
+
     }
 
 }
