@@ -29,7 +29,7 @@ public class QuadtreeTest {
 		Quadtree quadParent = new Quadtree();
 		Quadtree quadchild = new Quadtree();
 		
-		quadParent.subdividion();
+		quadParent.subdivision();
 		quadchild = quadParent.getNordeEst();
 		
 		assertEquals(new Long((long) (quadParent.getQuadtreeTailleX()/2)), new Long ((long) quadchild.getQuadtreeTailleX()));

@@ -14,6 +14,7 @@ public class Quadtree {
 	private ArrayList<Point>ListeDePoint;
 	private float QuadtreeTailleX = 100;
 	private float QuadtreeTailleY = 100;
+	private int profondeur = 0;
 	
 	
 	public Quadtree getNordOuest() {
@@ -69,28 +70,45 @@ public class Quadtree {
 		return nbPointMax;
 	}
 	
-	public void subdividion()
+	public int getProfondeur() {
+		return profondeur;
+	}
+	public void setProfondeur(int profondeur) {
+		this.profondeur = profondeur;
+	}
+	
+	public void subdivision()
 	{
 		this.setNordeEst(new Quadtree());
 		this.getNordeEst().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getNordeEst().setQuadtreeTailleY(QuadtreeTailleY/2);
+		this.getNordeEst().setProfondeur(this.getProfondeur()+1);
 		
 		this.setNordOuest(new Quadtree());
 		this.getNordOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
+		this.getNordOuest().setProfondeur(this.getProfondeur()+1);
 		
 		this.setSudEst(new Quadtree());
 		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/2);
+		this.getSudEst().setProfondeur(this.getProfondeur()+1);
 		
 		this.setSudOuest(new Quadtree());
 		this.getSudOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getSudOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
+		this.getSudOuest().setProfondeur(this.getProfondeur()+1);
 	}
 	
+
 	public void insertionEnListe (Point p)
 	{
 		this.getListeDePoint().add(p);
+		
+		if(this.getListeDePoint().size() > 4)
+		{
+			this.subdivision();
+		}
 	}
 	
 	public boolean estSurLaLigne(Point p)
