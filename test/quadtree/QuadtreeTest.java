@@ -2,8 +2,6 @@ package quadtree;
 
 import static org.junit.Assert.*;
 
-import java.io.Console;
-
 import org.junit.Test;
 
 public class QuadtreeTest {
