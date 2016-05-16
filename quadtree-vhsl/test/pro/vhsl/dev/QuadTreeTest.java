@@ -18,5 +18,18 @@ public class QuadTreeTest {
 		
 		assertArrayEquals(expecteds, actuals, 0);
 	}
+	
+	@Test
+	public void shouldAddAPointIntoQuadTree() {
+		QuadTree quadTree = new QuadTree(100, 100);
+
+		quadTree.push(new XY(20, 20));
+		quadTree.push(new XY(200, 200));
+		
+		int expected = 1;
+		int actual = quadTree.getPoints().size();
+		
+		assertEquals(expected, actual);
+	}
 
 }
