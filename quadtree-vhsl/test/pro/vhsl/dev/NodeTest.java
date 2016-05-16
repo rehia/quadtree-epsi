@@ -20,5 +20,17 @@ public class NodeTest {
 		
 		assertArrayEquals(expecteds, actuals, 0);
 	}
+	
+	@Test
+	public void shouldAddPointsIntoANodePointsList() {
+		Node node = new Node(0, 0, 100, 100);
+		
+		node.push(new XY(10, 10));
+		
+		int expected = 1;
+		int actual = node.getPoints().size();
+		
+		assertEquals(expected, actual);
+	}
 
 }
