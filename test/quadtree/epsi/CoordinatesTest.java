@@ -31,7 +31,7 @@ public class CoordinatesTest {
     
     @Before
     public void setUp() {
-        coordinates = new Coordinates();
+       // coordinates = new Coordinates();
     }
     
     @After
@@ -39,9 +39,9 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void isValidReturn() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void isValidReturn(boolean expectedValue) {
+                    
+        
     }
     
 }

@@ -16,6 +16,8 @@ public class QuadtreeEpsi {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Node node = new Node(new Coordinates(0,0),25,25);
+        node.createSons();
     }
     
 }
