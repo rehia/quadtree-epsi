@@ -6,8 +6,8 @@ const _addContainer = Symbol('_addContainer');
 const _pushNode = Symbol('_pushNode');
 
 class ContainerNode extends TreeNode {
-  constructor() {
-    super();
+  constructor(x,y) {
+    super(x,y);
     this.children = [];
     this.size = 0;
   }

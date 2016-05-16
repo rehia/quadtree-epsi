@@ -3,8 +3,8 @@
 const TreeNode = require('./treeNode');
 
 class LeafNode extends TreeNode {
-  constructor() {
-    super();
+  constructor(x,y) {
+    super(x,y);
   }
 }
 

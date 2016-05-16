@@ -1,10 +1,10 @@
 'use strict';
 
 class TreeNode {
-  constructor() {
+  constructor(x,y) {
     this.parent = null;
-    this.x = 0;
-    this.y = 0;
+    this.x = x;
+    this.y = y;
   }
 
   getParent () {
