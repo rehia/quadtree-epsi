@@ -48,5 +48,21 @@ public class NodeTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldTryToPushNodePointsIntoChildrenNodesAfterSplitting() {
+		Node node = new Node(0, 0, 100, 100);
+
+		node.push(new XY( 0, 55));
+		node.push(new XY(20, 44));
+		node.push(new XY(40, 33));
+		node.push(new XY(60, 22));
+		node.push(new XY(80, 11));
+		
+		int expected = 2;
+		int actual = node.getNorthWest().getPoints().size();
+		
+		assertEquals(expected, actual);
+	}
 
 }
