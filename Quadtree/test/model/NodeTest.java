@@ -338,7 +338,7 @@ public class NodeTest {
         node.push(point6);
         
         //W        
-        List<Point> neighbours = node.getNeighbours(point3);
+        List<Point> neighbours = node.getNeighboursOfPoint(point3);
         String strNeighbours = "";
         for(Point neighbour : neighbours){
             strNeighbours += neighbour.toString();
