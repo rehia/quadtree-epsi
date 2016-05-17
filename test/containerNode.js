@@ -92,7 +92,7 @@ describe('Test of treeNode', function() {
     });
   });
 
-  describe('Test of adding point after container\'s divition', function(){
+  describe('Test of adding point after container\'s division', function(){
     let rootNode;
 
     beforeEach(function(done){
@@ -105,9 +105,9 @@ describe('Test of treeNode', function() {
     });
 
     it('Should add the new point in one of his children', function (done) {
-      let leaf = new LeafNode(0,0);
+      let leaf = new LeafNode(6,6);
       rootNode.addNode(leaf);
-      expect(rootNode.getChildren()).to.include.something.that.equal(leaf.getParent());
+      expect(leaf.getParent().getParent()).to.equal(rootNode);
       done();
     });
 
@@ -120,10 +120,12 @@ describe('Test of treeNode', function() {
 
     it('Should dispatch all leaf in sub container as soon it divise', function(done){
       let leafs = [];
-      let newLeaf = new LeafNode(0,0);
+      let newLeaf = new LeafNode(6,6);
       leafs.push(newLeaf);
       rootNode.getChildren().forEach(function(child) {
-        leafs.push(child);
+        if(child instanceof LeafNode) {
+          leafs.push(child);
+        }
       });
       rootNode.addNode(newLeaf);
       leafs.forEach(function(leaf) {
@@ -131,6 +133,5 @@ describe('Test of treeNode', function() {
       });
       done();
     });
-
   });
 });

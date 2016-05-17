@@ -19,7 +19,7 @@ class ContainerNode extends TreeNode {
   }
 
   addNode(node) {
-    if(this.children.length === 4) {
+    if(this.children.length === 4 && this.divided === false) {
       this[_divideInFourContainer]();
     }
     this[_dispatchLeaf](node);
@@ -47,10 +47,15 @@ class ContainerNode extends TreeNode {
 
   [_divideInFourContainer](){
     this.divided = true;
+    let leafs = this.children;
     this[_addTheFourContainerNode]();
+    for(let i=0; i<leafs.length; i++) {
+      this[_dispatchLeaf](leafs[i]);
+    }
   }
 
   [_addTheFourContainerNode]() {
+    this.children = [];
     let sideSize = Math.ceil(this.sideSize / 2);
     for(let x=0; x < 2; x++) {
       for(let y=0; y < 2; y++) {
