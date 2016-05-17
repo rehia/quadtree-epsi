@@ -8,8 +8,8 @@ const LeafNode = require('./../src/leafNode');
 
 describe('Test of TreeNode ', function(){
   let testElems = [
-    new ContainerNode(),
-    new LeafNode()
+    new ContainerNode(0,14),
+    new LeafNode(1,17)
   ];
 
   testElems.forEach(function(elem) {
