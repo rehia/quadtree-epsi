@@ -50,5 +50,23 @@ public class QuadTreeTest {
 		String actual = quadTree.toString();
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldReturnDepthOfNodeContainingRequestedPoint() {
+		QuadTree quadTree = new QuadTree(100, 100);
+
+		quadTree.push(new XY(10, 10));
+		quadTree.push(new XY(60, 20));
+		quadTree.push(new XY(80, 80));
+		quadTree.push(new XY(20, 40));
+		quadTree.push(new XY(45, 50));
+		
+		XY point = new XY(60, 20);
+		
+		int expected = 2;
+		int actual = quadTree.getDepthOfPoint(point);
+		
+		assertEquals(expected, actual);
+	}
 
 }
