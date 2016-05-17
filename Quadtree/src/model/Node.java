@@ -158,4 +158,35 @@ public class Node {
                 .getNeighboursOfPoint(point);    
         }
     }
+    
+    public void toString(int depth, String indentation){
+        if(this.isLeaf()){
+            String strPoints = "";
+            if(this.points.isEmpty()){
+                strPoints = "EMPTY";
+            }
+            else {
+                for(Point point : this.points){
+                    strPoints += point.toString()+" ";
+                }
+            }
+            System.out.println(indentation+"----------------");
+            System.out.println(indentation + "Leaf "+depth+": "+strPoints);
+            System.out.println(indentation+"----------------");
+        }
+        else {
+            this.getChildNodeByPosition(0)
+                    .toString(depth + 1, indentation+"\t");
+            this.getChildNodeByPosition(1)
+                    .toString(depth + 1, indentation+"\t");
+            System.out.println(indentation+"----------------");
+            System.out.println(indentation + "Node " + depth);
+            System.out.println(indentation+"----------------");
+            this.getChildNodeByPosition(2)
+                    .toString(depth + 1, indentation+"\t");
+            this.getChildNodeByPosition(3)
+                    .toString(depth + 1, indentation+"\t");
+            
+        }
+    }
 }
