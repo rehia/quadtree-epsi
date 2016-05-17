@@ -4,7 +4,8 @@
   "description": "QuadTree library, well tested and covered in JS with mocha and chai",
   "main": "main.js",
   "scripts": {
-    "test": "mocha quadtree/test/main.js"
+    "test": "mocha test/main.js",
+    "build": "browserify prototypes/quadtree.js --debug | exorcist dist/bundle.js.map > dist/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/rhanbIT/quadtree-epsi#readme",
   "dependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "exorcist": "^0.4.0"
   }
 }

@@ -1,4 +1,4 @@
-# Rendu
+# Rendu ANIEL & SANIE - I4 Classe 1
 
 ## Requirements
 
@@ -13,9 +13,9 @@
 
     - npm test
 
-## Open demo:
+## Build in a bundle.map.js
 
-    - double click on index.html
+    - npm run build
 
 # quadtree-epsi
 Projet de développement pour la mise en oeuvre de TDD et des principes de Clean Code, autour du Quadtree
