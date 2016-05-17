@@ -99,15 +99,43 @@ public class NodeTest {
     }
     
     @Test
-    public void aNodeWithLeavesIsNotALeaf(){        
-        //G
+    public void ShouldaNodeWithLeavesIsNotALeaf(){        
         Node node = new Node(0,0,100,100);
         node.createLeaves();
-        
-        //W
         boolean isLeaf = node.isLeaf();
-        
-        //T
         assertEquals(false,isLeaf);
     }
+    
+    @Test
+    public void shouldPush1Point(){                
+        //G
+        Node node = new Node(0,0,50,50);
+        Point point = new Point(0,0);
+        
+        //W
+        node.pushPoint(point);
+        int numberOfPointsInNode = node.countPoint();
+        
+        //T
+        assertEquals(1,numberOfPointsInNode);
+    }
+    
+    @Test
+    public void shouldPush4Points(){                
+        //G
+        Node node = new Node(0,0,50,50);
+        Point point = new Point(0,0);
+        
+        //W
+        node.pushPoint(point);
+        node.pushPoint(point);
+        node.pushPoint(point);
+        node.pushPoint(point);
+        int numberOfPointsInNode = node.countPoint();
+        
+        //T
+        assertEquals(4,numberOfPointsInNode);
+    }
+    
+    
 }
