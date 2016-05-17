@@ -90,7 +90,11 @@ public class NodeTest {
         
         assertTrue(p1.isEquals(p2));
     }
-    
-    
      
+    @Test
+    public void aNodeWithoutChildenIsALeaf(){
+        Node node = new Node(0,0,100,100);
+        boolean isLeaf = node.isLeaf();
+        assertEquals(true,isLeaf);
+    }
 }

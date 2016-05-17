@@ -80,10 +80,8 @@ public class Point {
     public boolean isEquals(Point p) {
         
         if(this.x == p.x && this.y == p.y) {
-            
             return true;
         } else {
-            
             return false;
         }
     }

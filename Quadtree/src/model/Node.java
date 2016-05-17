@@ -27,6 +27,7 @@ public class Node {
         this.width = width;
         this.height = height;
         this.listPoint = new ArrayList<>();
+        this.nodeChildren = new ArrayList<>();
         
     }
 
@@ -38,8 +39,8 @@ public class Node {
         return this.listPoint.size();
     }
     
-     public boolean isLeaf(){
-        return this.nodeChildren.size() == 0;
+      public boolean isLeaf(){
+        return this.nodeChildren.isEmpty();
     }
     
 }
