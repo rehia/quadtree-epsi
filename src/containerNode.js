@@ -7,6 +7,7 @@ const _calculateFutureCoordonate = Symbol('_calculateFutureCoordonate');
 const _addTheFourContainerNode = Symbol('_addTheFourContainerNode');
 const _createContainerNode = Symbol('_createContainerNode');
 const _dispatchLeaf = Symbol('_dispatchLeaf');
+const _dispatchLeafInSubContainer = Symbol('_dispatchLeafInSubContainer');
 const _pushNode = Symbol('_pushNode');
 
 class ContainerNode extends TreeNode {
@@ -74,19 +75,23 @@ class ContainerNode extends TreeNode {
 
   [_dispatchLeaf] (leaf) {
     if(this.divided === true) {
-      let containers = [];
-      this.children.forEach(function(child) {
-        if(child instanceof ContainerNode) {
-          if(child.couldContainsLeaf(leaf)){
-            containers.push(child);
-          }
+      this[_dispatchLeafInSubContainer](leaf);
+    } else {
+      this[_pushNode](leaf);
+    }
+  }
+
+  [_dispatchLeafInSubContainer](leaf) {
+    let containers = [];
+    this.children.forEach(function(child) {
+      if(child instanceof ContainerNode) {
+        if(child.couldContainsLeaf(leaf)){
+          containers.push(child);
         }
-      });
-      if(containers.length === 1) {
-        containers[0].addNode(leaf);
-      } else {
-        this[_pushNode](leaf);
       }
+    });
+    if(containers.length === 1) {
+      containers[0].addNode(leaf);
     } else {
       this[_pushNode](leaf);
     }
