@@ -4,26 +4,26 @@
  * and open the template in the editor.
  */
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import quadtree.Point;
+import quadtree.QuadTreePoint;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author vsouche & asoyer
  */
-public class PointTest {
+public class QuadTreePointTest {
     
     @Test
     public void shouldReturnY() {
-        Point point = new Point(5,7);
+        QuadTreePoint point = new QuadTreePoint(5,7);
         
         assertEquals(point.getY(), 7);
     }
     
     @Test
     public void shouldReturnX() {
-        Point y = new Point(5,7);
+        QuadTreePoint y = new QuadTreePoint(5,7);
         
         assertEquals(y.getX(), 5);
     }

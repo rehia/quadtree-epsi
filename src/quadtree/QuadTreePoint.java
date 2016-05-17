@@ -9,29 +9,30 @@ package quadtree;
  *
  * @author vsouche
  */
-public class Point {
+public class QuadTreePoint {
+    
     private int _x;
     private int _y;
     
 
-    public Point() {
+    public QuadTreePoint() {
         
     }
     
-    public Point(int x, int y) {
+    public QuadTreePoint(int x, int y) {
         this._x = x;
         this._y = y;
     }
     
-    public Point generatePoint(int maxSize) {
+    public QuadTreePoint generatePoint(int maxSize) {
+        
         int lower = 0;
         int higher = maxSize;
         
         int randomX = (int)(Math.random() * (higher-lower)) + lower;
         int randomY = (int)(Math.random() * (higher-lower)) + lower;
         
-        Point random = new Point(randomX, randomY);
-        return random;
+        return new QuadTreePoint(randomX, randomY);
    }
     
     
