@@ -31,7 +31,7 @@ public class Node {
         
     }
 
-    void pushPoint(Point point1) {
+    public void pushPoint(Point point1) {
         this.listPoint.add(point1);
     }
 
@@ -145,6 +145,37 @@ public class Node {
                 .getNeighboursOfPoint(point);    
         }
     }
+   
+   public void toString(int depth, String indentation){
+        if(this.isLeaf()){
+            String strPoints = "";
+            if(this.listPoint.isEmpty()){
+                strPoints = "EMPTY";
+            }
+            else {
+                for(Point point : this.listPoint){
+                    strPoints += point.toString()+" ";
+                }
+            }
+            System.out.println(indentation+"----------------");
+            System.out.println(indentation + "Leaf "+depth+": "+strPoints);
+            System.out.println(indentation+"----------------");
+        }
+        else {
+            this.getChildNodeByPosition(0)
+                    .toString(depth + 1, indentation+"\t");
+            this.getChildNodeByPosition(1)
+                    .toString(depth + 1, indentation+"\t");
+            System.out.println(indentation+"----------------");
+            System.out.println(indentation + "Node " + depth);
+            System.out.println(indentation+"----------------");
+            this.getChildNodeByPosition(2)
+                    .toString(depth + 1, indentation+"\t");
+            this.getChildNodeByPosition(3)
+                    .toString(depth + 1, indentation+"\t");
+            
+        }
+   }
       
       
     
