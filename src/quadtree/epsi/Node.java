@@ -170,4 +170,8 @@ public class Node {
         return-1;
         }
     }
+    
+    public ArrayList<Coordinates> getNeighbors(Coordinates point){
+        
+    }
 }

@@ -5,6 +5,8 @@
  */
 package quadtree.epsi;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
@@ -85,7 +87,12 @@ public class NodeTest {
         whenIAddAPoint(new Coordinates(80, 80));
         whenIAddAPoint(new Coordinates(20, 40));
         whenIAddAPoint(new Coordinates(45, 50));
-       thenICanGetItsDepth(new Coordinates(80,80), 2);
+        whenIAddAPoint(new Coordinates(16, 17));
+        whenIAddAPoint(new Coordinates(90, 22));
+        whenIAddAPoint(new Coordinates(5, 8));
+        whenIAddAPoint(new Coordinates(27, 40));
+        whenIAddAPoint(new Coordinates(78, 50));
+       thenICanGetItsDepth(new Coordinates(10,10), 3);
     }
     
      @Test 
@@ -97,10 +104,25 @@ public class NodeTest {
         whenIAddAPoint(new Coordinates(80, 80));
         whenIAddAPoint(new Coordinates(20, 40));
         whenIAddAPoint(new Coordinates(45, 50));
-       thenICanGetItsDepth(new Coordinates(81,80), -1);
+       thenICanGetItsDepth(new Coordinates(8,8), -1);
     }
     
-    
+    @Test
+    public void giveTheGoodNeighbors(){
+         givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+         whenIAddAPoint(new Coordinates(10, 10));
+        whenIAddAPoint(new Coordinates(60, 20));
+        whenIAddAPoint(new Coordinates(80, 80));
+        whenIAddAPoint(new Coordinates(20, 40));
+        whenIAddAPoint(new Coordinates(45, 50));
+        whenIAddAPoint(new Coordinates(16, 17));
+        whenIAddAPoint(new Coordinates(90, 22));
+        whenIAddAPoint(new Coordinates(5, 8));
+        whenIAddAPoint(new Coordinates(27, 40));
+        whenIAddAPoint(new Coordinates(78, 50));
+        
+        thenICanGetTheGoodNeighbors(new Coordinates(5,8),Arrays.asList(new Coordinates(10, 10),new Coordinates(20, 40), new Coordinates(16, 17)));
+    }
     
     
     
@@ -157,5 +179,9 @@ public class NodeTest {
     private void thenICanGetItsDepth(Coordinates point, int depth) {
         
         assertThat(node.getPointDepth(point),is(equalTo(depth)));
+    }
+
+    private void thenICanGetTheGoodNeighbors(Coordinates point,ArrayList<Coordinates> neighbors ) {
+         assertThat(node.getNeighbors(point),is(equalTo(neighbors)));
     }
 }
