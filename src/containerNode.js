@@ -9,7 +9,7 @@ class ContainerNode extends TreeNode {
   constructor(x,y) {
     super(x,y);
     this.children = [];
-    this.size = 0;
+    this.sideSideSize = 0;
   }
 
   addNode(node) {
@@ -25,18 +25,18 @@ class ContainerNode extends TreeNode {
     return this.children;
   }
 
-  getSize() {
-    return this.size;
+  getSideSize() {
+    return this.sideSideSize;
   }
 
-  setSize(size) {
-    this.size = size;
+  setSideSize(sideSideSize) {
+    this.sideSideSize = sideSideSize;
   }
 
   [_addContainer] () {
     for(let i=0; i < 4; i++) {
       let container = new ContainerNode();
-      container.setSize(this.size/4);
+      container.setSideSize(this.sideSideSize/2);
       container.setParent(this);
       this[_pushNode](container);
     }

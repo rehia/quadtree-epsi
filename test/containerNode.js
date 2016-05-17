@@ -35,7 +35,7 @@ describe('Test of treeNode', function() {
   describe('Test of container creation', function() {
 
     let rootNode = new ContainerNode(0,0);
-    rootNode.setSize(10);
+    rootNode.setSideSize(10);
     for(let i = 0; i<5; i++) {
       rootNode.addNode(new LeafNode(i, i+3));
     }
@@ -52,27 +52,27 @@ describe('Test of treeNode', function() {
     });
 
     rootNode.getChildren().forEach(function(child) {
-      it('Should have side half the size of it\'s parent one', function (done){
+      it('Should have side half the sideSideSize of it\'s parent one', function (done){
         if(child instanceof ContainerNode) {
-          expect(child.getSize()).to.be.a('Number');
-          expect(child.getSize()).to.not.equal(0);
-          expect(child.getSize()).to.equal(rootNode.getSize()/2);
+          expect(child.getSideSize()).to.be.a('Number');
+          expect(child.getSideSize()).to.not.equal(0);
+          expect(child.getSideSize()).to.equal(rootNode.getSideSize()/2);
         }
         done();
       });
 
-      it('Sub container should have rootNode\'s X coordinate or X + rootNode\'s size divided by 2', function(done) {
+      it('Sub container should have rootNode\'s X coordinate or X + rootNode\'s sideSideSize divided by 2', function(done) {
         if(child instanceof ContainerNode) {
           expect(child.getX())
-            .to.be.oneOf([rootNode.getX(), rootNode.getX() + Math.floor(rootNode.getSize()/2)]);
+            .to.be.oneOf([rootNode.getX(), rootNode.getX() + Math.floor(rootNode.getSideSize()/2)]);
         }
         done();
       });
 
-      it('Sub container should have rootNode\'s Y coordinate or Y + rootNode\'s size divided by 2', function(done) {
+      it('Sub container should have rootNode\'s Y coordinate or Y + rootNode\'s sideSideSize divided by 2', function(done) {
         if(child instanceof ContainerNode) {
           expect(child.getY())
-            .to.be.oneOf([rootNode.getY(), rootNode.getY() + Math.floor(rootNode.getSize()/2)]);
+            .to.be.oneOf([rootNode.getY(), rootNode.getY() + Math.floor(rootNode.getSideSize()/2)]);
         }
         done();
       });
