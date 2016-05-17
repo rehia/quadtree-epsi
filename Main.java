@@ -24,6 +24,7 @@ public class Main {
        {
 
         //   appel de la methode qui liste les points générés aléatoirement
+    	   quadtree.afficheListEtProfondeur();
 
        }
        else if(action == depth)
