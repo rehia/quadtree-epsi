@@ -103,19 +103,18 @@ public class Node {
             createSons();
             for (Iterator<Coordinates> it = points.iterator(); it.hasNext();) {
                 Coordinates pointer = it.next();
-               boolean truc = this.isOverlaping(pointer);
-                if (points.contains(pointer)&&!this.isOverlaping(pointer) ) {
-                     fillSons(pointer);
-                     it.remove();
+
+                if (points.contains(pointer) && !this.isOverlaping(pointer)) {
+                    fillSons(pointer);
+                    it.remove();
                 }
-            } 
-           
+            }
+
             if (!this.isOverlaping(point) || (this.isOverlaping(point) && points.size() == 4)) {
                 fillSons(point);
-            }
-           
-            else if(this.isOverlaping(point)&&isInside(point)&&points.size()<4)
+            } else if (this.isOverlaping(point) && isInside(point) && points.size() < 4) {
                 addPointInPoints(point);
+            }
         }
     }
 
@@ -151,6 +150,24 @@ public class Node {
     }
 
     private boolean isOverlaping(Coordinates pointer) {
-        return (this.getLenght() % 2 == 0 && (pointer.getX() == this.getLenght() / 2 -1+ this.getOriginX()) ||(pointer.getY() == this.getWidth() / 2 -1+ this.getOriginY()));
+        return (this.getLenght() % 2 == 0 && (pointer.getX() == this.getLenght() / 2 - 1 + this.getOriginX()) || (pointer.getY() == this.getWidth() / 2 - 1 + this.getOriginY()));
+    }
+
+    public int getPointDepth(Coordinates point) {
+        int depth = 1;
+        if (points.contains(point)) {
+            return depth;
+        } else {
+            
+            for (Iterator<Node> it = sons.iterator(); it.hasNext();) {
+                Node son = it.next();
+                int sonDepth = son.getPointDepth(point);
+                if (son.isInside(point)&&sonDepth!=-1) {
+                    depth+= sonDepth;
+                    return depth;
+                }
+            }
+        return-1;
+        }
     }
 }

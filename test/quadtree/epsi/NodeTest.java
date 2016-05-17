@@ -76,6 +76,34 @@ public class NodeTest {
         thenIHaveMyPointsInTheRightPlace();
     }
 
+    @Test 
+    public void giveTheGoodDepth()
+    {
+         givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+         whenIAddAPoint(new Coordinates(10, 10));
+        whenIAddAPoint(new Coordinates(60, 20));
+        whenIAddAPoint(new Coordinates(80, 80));
+        whenIAddAPoint(new Coordinates(20, 40));
+        whenIAddAPoint(new Coordinates(45, 50));
+       thenICanGetItsDepth(new Coordinates(80,80), 2);
+    }
+    
+     @Test 
+    public void giveNoGoodDepth()
+    {
+         givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+         whenIAddAPoint(new Coordinates(10, 10));
+        whenIAddAPoint(new Coordinates(60, 20));
+        whenIAddAPoint(new Coordinates(80, 80));
+        whenIAddAPoint(new Coordinates(20, 40));
+        whenIAddAPoint(new Coordinates(45, 50));
+       thenICanGetItsDepth(new Coordinates(81,80), -1);
+    }
+    
+    
+    
+    
+    
     private void givenIHaveANode(Node node) {
         this.node = node;
     }
@@ -126,4 +154,8 @@ public class NodeTest {
 
     }
 
+    private void thenICanGetItsDepth(Coordinates point, int depth) {
+        
+        assertThat(node.getPointDepth(point),is(equalTo(depth)));
+    }
 }

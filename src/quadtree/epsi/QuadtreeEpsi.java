@@ -22,6 +22,7 @@ public class QuadtreeEpsi {
        node.addPoint(new Coordinates(80, 80));
        node.addPoint(new Coordinates(20, 40));
        node.addPoint(new Coordinates(45, 50));
+       node.getPointDepth(new Coordinates(80, 80));
     }
     
 }
