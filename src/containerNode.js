@@ -2,20 +2,21 @@
 
 const TreeNode = require('./treeNode');
 
-const _addContainer = Symbol('_addContainer');
+const _divideInFourContainer = Symbol('_divideInFourContainer');
+const _calculateFutureCoordonate = Symbol('_calculateFutureCoordonate');
 const _pushNode = Symbol('_pushNode');
 
 class ContainerNode extends TreeNode {
   constructor(x,y) {
     super(x,y);
     this.children = [];
-    this.sideSideSize = 0;
+    this.sideSize = 0;
   }
 
   addNode(node) {
     node.setParent(this);
     if(this.children.length === 4) {
-      this[_addContainer]();
+      this[_divideInFourContainer]();
     } else {
       this[_pushNode](node);
     }
@@ -26,20 +27,29 @@ class ContainerNode extends TreeNode {
   }
 
   getSideSize() {
-    return this.sideSideSize;
+    return this.sideSize;
   }
 
-  setSideSize(sideSideSize) {
-    this.sideSideSize = sideSideSize;
+  setSideSize(sideSize) {
+    this.sideSize = sideSize;
   }
 
-  [_addContainer] () {
-    for(let i=0; i < 4; i++) {
-      let container = new ContainerNode();
-      container.setSideSize(this.sideSideSize/2);
-      container.setParent(this);
-      this[_pushNode](container);
+  [_divideInFourContainer](){
+    let sideSize = this.sideSize / 2;
+    for(let x=0; x < 2; x++) {
+      for(let y=0; y < 2; y++) {
+        let futureX = this[_calculateFutureCoordonate](this.x, x===0 ? 1:sideSize);
+        let futureY = this[_calculateFutureCoordonate](this.y, y===0 ? 1:sideSize);
+        let container = new ContainerNode(futureX, futureY);
+        container.setSideSize(sideSize);
+        container.setParent(this);
+        this[_pushNode](container);
+      }
     }
+  }
+
+  [_calculateFutureCoordonate](baseCoord, offset = 1) {
+    return baseCoord + offset -1;
   }
 
   [_pushNode] (node) {

@@ -64,7 +64,7 @@ describe('Test of treeNode', function() {
       it('Sub container should have rootNode\'s X coordinate or X + rootNode\'s sideSideSize divided by 2', function(done) {
         if(child instanceof ContainerNode) {
           expect(child.getX())
-            .to.be.oneOf([rootNode.getX(), rootNode.getX() + Math.floor(rootNode.getSideSize()/2)]);
+            .to.be.oneOf([rootNode.getX(), rootNode.getX() + Math.floor(rootNode.getSideSize()/2) - 1]);
         }
         done();
       });
@@ -72,7 +72,7 @@ describe('Test of treeNode', function() {
       it('Sub container should have rootNode\'s Y coordinate or Y + rootNode\'s sideSideSize divided by 2', function(done) {
         if(child instanceof ContainerNode) {
           expect(child.getY())
-            .to.be.oneOf([rootNode.getY(), rootNode.getY() + Math.floor(rootNode.getSideSize()/2)]);
+            .to.be.oneOf([rootNode.getY(), rootNode.getY() + Math.floor(rootNode.getSideSize()/2) -1]);
         }
         done();
       });
