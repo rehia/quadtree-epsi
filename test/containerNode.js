@@ -1,12 +1,14 @@
 'use strict';
 
-const expect = require('chai').expect;
+const chai = require('chai');
+const expect = chai.expect;
+chai.use(require('chai-things'));
 
 const ContainerNode = require('./../src/containerNode');
 const LeafNode = require('./../src/leafNode');
 
 describe('Test of treeNode', function() {
-  describe('Test adding point without creating conatiner', function() {
+  describe('Test adding point without creating container', function() {
 
     let rootNode;
 
@@ -31,7 +33,6 @@ describe('Test of treeNode', function() {
     });
 
   });
-
   describe('Test of container creation', function() {
 
     let rootNode = new ContainerNode(0,0);
@@ -40,13 +41,25 @@ describe('Test of treeNode', function() {
       rootNode.addNode(new LeafNode(i, i+3));
     }
 
-    it('Should create 4 containers', function(done){
+    function countSubTreeNodesByType(node, instance) {
       let counter = 0;
-      rootNode.getChildren().forEach(function(child) {
-        if(child instanceof ContainerNode) {
+      node.getChildren().forEach(function(child) {
+        if(child instanceof instance) {
           counter++;
         }
       });
+      return counter;
+    }
+
+    it('Should create 4 containers', function(done){
+      let counter = countSubTreeNodesByType(rootNode, ContainerNode);
+      expect(counter).to.equal(4);
+      done();
+    });
+
+    it('Should still have 4 containers if we add a 6th point', function(done) {
+      rootNode.addNode(new LeafNode(5,6));
+      let counter = countSubTreeNodesByType(rootNode, ContainerNode);
       expect(counter).to.equal(4);
       done();
     });
@@ -76,7 +89,33 @@ describe('Test of treeNode', function() {
         }
         done();
       });
-
     });
+  });
+
+  describe('Test of adding point after container\'s divition', function(){
+    let rootNode;
+
+    beforeEach(function(done){
+      rootNode = new ContainerNode(0,0);
+      rootNode.setSideSize(11);
+      for(let i = 0; i<4;i++){
+        rootNode.addNode(new LeafNode(i,i+1));
+      }
+      done();
+    });
+
+    it('Should add the new point in one of his children', function (done) {
+      let leaf = new LeafNode(0,0);
+      rootNode.addNode(leaf);
+      expect(rootNode.getChildren()).to.include.something.that.equal(leaf.getParent());
+      done();
+    });
+
+    it('Should add the leaf to rootNode because the it could be own by at least two children of rootNode', function(done) {
+      let leaf = new LeafNode(5,2);
+      rootNode.addNode(leaf);
+      expect(rootNode).to.equal(leaf.getParent());
+    });
+
   });
 });

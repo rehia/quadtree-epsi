@@ -6,22 +6,22 @@ const _divideInFourContainer = Symbol('_divideInFourContainer');
 const _calculateFutureCoordonate = Symbol('_calculateFutureCoordonate');
 const _addTheFourContainerNode = Symbol('_addTheFourContainerNode');
 const _createContainerNode = Symbol('_createContainerNode');
+const _dispatchLeaf = Symbol('_dispatchLeaf');
 const _pushNode = Symbol('_pushNode');
 
 class ContainerNode extends TreeNode {
   constructor(x,y) {
     super(x,y);
     this.children = [];
+    this.divided = false;
     this.sideSize = 0;
   }
 
   addNode(node) {
-    node.setParent(this);
     if(this.children.length === 4) {
       this[_divideInFourContainer]();
-    } else {
-      this[_pushNode](node);
     }
+    this[_dispatchLeaf](node);
   }
 
   getChildren() {
@@ -36,7 +36,16 @@ class ContainerNode extends TreeNode {
     this.sideSize = sideSize;
   }
 
+  couldContainsLeaf(leaf) {
+    let lX = leaf.getX();
+    let lY = leaf.getY();
+    let xOk = lX >= this.x && lX < this.x + this.sideSize;
+    let yOk = lY >= this.y && lY < this.y + this.sideSize;
+    return xOk && yOk;
+  }
+
   [_divideInFourContainer](){
+    this.divided = true;
     this[_addTheFourContainerNode]();
   }
 
@@ -63,7 +72,22 @@ class ContainerNode extends TreeNode {
     return baseCoord + offset -1;
   }
 
+  [_dispatchLeaf] (leaf) {
+    if(this.divided === true) {
+      this.children.forEach(function(child) {
+        if(child instanceof ContainerNode) {
+          if(child.couldContainsLeaf(leaf)) {
+            child.addNode(leaf);
+          }
+        }
+      });
+    } else {
+      this[_pushNode](leaf);
+    }
+  }
+
   [_pushNode] (node) {
+    node.setParent(this);
     this.children.push(node);
   }
 }
