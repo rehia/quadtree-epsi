@@ -288,8 +288,38 @@ public class NodeTest {
         //W        
         int nodeMaxDepth = node.getDepthLevelByPoint(point1);
         
-        //T
+        //le test a echouer aussi ici, le resultat atendu est 3 mais il retourne 1
         assertEquals(1, nodeMaxDepth); 
+    }
+    
+     @Test
+    public void shouldGetNeighboursOfPoint(){        
+        //G
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(51,51);
+        Point point2 = new Point(55,55);
+        Point point3 = new Point(60,60);
+        Point point4 = new Point(58,58);
+        
+        Point point5 = new Point(0,70);
+        Point point6 = new Point(20,20);
+        
+        node.pushPoint(point1);
+        node.pushPoint(point2);
+        node.pushPoint(point3);
+        node.pushPoint(point4);
+        node.pushPoint(point5);
+        node.pushPoint(point6);
+        
+        //W        
+        List<Point> neighbours = node.getNeighboursOfPoint(point3);
+        String strNeighbours = "";
+        for(Point neighbour : neighbours){
+            strNeighbours += neighbour.toString();
+        }
+                
+        //T
+        assertEquals("(51,51)(55,55)(60,60)(58,58)", strNeighbours); 
     }
     
 }
