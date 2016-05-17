@@ -85,27 +85,25 @@ public class Quadtree {
 	public void subdivision()
 	{
 		this.setNordeEst(new Quadtree());
-		this.getNordeEst().setQuadtreeTailleX(QuadtreeTailleX/2);
-		this.getNordeEst().setQuadtreeTailleY(QuadtreeTailleY/2);
-		this.getNordeEst().setProfondeur(this.getProfondeur()+1);
+		createChildQuadtree(nordeEst);
 		
 		this.setNordOuest(new Quadtree());
-		this.getNordOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
-		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
-		this.getNordOuest().setProfondeur(this.getProfondeur()+1);
-		
+		createChildQuadtree(nordOuest);
 
 		this.setNbPointMaxAtteint(nbPointMaxAtteint);
 
 		this.setSudEst(new Quadtree());
-		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/2);
-		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/2);
-		this.getSudEst().setProfondeur(this.getProfondeur()+1);
+		createChildQuadtree(sudEst);
 		
 		this.setSudOuest(new Quadtree());
-		this.getSudOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
-		this.getSudOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
-		this.getSudOuest().setProfondeur(this.getProfondeur()+1);
+		createChildQuadtree(sudOuest);
+	}
+
+
+	public void createChildQuadtree(Quadtree ChildQuatree) {
+		ChildQuatree.setQuadtreeTailleX(this.QuadtreeTailleX/2);
+		ChildQuatree.setQuadtreeTailleY(this.QuadtreeTailleY/2);
+		ChildQuatree.setProfondeur(this.getProfondeur()+1);
 	}
 	
 
