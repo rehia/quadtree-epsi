@@ -58,5 +58,9 @@ public class Node {
         //SW
         this.nodeChildren.add(new Node(this.x,middleY,halfWidth,halfHeight));
     }
+      
+      public boolean hasReachedCapacity(){
+        return !this.isLeaf() || this.countPoint() == 4;
+    }
     
 }

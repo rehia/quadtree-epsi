@@ -103,52 +103,63 @@ public class NodeTest {
         Node node = new Node(0,0,100,100);
         node.createLeaves();
         boolean isLeaf = node.isLeaf();
+        
+        //THEN
         assertEquals(false,isLeaf);
     }
     
     @Test
     public void shouldPush1Point(){                
-        //G
+        
         Node node = new Node(0,0,50,50);
         Point point = new Point(0,0);
-        
-        //W
         node.pushPoint(point);
         int numberOfPointsInNode = node.countPoint();
         
-        //T
+        //THEN
         assertEquals(1,numberOfPointsInNode);
     }
     
     @Test
     public void shouldPush4Points(){                
-        //G
         Node node = new Node(0,0,100,100);
         Point point = new Point(0,0);
-        
-        //W
         node.pushPoint(point);
         node.pushPoint(point);
         node.pushPoint(point);
         node.pushPoint(point);
         int numberOfPointsInNode = node.countPoint();
         
-        //T
+        //THEN
         assertEquals(4,numberOfPointsInNode);
     }
    
     @Test
     public void shouldntPushWhenPointIsOutOfBounds(){               
-        //G
-        Node node = new Node(0,0,100,100);
-        Point point = new Point(200,200);
-        
-        //W
+        Node node = new Node(0,0,50,50);
+        Point point = new Point(100,100);
         node.pushPoint(point);
         int numberOfPointsInNode = node.countPoint();
         
-        //T
+        //THEN
         assertEquals(1,numberOfPointsInNode);
     }
+    
+    @Test
+    public void shouldTestNodeHasReachedCapacity(){              
+        Node node = new Node(0,0,100,100);
+        Point point = new Point(0,0);
+        
+        //W : 4 points pushed, node has reached his capacity
+        node.pushPoint(point);
+        node.pushPoint(point);
+        node.pushPoint(point);
+        node.pushPoint(point);
+        boolean hasReachedCapacity = node.hasReachedCapacity();
+        
+        //THEN
+        assertEquals(true,hasReachedCapacity);
+    }
+    
     
 }
