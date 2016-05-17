@@ -4,8 +4,17 @@ public class Point {
     
     public int abcisseX;
     public int abcisseY;
+    private int profondeur = 0;
     
-    public Point(int x, int y){
+    public int getProfondeur() {
+		return profondeur;
+	}
+
+	public void setProfondeur(int profondeur) {
+		this.profondeur = profondeur;
+	}
+
+	public Point(int x, int y){
         this.abcisseX=x;
         this.abcisseY=y;
     }

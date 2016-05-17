@@ -114,7 +114,6 @@ public class QuadtreeTest {
 					count++;
 					if (count > 2)
 					{
-						System.out.println(count);
 						isUnique = false;
 					}
 				}

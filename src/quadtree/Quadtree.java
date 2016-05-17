@@ -127,6 +127,7 @@ public class Quadtree  {
 		if(this.getListeDePoint().size() < 4)
 		{
 			this.getListeDePoint().add(p);
+			p.setProfondeur(this.getProfondeur());
 		}
 		else 
 		{
