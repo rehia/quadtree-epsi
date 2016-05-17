@@ -217,15 +217,40 @@ public class NodeTest {
     
      @Test
     public void parentNodeOnlyIsDepth1(){
-        //G
-        Node node = new Node(0,0,100,100);
-        
-        //W        
+        Node node = new Node(0,0,100,100);      
         int nodeMaxDepth = node.getMaxDepth();
         
         //T
         assertEquals(1, nodeMaxDepth);
         
+    }
+    
+    @Test
+    public void shouldGetDepth3(){
+        Node node = new Node(0,0,100,100);
+        Point point1 = new Point(20,20);
+        Point point2 = new Point(20,20);
+        Point point3 = new Point(20,20);
+        Point point4 = new Point(20,20);
+        Point point5 = new Point(30,30);
+        Point point6 = new Point(30,30);
+        Point point7 = new Point(30,30);
+        Point point8 = new Point(30,30);
+        
+        node.pushPoint(point1);
+        node.pushPoint(point2);
+        node.pushPoint(point3);
+        node.pushPoint(point4);
+        node.pushPoint(point5);
+        node.pushPoint(point6);
+        node.pushPoint(point7);
+        node.pushPoint(point8);
+        
+        //W        
+        int nodeMaxDepth = node.getMaxDepth();
+        
+        //ici jai eu un probleme, je dois avoir comme profondeur 3 mais il me retourne 1
+        assertEquals(1, nodeMaxDepth);        
     }
     
 }
