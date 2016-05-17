@@ -82,5 +82,15 @@ public class NodeTest {
     List<Point> manyPoints = Point.newRandomManyPoint(0,50);
         assertEquals(manyPoints.size(), 50);
     }
+    
+    @Test
+    public void ShouldPointEqualsPoint(){
+        Point p1 = new Point(0,10);
+        Point p2 = new Point(0,10);
+        
+        assertTrue(p1.isEquals(p2));
+    }
+    
+    
      
 }
