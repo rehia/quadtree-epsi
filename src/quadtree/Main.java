@@ -14,6 +14,7 @@ public class Main {
 		Quadtree quadtree = new Quadtree();
 		Point point = new Point(100,0,true);
 		quadtree.insertUniquePoint(point);
+		quadtree.afficheListEtProfondeur();
 		
 	}
 	

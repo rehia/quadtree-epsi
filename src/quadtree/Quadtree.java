@@ -181,6 +181,17 @@ public class Quadtree  {
 			
 	}
 	
+	public void afficheListEtProfondeur()
+	{
+		for(int i= 0; i<this.getListeDePoint().size(); i++)
+		{
+			System.out.println("Point numéro : "+i);
+			System.out.println("Coordonné X : "+this.getListeDePoint().get(i).abcisseX);
+			System.out.println("Coordonné Y : "+this.getListeDePoint().get(i).abcisseY);
+			System.out.println("Profondeur : "+this.getListeDePoint().get(i).getProfondeur());
+		}
+	}
+	
 	
 
 }
