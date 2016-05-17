@@ -81,6 +81,15 @@ public class Node {
         return this.nodeChildren.get(leafPosition);
     }
       
+      public void pushToChildren(Point point){
+        if(this.isLeaf()){
+            this.splitInLeaves();
+        }
+        for(Node childNode : this.nodeChildren){
+            childNode.pushPoint(point);
+        }
+    }
+      
       
     
       

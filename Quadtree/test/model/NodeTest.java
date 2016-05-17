@@ -163,22 +163,18 @@ public class NodeTest {
     
     @Test
     public void shouldNodeClearPointsListWhenSplitInLeaves(){                    
-        //G
         Node node = new Node(0,0,100,100);
         Point point = new Point(0,0);
         node.pushPoint(point);
-        
-        //W 
         node.splitInLeaves();
         int numberOfPointsInNode = node.countPoint();
         
-        //T
+        //THEN
         assertEquals(0,numberOfPointsInNode);
     }
     
      @Test
     public void shouldGetChildNodeByHisPosition(){                   
-        //G
         Node node = new Node(0,0,100,100);
         node.splitInLeaves();
         
@@ -186,8 +182,23 @@ public class NodeTest {
         Node childNorthWest = node.getChildNodeByPosition(0);
         boolean childNorthWestIsLeaf = childNorthWest.isLeaf();
         
-        //T
+        //THEN
         assertEquals(true,childNorthWestIsLeaf);
+    }
+    
+    @Test
+    public void shouldPush1PointToChildren(){                
+        Node node = new Node(0,0,100,100);
+        node.splitInLeaves();
+        //Point in first child : 0<x<50 && 0<y<50
+        Point point = new Point(25,25);
+        node.pushToChildren(point);
+        
+        Node childNorthWest = node.getChildNodeByPosition(0);
+        int numberOfPointsInChildNode = childNorthWest.countPoint();
+        
+        //THEN
+        assertEquals(1,numberOfPointsInChildNode);        
     }
     
 }
