@@ -201,4 +201,20 @@ public class NodeTest {
         assertEquals(1,numberOfPointsInChildNode);        
     }
     
+    @Test
+    public void shouldPushToChildrenWhenIsLeaf(){              
+        //G
+        Node node = new Node(0,0,100,100);
+        //Point in first child : 0<x<50 && 0<y<50
+        Point point = new Point(25,25);
+        node.pushToChildren(point);
+        
+        //W
+        Node childSouthWest = node.getChildNodeByPosition(0);
+        int numberOfPointsInChildNode = childSouthWest.countPoint();
+        
+        //T
+        assertEquals(1,numberOfPointsInChildNode);          
+    }
+    
 }
