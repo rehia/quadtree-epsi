@@ -153,7 +153,7 @@ public class Node {
 		return success;
 	}
 
-	private boolean pointIsOverlappingTwoNodes(XY point) {
+	public boolean pointIsOverlappingTwoNodes(XY point) {
 		return 	point.getX() == this.width / 2 ||
 				point.getY() == this.height / 2;
 	}
@@ -224,35 +224,13 @@ public class Node {
                 x, y, this.points.size(), this.pointsToString(), this.northWest.getIndentation());
 	}
 
-	private Object pointsToString() {
-		StringBuilder sb = new StringBuilder();
-		
-		boolean seperateWithComma = false;
-		for(XY point : this.points) {
-			if(seperateWithComma)
-				sb.append(", ");
-			sb.append(point.toString());
-			seperateWithComma = true;
-		}
-		return sb.toString();
-	}
-
-	private boolean containsPoint(XY point) {
-		boolean result = false;
-		
-		for(XY p : this.points){
-			if(p.getX() == point.getX() && p.getY() == point.getY()){
-				result = true;
-				break;
-			}
-		}
-		
-		return result;
+	private String pointsToString() {
+		return QuadTreeUtils.pointsListToString(this.points);
 	}
 
 	public Node getNodeContainingPoint(XY point) {
 		Node result = null;
-		if(this.containsPoint(point))
+		if(QuadTreeUtils.listOfPointsContainsPoint(points, point))
 			return this;
 		else
 			for(Node child : this.children) {

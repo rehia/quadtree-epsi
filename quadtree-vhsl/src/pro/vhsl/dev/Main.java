@@ -1,5 +1,6 @@
 package pro.vhsl.dev;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,27 +9,41 @@ public class Main {
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome QuadTree Simulator 2016!");
-		
-		showMenu();
+		int choice = 0;
 		scanner = new Scanner(System.in);
-		int choice = scanner.nextInt();
-		
-		switch (choice) {
-		case 1:
-			generateQuadTreeWithRandomPoints();
-			break;
-
-		default:
-			generateQuadTreeWithRandomPoints();
-			break;
-		}
+		do {
+			showMenu();
+			choice = scanner.nextInt();
+			switch (choice) {
+			case 0:
+				break;
+			case 1:
+				generateQuadTreeWithRandomPoints();
+				break;
+			case 2:
+				querySampleQuadTreeToGetDepthOfRequestedPoint();
+				break;
+			case 3:
+				querySampleQuadTreeToGetListOfClosestPointsToRequestedPoint();
+				break;
+	
+			default:
+				generateQuadTreeWithRandomPoints();
+				break;
+			}
+		}while(choice > 0);
 		
 		scanner.close();
 	}
 
 	private static void showMenu() {
+		System.out.println("\r\n");
+		System.out.println("------------------------------");
 		System.out.println("What do you want to do ?");
 		System.out.println("1- Generate a QuadTree with random points.");
+		System.out.println("2- Query sample QuadTree to get the depth of a point.");
+		System.out.println("3- Query sample QuadTree to get the list of closests points to a point.");
+		System.out.println("0- Exit.");
 		
 	}
 
@@ -65,5 +80,37 @@ public class Main {
 
 		System.out.println("QuadTree representation :");
 		System.out.println(quadtree);
+	}
+
+	private static void querySampleQuadTreeToGetDepthOfRequestedPoint() {
+		querySampleQuadTree("ToGetDepthOfRequestedPoint");
+	}
+
+	private static void querySampleQuadTreeToGetListOfClosestPointsToRequestedPoint() {
+		querySampleQuadTree("ToGetListOfClosestPointsToRequestedPoint");
+	}
+	
+	private static void querySampleQuadTree(String query) {
+		QuadTree quadTree = QuadTreeUtils.generateSampleQuadTree();
+		List<XY> points = quadTree.getPoints();
+		System.out.println("List of points :");
+		int i = 1;
+		for(XY point : points) {
+			System.out.println(i + " - " + point);
+			++i;
+		}
+		
+		System.out.println("Enter point index :");
+		int pointId = scanner.nextInt();
+		if(pointId > points.size())
+			pointId = points.size();
+		
+		--pointId;
+
+		System.out.println("Requested point : " + points.get(pointId));
+		if(query.equals("ToGetDepthOfRequestedPoint"))
+			System.out.println("Depth : " + quadTree.getDepthOfPoint(quadTree.getPoints().get(pointId)));
+		else if(query.equals("ToGetListOfClosestPointsToRequestedPoint"))
+			System.out.println("List of closest points : " + quadTree.getListClosestPointsOfPoint(points.get(pointId)));
 	}
 }

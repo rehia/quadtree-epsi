@@ -30,26 +30,13 @@ public class QuadTree {
 	}
 
 	public void push(XY point) {
-		if(this.containsPoint(point))
+		if(QuadTreeUtils.listOfPointsContainsPoint(points, point))
 			return;
 		
 		boolean isInQuadTree = this.root.push(point);
 		
 		if(isInQuadTree)
 			this.points.add(point);
-	}
-
-	private boolean containsPoint(XY point) {
-		boolean result = false;
-		
-		for(XY p : this.points){
-			if(p.getX() == point.getX() && p.getY() == point.getY()){
-				result = true;
-				break;
-			}
-		}
-		
-		return result;
 	}
 
 	@Override
@@ -60,6 +47,21 @@ public class QuadTree {
 
 	public int getDepthOfPoint(XY point) {
 		return this.root.getNodeContainingPoint(point).getDepth();
+	}
+
+	public String getListClosestPointsOfPoint(XY point) {
+		Node nodeContainingPoint = this.root.getNodeContainingPoint(point);
+		List<XY> closest = nodeContainingPoint.getPoints();
+		
+		if(nodeContainingPoint.pointIsOverlappingTwoNodes(point)) {
+			for(Node child : nodeContainingPoint.getChildren()) {
+				closest.addAll(child.getPoints());
+			}
+		}
+		
+		closest = QuadTreeUtils.removePointFromList(point, closest);
+		
+		return QuadTreeUtils.pointsListToString(closest);
 	}
 	
 

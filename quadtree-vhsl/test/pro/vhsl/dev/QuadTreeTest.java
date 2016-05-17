@@ -68,5 +68,23 @@ public class QuadTreeTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldReturnAListOfClosestPointsToARequestedPoint() {
+		QuadTree quadTree = new QuadTree(100, 100);
+
+		quadTree.push(new XY(10, 10));
+		quadTree.push(new XY(60, 20));
+		quadTree.push(new XY(80, 80));
+		quadTree.push(new XY(20, 40));
+		quadTree.push(new XY(45, 50));
+		
+		XY point = new XY(45, 50);
+		
+		String expected = "(10.0, 10.0), (20.0, 40.0), (60.0, 20.0), (80.0, 80.0)";
+		String actual = quadTree.getListClosestPointsOfPoint(point);
+		
+		assertEquals(expected, actual);
+	}
 
 }

@@ -30,6 +30,13 @@ public class XY {
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}
+
+	public boolean isTheSame(XY p) {
+		boolean result = false;
+		if(this.x == p.getX() && this.y == p.getY())
+			result = true;
+		return result;
+	}
 	
 
 }
