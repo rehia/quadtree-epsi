@@ -64,7 +64,7 @@ public class RectangleTest {
     public void leRectangleContientUnAutreRectangle(){
         Rectangle autreRectangle = new Rectangle(point1, 5, 7);
         rectangle.ajouter(autreRectangle);
-        assertEquals(false, rectangle.estVide());
+        assertEquals(false, rectangle.neContientPasDeRectangles());
     }
     
     @Test

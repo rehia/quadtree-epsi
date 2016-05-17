@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package quadtreexp;
 
 import java.util.ArrayList;
@@ -46,7 +41,7 @@ public class Rectangle {
         return px >= origine.getX() && py >= origine.getY() && px <= origine.getX() + largeur && py <= origine.getY() + hauteur;
     }
     
-    public boolean estVide(){
+    public boolean neContientPasDeRectangles(){
         return rectangles.isEmpty();
     }
     
