@@ -1,14 +1,15 @@
 package quadtree;
 
-import Quadtree.java;
-import Point.java;
+import quadtree.Quadtree;
+import quadtree.Point;
+import java.util.ArrayList;
 
 public class Main {
+	private ArrayList<Point>ListeDePoint;
 
 	public static void main (String [] arg)
 	{
-		private final int nbPointMax = 4;
-		private ArrayList<Point>ListeDePoint;
+		final int nbPointMax = 4;
 		
 		Quadtree quadtree = new Quadtree();
 		Point point = new Point(100,0,true);
