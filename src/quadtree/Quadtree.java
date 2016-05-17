@@ -66,7 +66,7 @@ public class Quadtree {
 		this.getNordeEst().setQuadtreeTaille(QuadtreeTaille/4);
 		
 		this.setNordOuest(new Quadtree());
-		this.setNbPointMaxAtteint(nbPointMaxAtteint)
+		this.setNbPointMaxAtteint(nbPointMaxAtteint);
 		this.setSudEst(new Quadtree());
 		this.setSudOuest(new Quadtree());
 	}
