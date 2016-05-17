@@ -31,6 +31,7 @@ public class Main {
        {
         
         //   appel de la methode qui donne la profondeur du point de coordonée X_point,Y_point
+    	   quadtree.getProfondeurByPoint(X, Y);
  
        }
        else if(action == nearest)

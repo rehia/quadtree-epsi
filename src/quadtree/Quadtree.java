@@ -192,6 +192,23 @@ public class Quadtree  {
 		}
 	}
 	
+	public void getProfondeurByPoint(int X ,int Y)
+	{
+		boolean isContain = false;
+		for(Point p : this.getListeDePoint())
+		{
+			if(p.getAbcisseX() == X && p.getAbcisseY()==  Y)
+			{
+				isContain = true;
+				System.out.println("Profondeur du point demandé : "+p.getProfondeur());
+			}
+			if(!isContain)
+			{
+				System.out.println("Ce point m'est inconnu il n'est probablement pas dans la liste");
+			}
+		}
+	}
+	
 	
 
 }
