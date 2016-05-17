@@ -8,6 +8,7 @@ package model;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class NodeTest {
     }
     
     @Test
-    public void CountPoint(){
+    public void ShouldCountPoint(){
     
     //GIVEN
     Node node = new Node(0,100,50,50);
@@ -60,14 +61,20 @@ public class NodeTest {
     }
     
     @Test
-    public void ExistPoint(){
+    public void ShouldExistPoint(){
     Point point = new Point(10,8);
     
-    assertEquals(point.getX(),10);
-    assertEquals(point.getY(),8);
+    assertEquals(10, point.getX(),0.1);
+    assertEquals(8, point.getY(),0.1);
     
     }
     
-    
+    @Test
+    public void ShouldExistRandomUniquePoint(){
+    Point pointRandom = new Point().newRandomPoint(20);
+        assertTrue(pointRandom.getX() <= 20);
+        assertTrue(pointRandom.getY() <= 20);
+    }
+     
     
 }

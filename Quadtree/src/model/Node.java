@@ -38,5 +38,4 @@ public class Node {
         return this.listPoint.size();
     }
     
-    
 }

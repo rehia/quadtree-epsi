@@ -10,30 +10,39 @@ package model;
  * @author tahitibob2016
  */
 public class Point {
-    int x,y;
+    double x,y;
     
     public Point(){
     
     }
 
-    public Point(int x, int y) {
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
+    }
+    
+    public static Point newRandomPoint(double nbMax){
+        
+        double x = (double)(Math.random() * (nbMax + 1));
+        double y = (double)(Math.random() * (nbMax + 1));
+        Point newPoint = new Point(x,y);
+        
+        return newPoint;
     }
 }
