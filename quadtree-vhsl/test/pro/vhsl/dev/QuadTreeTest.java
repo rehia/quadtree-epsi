@@ -31,5 +31,24 @@ public class QuadTreeTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldPrintQuadTree() {
+		QuadTree quadTree = new QuadTree(100, 100);
+
+		quadTree.push(new XY(10, 10));
+		quadTree.push(new XY(60, 20));
+		quadTree.push(new XY(80, 80));
+		quadTree.push(new XY(20, 40));
+		quadTree.push(new XY(45, 50));
+		String expected = "QuadTree containing 5 point(s) :" + "\r\n" + 
+			"1-Root [0.00 - 0.00](1) (45.0, 50.0)" + "\r\n" + 
+			"\t" + "2-NW [0.00 - 0.00](2) (10.0, 10.0), (20.0, 40.0)" + "\r\n" + 
+			"\t" + "2-NE [50.00 - 0.00](1) (60.0, 20.0)" + "\r\n" + 
+			"\t" + "2-SE [0.00 - 50.00](0) " + "\r\n" + 
+			"\t" + "2-SW [50.00 - 50.00](1) (80.0, 80.0)]";
+		String actual = quadTree.toString();
+		assertEquals(expected, actual);
+	}
 
 }
