@@ -4,7 +4,7 @@ public class Point {
     
     public int abcisseX;
     public int abcisseY;
-    private int profondeur = 0;
+    private int profondeur = -1;
     
     public int getProfondeur() {
 		return profondeur;

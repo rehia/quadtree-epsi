@@ -125,5 +125,16 @@ public class QuadtreeTest {
 		
 		
 	}
+	
+	@Test
+	public void checkProfondeurOfPoint()
+	{
+		Quadtree quad = new Quadtree();
+		Point p = new Point(10, 10);
+		
+		quad.insertUniquePoint(p);
+		
+		assertEquals(new Long (quad.getProfondeur()), new Long (p.getProfondeur()));
+	}
 
 }
