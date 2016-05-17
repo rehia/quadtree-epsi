@@ -92,5 +92,7 @@ public class QuadtreeTest {
 		
 		assertEquals(new Long(4), new Long (quad.getListeDePoint().size()));
 	}
+	
+
 
 }

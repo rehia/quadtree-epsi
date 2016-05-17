@@ -2,7 +2,7 @@ package quadtree;
 
 import java.util.ArrayList;
 
-public class Quadtree {
+public class Quadtree  {
 	
 	private Quadtree nordOuest;
 	private Quadtree nordeEst;
@@ -15,6 +15,7 @@ public class Quadtree {
 	private float QuadtreeTailleX = 100;
 	private float QuadtreeTailleY = 100;
 	private int profondeur = 0;
+	private Quadtree quadtreeParent = null;
 	
 	public Quadtree()
 	{
@@ -104,8 +105,19 @@ public class Quadtree {
 		ChildQuatree.setQuadtreeTailleX(this.QuadtreeTailleX/2);
 		ChildQuatree.setQuadtreeTailleY(this.QuadtreeTailleY/2);
 		ChildQuatree.setProfondeur(this.getProfondeur()+1);
+		ChildQuatree.setQuadtreeParent(this);
 	}
 	
+
+	public Quadtree getQuadtreeParent() {
+		return quadtreeParent;
+	}
+
+
+	public void setQuadtreeParent(Quadtree quadtreeParent) {
+		this.quadtreeParent = quadtreeParent;
+	}
+
 
 	public void insertionEnListe (Point p)
 	{
@@ -120,6 +132,7 @@ public class Quadtree {
 		}
 	}
 	
+	
 	public boolean estSurLaLigne(Point p)
 	{
 		boolean estSurlaLigne = false;
@@ -129,6 +142,26 @@ public class Quadtree {
 			estSurlaLigne =  true;
 		}
 		return estSurlaLigne;
+	}
+	
+	public void insertUniquePoint (Point p)
+	{
+		boolean isUnique = true;
+		for (Point pt : this.getListeDePoint())
+		{
+			if (pt.getAbcisseX() == p.getAbcisseX() && pt.abcisseY == p.getAbcisseY())
+			{
+				isUnique = false;
+			}
+		}
+		if(isUnique)
+		{
+			insertionEnListe(p);
+		}
+		else 
+		{
+			insertionEnListe(new Point((int)this.QuadtreeTailleX, (int)(this.QuadtreeTailleX-this.getQuadtreeParent().getQuadtreeTailleX()),  true ));
+		}
 	}
 	
 	
