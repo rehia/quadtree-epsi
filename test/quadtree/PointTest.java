@@ -27,7 +27,7 @@ public class PointTest {
             boolean isInTheQuadTree = false;
             Point monpoint;
 
-            Quadtree quad = new Quadtree(0,0,100,100);
+            Quadtree quad = new Quadtree();
 
 
             //Act
@@ -44,7 +44,7 @@ public class PointTest {
             boolean isInTheQuadTree = false;
             Point monpoint;
 
-            Quadtree quad = new Quadtree(0,0,100,100);
+            Quadtree quad = new Quadtree();
 
             //Act
             monpoint = new Point(0,100,true);

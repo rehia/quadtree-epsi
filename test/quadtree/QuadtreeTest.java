@@ -74,7 +74,6 @@ public class QuadtreeTest {
 		Quadtree quad =  new Quadtree();
 		
 		quad.insertionEnListe(p);
-		System.out.println("Ici");
 		
 		assertEquals(new Long (1), new Long (quad.getListeDePoint().size()));
 	}
@@ -93,6 +92,39 @@ public class QuadtreeTest {
 		assertEquals(new Long(4), new Long (quad.getListeDePoint().size()));
 	}
 	
-
+	@Test
+	public void checkIpointIsUnique()
+	{
+		boolean isUnique =true;
+		Point p1 =  new Point(10, 10);
+		Point p2 =  new Point(10,10);
+		Quadtree quad =  new Quadtree();
+		
+		quad.insertUniquePoint(p1);
+		quad.insertUniquePoint(p2);
+		
+		
+		for(Point p : quad.getListeDePoint())
+		{
+			int count = 0;
+			for(Point pt : quad.getListeDePoint() )
+			{
+				if(p.getAbcisseX() == pt.getAbcisseX() && p.getAbcisseY() ==pt.getAbcisseY())
+				{
+					count++;
+					if (count > 2)
+					{
+						System.out.println(count);
+						isUnique = false;
+					}
+				}
+			}
+		}
+		
+		
+		assertTrue(isUnique);
+		
+		
+	}
 
 }

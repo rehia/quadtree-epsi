@@ -149,21 +149,34 @@ public class Quadtree  {
 	public void insertUniquePoint (Point p)
 	{
 		boolean isUnique = true;
-		for (Point pt : this.getListeDePoint())
+		int counter = 0;
+		if(!this.getListeDePoint().isEmpty())
 		{
-			if (pt.getAbcisseX() == p.getAbcisseX() && pt.abcisseY == p.getAbcisseY())
+			for (Point pt : this.getListeDePoint())
 			{
-				isUnique = false;
+				if (pt.getAbcisseX() == p.getAbcisseX() && pt.abcisseY == p.getAbcisseY())
+				{
+					counter ++;
+					if (counter >1)
+					{
+						isUnique = false;
+					}
+				}
 			}
-		}
-		if(isUnique)
-		{
-			insertionEnListe(p);
+			if(isUnique)
+			{
+				insertionEnListe(p);
+			}
+			else 
+			{
+				insertionEnListe(new Point((int)this.QuadtreeTailleX, (int)(this.QuadtreeTailleX-this.getQuadtreeParent().getQuadtreeTailleX()), true));
+			}
 		}
 		else 
 		{
-			insertionEnListe(new Point((int)this.QuadtreeTailleX, (int)(this.QuadtreeTailleX-this.getQuadtreeParent().getQuadtreeTailleX()),  true ));
+			insertionEnListe(p);
 		}
+			
 	}
 	
 	
