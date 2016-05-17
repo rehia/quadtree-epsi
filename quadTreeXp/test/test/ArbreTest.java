@@ -19,9 +19,12 @@ import quadtreexp.Rectangle;
  */
 public class ArbreTest {
     private Arbre arbre;
-    private Rectangle rectangle, rectangleEnfant1, rectangleEnfant2, rectangleEnfant3;
-    private Point point, point2;
-    ArrayList<Point> points, nouveauxPoints, tousLesPoints;
+    private Rectangle rectangle;
+    private Rectangle rectangleEnfant1;
+    private Rectangle rectangleEnfant2;
+    private Rectangle rectangleEnfant3;    
+    private Point point;
+    private Point point2;
     
     @Before
     public void setUp() {
@@ -61,36 +64,6 @@ public class ArbreTest {
         rectangle.ajouter(point);
         rectangle.ajouter(point2);
         arbre.ventilation(rectangle);
-    }*/
-    
-    @Test
-    public void pointsDansRectangle(){
-        point = new Point(50,50);
-        point2 = new Point(45,55);
-        rectangle = new Rectangle(point, 30,30);
-        rectangle.ajouter(point2);
-        boolean resultat = arbre.pointDansRectangle(point2, rectangle);
-        assertEquals(true, resultat);
-    }
-    
-    @Test
-    public void creationDUnPointAleatoire(){
-        nouveauxPoints = new ArrayList<>();
-        tousLesPoints = new ArrayList<>();
-        tousLesPoints.add(point);
-        tousLesPoints.add(point2);
-        arbre.ajouterUnPointAleatoire(nouveauxPoints, tousLesPoints);
-        assertEquals(1, nouveauxPoints.size(), 0);
-    }
-    
-    /*@Test
-    public void getDescendantsPoints(){
-        
-    }
-    
-    @Test 
-    public void creationDePointsAleatoires(){
-        nouveauxPoints = new ArrayList<>();
     }*/
 
 }
