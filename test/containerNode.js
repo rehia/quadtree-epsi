@@ -34,18 +34,13 @@ describe('Test of treeNode', function() {
 
   describe('Test of container creation', function() {
 
-    let rootNode;
-
-    beforeEach(function() {
-      rootNode = new ContainerNode();
-      rootNode.setSize(10);
-    });
-
+    let rootNode = new ContainerNode(0,0);
+    rootNode.setSize(10);
+    for(let i = 0; i<5; i++) {
+      rootNode.addNode(new LeafNode(i, i+3));
+    }
 
     it('Should create 4 containers', function(done){
-      for(let i = 0; i<5; i++) {
-        rootNode.addNode(new LeafNode(i, i+3));
-      }
       let counter = 0;
       rootNode.getChildren().forEach(function(child) {
         if(child instanceof ContainerNode) {
@@ -56,19 +51,32 @@ describe('Test of treeNode', function() {
       done();
     });
 
-    it('Each container should be 1/4 the size of their parent', function (done){
-      for(let i = 0; i<5; i++) {
-        rootNode.addNode(new LeafNode(i, i+3));
-      }
-      rootNode.getChildren().forEach(function(child) {
+    rootNode.getChildren().forEach(function(child) {
+      it('Each container should be 1/4 the size of their parent', function (done){
         if(child instanceof ContainerNode) {
           expect(child.getSize()).to.be.a('Number');
           expect(child.getSize()).to.not.equal(0);
           expect(child.getSize()).to.equal(rootNode.size/4);
         }
+        done();
       });
-      done();
-    });
 
+      it('Sub container should have rootNode\'s X coordinate or X + rootNode\'s size divided by 2', function(done) {
+        if(child instanceof ContainerNode) {
+          expect(child.getX())
+            .to.be.oneOf([rootNode.getX(), rootNode.getX() + Math.floor(rootNode.getSize()/2)]);
+        }
+        done();
+      });
+
+      it('Sub container should have rootNode\'s Y coordinate or Y + rootNode\'s size divided by 2', function(done) {
+        if(child instanceof ContainerNode) {
+          expect(child.getY())
+            .to.be.oneOf([rootNode.getY(), rootNode.getY() + Math.floor(rootNode.getSize()/2)]);
+        }
+        done();
+      });
+
+    });
   });
 });
