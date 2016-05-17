@@ -92,9 +92,22 @@ public class NodeTest {
     }
      
     @Test
-    public void aNodeWithoutChildenIsALeaf(){
+    public void ShouldaNodeWithoutChildenIsALeaf(){
         Node node = new Node(0,0,100,100);
         boolean isLeaf = node.isLeaf();
         assertEquals(true,isLeaf);
+    }
+    
+    @Test
+    public void aNodeWithLeavesIsNotALeaf(){        
+        //G
+        Node node = new Node(0,0,100,100);
+        node.createLeaves();
+        
+        //W
+        boolean isLeaf = node.isLeaf();
+        
+        //T
+        assertEquals(false,isLeaf);
     }
 }

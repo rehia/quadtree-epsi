@@ -42,5 +42,21 @@ public class Node {
       public boolean isLeaf(){
         return this.nodeChildren.isEmpty();
     }
+      
+      public void createLeaves(){
+        double middleX = (this.x + this.width) / 2;
+        double middleY = (this.y + this.height) / 2;
+        double halfWidth = this.width / 2;
+        double halfHeight = this.height / 2;
+
+        //NW
+        this.nodeChildren.add(new Node(this.x,this.y,halfWidth,halfHeight));
+        //NE
+        this.nodeChildren.add(new Node(middleX,this.y,halfWidth,halfHeight));
+        //SE
+        this.nodeChildren.add(new Node(middleX,middleY,halfWidth,halfHeight));
+        //SW
+        this.nodeChildren.add(new Node(this.x,middleY,halfWidth,halfHeight));
+    }
     
 }
