@@ -201,11 +201,11 @@ public class Quadtree  {
 			{
 				isContain = true;
 				System.out.println("Profondeur du point demandé : "+p.getProfondeur());
-			}
-			if(!isContain)
-			{
-				System.out.println("Ce point m'est inconnu il n'est probablement pas dans la liste");
-			}
+			}	
+		}
+		if(!isContain)
+		{
+			System.out.println("Ce point m'est inconnu il n'est probablement pas dans la liste");
 		}
 	}
 	
