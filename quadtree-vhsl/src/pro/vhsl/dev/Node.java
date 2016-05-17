@@ -112,14 +112,20 @@ public class Node {
 					this.split();
 				}
 			} else {
-				if(!this.pushPointIntoChildren(point))
+				if(this.pointIsOverlapingTwoNodes(point))
 					this.points.add(point);
-				
+				else
+					this.pushPointIntoChildren(point);
 				success = true;
 			}
 		}
 		
 		return success;
+	}
+
+	private boolean pointIsOverlapingTwoNodes(XY point) {
+		return 	point.getX() == this.width / 2 ||
+				point.getY() == this.height / 2;
 	}
 
 	private boolean hasChildren() {
