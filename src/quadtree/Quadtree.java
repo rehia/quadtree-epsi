@@ -94,6 +94,9 @@ public class Quadtree {
 		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
 		this.getNordOuest().setProfondeur(this.getProfondeur()+1);
 		
+
+		this.setNbPointMaxAtteint(nbPointMaxAtteint);
+
 		this.setSudEst(new Quadtree());
 		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/2);

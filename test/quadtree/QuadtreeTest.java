@@ -80,7 +80,7 @@ public class QuadtreeTest {
 	}
 	
 	@Test
-	public void checkIfTheMaxForAQuadtreeIsreachedAndCantOverPassed()
+	public void checkIfTheMaxForAQuadtreeIsreachedAndCantOverPasse()
 	{
 		Quadtree quad =  new Quadtree();
 		Random nb = new Random();

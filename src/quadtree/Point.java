@@ -2,7 +2,7 @@ package quadtree;
 
 public class Point {
 	
-	  public int abcisseX;
+		public int abcisseX;
 	    public int abcisseY;
 	    
 	    public Point(int x, int y){
@@ -33,3 +33,4 @@ public class Point {
 			this.abcisseY = abcisseY;
 		}
 }
+
