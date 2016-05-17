@@ -52,11 +52,11 @@ describe('Test of treeNode', function() {
     });
 
     rootNode.getChildren().forEach(function(child) {
-      it('Each container should be 1/4 the size of their parent', function (done){
+      it('Should have side half the size of it\'s parent one', function (done){
         if(child instanceof ContainerNode) {
           expect(child.getSize()).to.be.a('Number');
           expect(child.getSize()).to.not.equal(0);
-          expect(child.getSize()).to.equal(rootNode.size/4);
+          expect(child.getSize()).to.equal(rootNode.getSize()/2);
         }
         done();
       });
