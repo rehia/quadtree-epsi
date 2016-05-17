@@ -62,5 +62,20 @@ public class Node {
       public boolean hasReachedCapacity(){
         return !this.isLeaf() || this.countPoint() == 4;
     }
+      
+      public void splitInLeaves(){
+        //create Node leaves
+        this.createLeaves();
+        //push all points in children
+        for (Point point : this.listPoint){
+            this.nodeChildren.get(0).pushPoint(point);
+            this.nodeChildren.get(1).pushPoint(point);
+            this.nodeChildren.get(2).pushPoint(point);
+            this.nodeChildren.get(3).pushPoint(point);
+        }
+        //clear node points before push in children
+        this.listPoint.clear();
+    }
     
+      
 }
