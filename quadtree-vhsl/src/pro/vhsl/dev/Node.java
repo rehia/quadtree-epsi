@@ -3,6 +3,7 @@ package pro.vhsl.dev;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Node {
 
 	private static final int MAXIMUM_POINT_CAPACITY = 4;
@@ -16,7 +17,9 @@ public class Node {
 	private Node northEast;
 	private Node southWest;
 	private Node southEast;
-
+	private int depth;
+	private String indentation;
+	
 	public Node(double x, double y, double width, double height) {
 		this.x = x;
 		this.y = y;
@@ -24,6 +27,19 @@ public class Node {
 		this.height = height;
 		this.points = new ArrayList<>();
 		this.children = new ArrayList<>();
+		this.depth = 1;
+		this.indentation = "";
+	}
+
+	public Node(double x, double y, double width, double height, int depth, String indentation) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.points = new ArrayList<>();
+		this.children = new ArrayList<>();
+		this.depth = depth;
+		this.indentation = indentation;
 	}
 
 	public double getX() {
@@ -98,6 +114,20 @@ public class Node {
 		return southEast;
 	}
 
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+
+	public String getIndentation() {
+		return indentation;
+	}
+	public void setIndentation(String indentation) {
+		this.indentation = indentation;
+	}
 	public boolean push(XY point) {
 		boolean success = false;
 		if(this.isNotInBound(point))
@@ -112,7 +142,7 @@ public class Node {
 					this.split();
 				}
 			} else {
-				if(this.pointIsOverlapingTwoNodes(point))
+				if(this.pointIsOverlappingTwoNodes(point))
 					this.points.add(point);
 				else
 					this.pushPointIntoChildren(point);
@@ -123,7 +153,7 @@ public class Node {
 		return success;
 	}
 
-	private boolean pointIsOverlapingTwoNodes(XY point) {
+	private boolean pointIsOverlappingTwoNodes(XY point) {
 		return 	point.getX() == this.width / 2 ||
 				point.getY() == this.height / 2;
 	}
@@ -138,10 +168,10 @@ public class Node {
 		double halfWidth = this.width / 2;
 		double halfHeight = this.height / 2;
 		
-		this.northWest = new Node(this.x, this.y, halfWidth, halfHeight);
-		this.northEast = new Node(middleX, this.y, halfWidth, halfHeight);
-		this.southWest = new Node(this.x, middleY, halfWidth, halfHeight);
-		this.southEast = new Node(middleX, middleY, halfWidth, halfHeight);
+		this.northWest = new Node(this.x, this.y, halfWidth, halfHeight, this.depth + 1, this.indentation + "\t");
+		this.northEast = new Node(middleX, this.y, halfWidth, halfHeight, this.depth + 1, this.indentation + "\t");
+		this.southWest = new Node(this.x, middleY, halfWidth, halfHeight, this.depth + 1, this.indentation + "\t");
+		this.southEast = new Node(middleX, middleY, halfWidth, halfHeight, this.depth + 1, this.indentation + "\t");
 		
 		updateChildrenList();
 		
@@ -175,7 +205,36 @@ public class Node {
 		return 	point.getX() < this.x || point.getX() >= this.x + this.width ||
 				point.getY() < this.y || point.getY() >= this.y + this.height;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		if(this.children.size() == 0)
+			return String.format("[%3$.2f - %4$.2f](%1$d) %2$s", this.points.size(), this.pointsToString(), x, y);
+		
+		return String.format(
+                "[%9$.2f - %10$.2f](%11$d) %12$s" + "\r\n"
+                + "%13$s" + "%5$d-NW %1$s" + "\r\n"
+                + "%13$s" + "%6$d-NE %2$s" + "\r\n"
+                + "%13$s" + "%7$d-SE %3$s" + "\r\n"
+                + "%13$s" + "%8$d-SW %4$s]",
+                this.northWest, this.northEast,
+                this.southWest, this.southEast,
+                this.northWest.getDepth(), this.northEast.getDepth(),
+                this.southWest.getDepth(), this.southEast.getDepth(),
+                x, y, this.points.size(), this.pointsToString(), this.northWest.getIndentation());
+	}
+
+	private Object pointsToString() {
+		StringBuilder sb = new StringBuilder();
+		
+		boolean seperateWithComma = false;
+		for(XY point : this.points) {
+			if(seperateWithComma)
+				sb.append(", ");
+			sb.append(point.toString());
+			seperateWithComma = true;
+		}
+		return sb.toString();
+	}
 	
 }

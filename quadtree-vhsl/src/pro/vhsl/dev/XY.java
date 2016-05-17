@@ -26,4 +26,10 @@ public class XY {
 		this.y = y;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + x + ", " + y + ")";
+	}
+	
+
 }

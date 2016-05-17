@@ -52,4 +52,11 @@ public class QuadTree {
 		return result;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("QuadTree containing %1$d point(s) :" + "\r\n" 
+				+ "%3$d-Root %2$s", this.points.size(), this.root, this.root.getDepth());
+	}
+	
+
 }
