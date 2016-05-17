@@ -29,11 +29,11 @@ public class Arbre extends JPanel {
         }
     }
 
-    private void ajouterPoint(Point point) {
+    public void ajouterPoint(Point point) {
         ajouterPoint(rectangleRacine, point);
     }
     
-    private void ajouterPoint(Rectangle rectangle, Point point) {
+    public void ajouterPoint(Rectangle rectangle, Point point) {
         //Vérifie l'appartenance (géométrique) du point au rectangle.
         //Si le point est dans le rectangle
         if (rectangle.contient(point)) {
@@ -96,20 +96,20 @@ public class Arbre extends JPanel {
         }
     }
     
-    private void miseAJourProfondeur(final int nouvelleProfondeur) {
+    public void miseAJourProfondeur(final int nouvelleProfondeur) {
         if (nouvelleProfondeur > profondeurMaximale) {
             profondeurMaximale = nouvelleProfondeur;
         }
     }
     
-    private void liaison(ArrayList<Rectangle> rectanglesEnfants, Rectangle rectangle) {
+    public void liaison(ArrayList<Rectangle> rectanglesEnfants, Rectangle rectangle) {
         //Liaison
         rectanglesEnfants.stream().forEach((r) -> {
             rectangle.ajouter(r);
         });
     }
     
-    private void ventilation(Rectangle rectangle) {
+    public void ventilation(Rectangle rectangle) {
         //Ventilation
         ArrayList<Point> pointsDuRectangle = new ArrayList<>();
         ArrayList<Point> pointsDuRectanglePere = rectangle.getPoints();
@@ -120,6 +120,12 @@ public class Arbre extends JPanel {
         }
     }
     
-    
+    public int getProfondeurMaximale() {
+        return profondeurMaximale;
+    }
+
+    public void setProfondeurMaximale(int profondeurMaximale) {
+        Arbre.profondeurMaximale = profondeurMaximale;
+    }
     
 }
