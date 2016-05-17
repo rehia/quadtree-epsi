@@ -118,5 +118,19 @@ describe('Test of treeNode', function() {
       done();
     });
 
+    it('Should dispatch all leaf in sub container as soon it divise', function(done){
+      let leafs = [];
+      let newLeaf = new LeafNode(0,0);
+      leafs.push(newLeaf);
+      rootNode.getChildren().forEach(function(child) {
+        leafs.push(child);
+      });
+      rootNode.addNode(newLeaf);
+      leafs.forEach(function(leaf) {
+        expect(rootNode.getChildren()).to.include.something.that.equal(leaf.getParent());
+      });
+      done();
+    });
+
   });
 });
