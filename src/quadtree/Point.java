@@ -1,7 +1,6 @@
 package quadtree;
 
 public class Point {
-<<<<<<< HEAD
     
     public int abcisseX;
     public int abcisseY;
@@ -17,8 +16,7 @@ public class Point {
             this.abcisseX = (int)(Math.random() * (max-min));
         }
     }
-    
-=======
+
 	
 		public int getAbcisseX() {
 			return abcisseX;
@@ -35,6 +33,5 @@ public class Point {
 		public void setAbcisseY(int abcisseY) {
 			this.abcisseY = abcisseY;
 		}
->>>>>>> dev_dorian
 }
 

@@ -90,8 +90,7 @@ public class Quadtree {
 		this.getNordeEst().setProfondeur(this.getProfondeur()+1);
 		
 		this.setNordOuest(new Quadtree());
-<<<<<<< HEAD
-=======
+
 		this.getNordOuest().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getNordOuest().setQuadtreeTailleY(QuadtreeTailleY/2);
 		this.getNordOuest().setProfondeur(this.getProfondeur()+1);
@@ -99,7 +98,7 @@ public class Quadtree {
 
 		this.setNbPointMaxAtteint(nbPointMaxAtteint);
 
->>>>>>> dev_dorian
+
 		this.setSudEst(new Quadtree());
 		this.getSudEst().setQuadtreeTailleX(QuadtreeTailleX/2);
 		this.getSudEst().setQuadtreeTailleY(QuadtreeTailleY/2);
