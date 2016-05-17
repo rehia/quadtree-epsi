@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+package quadtree;
+>>>>>>> dev_dorian
 
 import junit.framework.Assert;
 import quadtree.Point;
@@ -23,7 +27,11 @@ public class PointTest {
             //Arrange
             boolean isInTheQuadTree = false;
             Point monpoint;
+<<<<<<< HEAD
             Quadtree quad = new Quadtree(0,0,100,100);
+=======
+      
+>>>>>>> dev_dorian
 
             //Act
             monpoint = new Point(20,40);
@@ -38,7 +46,10 @@ public class PointTest {
             //Arrange
             boolean isInTheQuadTree = false;
             Point monpoint;
+<<<<<<< HEAD
             Quadtree quad = new Quadtree(0,0,100,100);
+=======
+>>>>>>> dev_dorian
             
             //Act
             monpoint = new Point(0,100,true);

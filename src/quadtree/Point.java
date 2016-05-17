@@ -1,6 +1,7 @@
 package quadtree;
 
 public class Point {
+<<<<<<< HEAD
     
     public int abcisseX;
     public int abcisseY;
@@ -17,4 +18,23 @@ public class Point {
         }
     }
     
+=======
+	
+		public int getAbcisseX() {
+			return abcisseX;
+		}
+
+		public void setAbcisseX(int abcisseX) {
+			this.abcisseX = abcisseX;
+		}
+
+		public int getAbcisseY() {
+			return abcisseY;
+		}
+
+		public void setAbcisseY(int abcisseY) {
+			this.abcisseY = abcisseY;
+		}
+>>>>>>> dev_dorian
 }
+
