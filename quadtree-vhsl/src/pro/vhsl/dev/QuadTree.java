@@ -57,6 +57,10 @@ public class QuadTree {
 		return String.format("QuadTree containing %1$d point(s) :" + "\r\n" 
 				+ "%3$d-Root %2$s", this.points.size(), this.root, this.root.getDepth());
 	}
+
+	public int getDepthOfPoint(XY point) {
+		return this.root.getNodeContainingPoint(point).getDepth();
+	}
 	
 
 }

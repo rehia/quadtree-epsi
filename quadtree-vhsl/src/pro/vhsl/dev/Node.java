@@ -236,5 +236,31 @@ public class Node {
 		}
 		return sb.toString();
 	}
+
+	private boolean containsPoint(XY point) {
+		boolean result = false;
+		
+		for(XY p : this.points){
+			if(p.getX() == point.getX() && p.getY() == point.getY()){
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
+	}
+
+	public Node getNodeContainingPoint(XY point) {
+		Node result = null;
+		if(this.containsPoint(point))
+			return this;
+		else
+			for(Node child : this.children) {
+				result = child.getNodeContainingPoint(point);
+				if(result != null)
+					break;
+			}
+		return result;
+	}
 	
 }
