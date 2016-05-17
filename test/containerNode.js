@@ -115,6 +115,7 @@ describe('Test of treeNode', function() {
       let leaf = new LeafNode(5,2);
       rootNode.addNode(leaf);
       expect(rootNode).to.equal(leaf.getParent());
+      done();
     });
 
   });

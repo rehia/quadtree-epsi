@@ -50,7 +50,7 @@ class ContainerNode extends TreeNode {
   }
 
   [_addTheFourContainerNode]() {
-    let sideSize = this.sideSize / 2;
+    let sideSize = Math.ceil(this.sideSize / 2);
     for(let x=0; x < 2; x++) {
       for(let y=0; y < 2; y++) {
         let futureX = this[_calculateFutureCoordonate](this.x, x===0 ? 1:sideSize);
@@ -74,13 +74,19 @@ class ContainerNode extends TreeNode {
 
   [_dispatchLeaf] (leaf) {
     if(this.divided === true) {
+      let containers = [];
       this.children.forEach(function(child) {
         if(child instanceof ContainerNode) {
-          if(child.couldContainsLeaf(leaf)) {
-            child.addNode(leaf);
+          if(child.couldContainsLeaf(leaf)){
+            containers.push(child);
           }
         }
       });
+      if(containers.length === 1) {
+        containers[0].addNode(leaf);
+      } else {
+        this[_pushNode](leaf);
+      }
     } else {
       this[_pushNode](leaf);
     }
