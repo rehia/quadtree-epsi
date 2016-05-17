@@ -91,7 +91,9 @@ public class Quadtree  {
 		this.setNordOuest(new Quadtree());
 		createChildQuadtree(nordOuest);
 
+
 		this.setNbPointMaxAtteint(nbPointMaxAtteint);
+
 
 		this.setSudEst(new Quadtree());
 		createChildQuadtree(sudEst);
