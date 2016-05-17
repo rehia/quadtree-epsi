@@ -76,6 +76,12 @@ public class Node {
         //clear node points before push in children
         this.listPoint.clear();
     }
+      
+      public Node getChildNodeByPosition(int leafPosition){
+        return this.nodeChildren.get(leafPosition);
+    }
+      
+      
     
       
 }
