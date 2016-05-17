@@ -38,4 +38,8 @@ public class Node {
         return this.listPoint.size();
     }
     
+     public boolean isLeaf(){
+        return this.nodeChildren.size() == 0;
+    }
+    
 }

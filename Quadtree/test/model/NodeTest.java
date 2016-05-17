@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -75,6 +76,11 @@ public class NodeTest {
         assertTrue(pointRandom.getX() <= 20);
         assertTrue(pointRandom.getY() <= 20);
     }
-     
     
+    @Test
+    public void ShouldExistRandomManyPoint(){
+    List<Point> manyPoints = Point.newRandomManyPoint(0,50);
+        assertEquals(manyPoints.size(), 50);
+    }
+     
 }
