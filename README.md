@@ -14,7 +14,7 @@ Pour exécuter le binaire une fois compiler nous avons écrit un petit script Ba
 * JAVA 8 et Openjdk (1.8.0_91)
 * Bash (4.3.42)
 
-## Documentation Succinte
+## Documentation succincte 
 
 1. Commencer par cloner ce repository
 2. Le code est déja compiler pour l'executer se placer dans le "répertoire" dist du projet et utiliser le script ```./runquadtree -help```
