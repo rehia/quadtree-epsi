@@ -6,7 +6,7 @@
 
 ## Présentation
 Pour ce projet nous avons décidé d'utiliser le language JAVA. 
-Pour executer le binaire une fois compiler nous avons écrit un petit script Bash qui permet en lui passant quelques paramètres de lister les points générer par le programme, de connaitre la profondeur d'un point et de lister les points qui lui sont les plus proches.
+Pour exécuter le binaire une fois compiler nous avons écrit un petit script Bash qui permet en lui passant quelques paramètres de lister les points générés par le programme, de connaitre la profondeur d'un point et de lister les points qui lui sont les plus proches.
 
 ## Versions Utilisés
 * Ubuntu 16.04LTS et Windows 7
