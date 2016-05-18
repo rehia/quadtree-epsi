@@ -1,8 +1,8 @@
 # quadtree-epsi
 ## Auteurs
-Dorian Delpino
-Sébastien Delots
-Maël Prothon
+* Dorian Delpino
+* Sébastien Delots
+* Maël Prothon
 
 ## Présentation
 Pour ce projet nous avons décidé d'utiliser le language JAVA. 
