@@ -19,6 +19,6 @@ Pour exécuter le binaire une fois compiler nous avons écrit un petit script Ba
 1. Commencer par cloner ce repository
 2. Le code est déja compiler pour l'executer se placer dans le "répertoire" dist du projet et utiliser le script ```./runquadtree -help```
 3. Si vous voulez apporter des modification au projet Vous devez recompiler le projet et le script ./runquadtree sera alors supprimer pour le regenerer utiliser la commande suivante : 
-```cd dist && cat ../exec.sh quadtree.jar > runquadtree && chmod +x runquadtree puis refaire l'étape 2```
+```cd dist && cat ../exec.sh quadtree.jar > runquadtree && chmod +x runquadtreeè``` puis refaire l'étape 2
 
 
