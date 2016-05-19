@@ -64,9 +64,6 @@ public class NodeTest {
         itGetsIntoTheRightNode(0);
     }
 
-   
-
-
     @Test
     public void profExample() {
         givenIHaveANode(new Node(new Coordinates(1, 1), 100, 100));
@@ -78,39 +75,10 @@ public class NodeTest {
         thenIHaveMyPointsInTheRightPlace();
     }
 
-    @Test 
-    public void giveTheGoodDepth()
-    {
-         givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
-         whenIAddAPoint(new Coordinates(10, 10));
-        whenIAddAPoint(new Coordinates(60, 20));
-        whenIAddAPoint(new Coordinates(80, 80));
-        whenIAddAPoint(new Coordinates(20, 40));
-        whenIAddAPoint(new Coordinates(45, 50));
-        whenIAddAPoint(new Coordinates(16, 17));
-        whenIAddAPoint(new Coordinates(90, 22));
-        whenIAddAPoint(new Coordinates(5, 8));
-        whenIAddAPoint(new Coordinates(27, 40));
-        whenIAddAPoint(new Coordinates(78, 50));
-       thenICanGetItsDepth(new Coordinates(10,10), 3);
-    }
-    
-     @Test 
-    public void giveNoGoodDepth()
-    {
-         givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
-         whenIAddAPoint(new Coordinates(10, 10));
-        whenIAddAPoint(new Coordinates(60, 20));
-        whenIAddAPoint(new Coordinates(80, 80));
-        whenIAddAPoint(new Coordinates(20, 40));
-        whenIAddAPoint(new Coordinates(45, 50));
-       thenICanGetItsDepth(new Coordinates(8,8), -1);
-    }
-    
     @Test
-    public void giveTheGoodNeighbors(){
-         givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
-         whenIAddAPoint(new Coordinates(10, 10));
+    public void giveTheGoodDepth() {
+        givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+        whenIAddAPoint(new Coordinates(10, 10));
         whenIAddAPoint(new Coordinates(60, 20));
         whenIAddAPoint(new Coordinates(80, 80));
         whenIAddAPoint(new Coordinates(20, 40));
@@ -120,12 +88,37 @@ public class NodeTest {
         whenIAddAPoint(new Coordinates(5, 8));
         whenIAddAPoint(new Coordinates(27, 40));
         whenIAddAPoint(new Coordinates(78, 50));
-        
-        thenICanGetTheGoodNeighbors(new Coordinates(5,8),Arrays.asList(new Coordinates(10, 10),new Coordinates(20, 40), new Coordinates(16, 17)));
+        thenICanGetItsDepth(new Coordinates(10, 10), 3);
     }
-    
-    
-    
+
+    @Test
+    public void giveNoGoodDepth() {
+        givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+        whenIAddAPoint(new Coordinates(10, 10));
+        whenIAddAPoint(new Coordinates(60, 20));
+        whenIAddAPoint(new Coordinates(80, 80));
+        whenIAddAPoint(new Coordinates(20, 40));
+        whenIAddAPoint(new Coordinates(45, 50));
+        thenICanGetItsDepth(new Coordinates(8, 8), -1);
+    }
+
+    @Test
+    public void giveTheGoodNeighbors() {
+        givenIHaveANode(new Node(new Coordinates(0, 0), 100, 100));
+        whenIAddAPoint(new Coordinates(10, 10));
+        whenIAddAPoint(new Coordinates(60, 20));
+        whenIAddAPoint(new Coordinates(80, 80));
+        whenIAddAPoint(new Coordinates(20, 40));
+        whenIAddAPoint(new Coordinates(45, 50));
+        whenIAddAPoint(new Coordinates(16, 17));
+        whenIAddAPoint(new Coordinates(90, 22));
+        whenIAddAPoint(new Coordinates(5, 8));
+        whenIAddAPoint(new Coordinates(27, 40));
+        whenIAddAPoint(new Coordinates(78, 50));
+
+        thenICanGetTheGoodNeighbors(new Coordinates(5, 8),new ArrayList<Coordinates>(Arrays.asList(new Coordinates(10, 10), new Coordinates(16, 17),new Coordinates(5, 8))));
+    }
+
     private void givenIHaveANode(Node node) {
         this.node = node;
     }
@@ -162,8 +155,8 @@ public class NodeTest {
     }
 
     private void itGetsIntoTheRightNode(int point) {
-        assertThat((node.getPointXInPoint(point) >= node.getOriginX()) && (node.getPointXInPoint(point) <= node.getOriginX() + node.getLenght()/2-1), is(true));
-        assertThat((node.getPointYInPoint(point) >= node.getOriginY()) && (node.getPointYInPoint(point) <= node.getOriginY() + node.getWidth()/2-1), is(true));
+        assertThat((node.getPointXInPoint(point) >= node.getOriginX()) && (node.getPointXInPoint(point) <= node.getOriginX() + node.getLenght() / 2 - 1), is(true));
+        assertThat((node.getPointYInPoint(point) >= node.getOriginY()) && (node.getPointYInPoint(point) <= node.getOriginY() + node.getWidth() / 2 - 1), is(true));
 
     }
 
@@ -177,11 +170,11 @@ public class NodeTest {
     }
 
     private void thenICanGetItsDepth(Coordinates point, int depth) {
-        
-        assertThat(node.getPointDepth(point),is(equalTo(depth)));
+
+        assertThat(node.getPointDepth(point), is(equalTo(depth)));
     }
 
-    private void thenICanGetTheGoodNeighbors(Coordinates point,ArrayList<Coordinates> neighbors ) {
-         assertThat(node.getNeighbors(point),is(equalTo(neighbors)));
+    private void thenICanGetTheGoodNeighbors(Coordinates point, ArrayList<Coordinates> neighbors) {
+        assertThat(node.getNeighbors(point), is(equalTo(neighbors)));
     }
 }

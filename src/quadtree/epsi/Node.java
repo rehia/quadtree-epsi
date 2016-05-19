@@ -38,26 +38,35 @@ public class Node {
     }
 
     public void createSons() {
-        int newL = lenght / 2;
-        int newW = width / 2;
-        int newCL = lenght / 2;
-        int newCW = width / 2;
-        if (lenght % newL != 0) {
-            newCL++;
-            newL++;
+        int newLength = lenght / 2;
+        int newWidth = width / 2;
+        int newCoordinateLenght = lenght / 2;
+        int newCoordinateWidth = width / 2;
+        if (lenght % newLength != 0) {
+            newCoordinateLenght++;
+            newLength++;
         } else {
-            newCL--;
+            newCoordinateLenght--;
         }
-        if (width % newW != 0) {
-            newCW++;
-            newW++;
+        if (width % newWidth != 0) {
+            newCoordinateWidth++;
+            newWidth++;
         } else {
-            newCW--;
+            newCoordinateWidth--;
         }
-        sons.add(new Node(origin, newL, newW));
-        sons.add(new Node(new Coordinates(getOriginX() + newCL, getOriginY()), lenght / 2, newW));
-        sons.add(new Node(new Coordinates(getOriginX(), getOriginY() + newCW), newL, width / 2));
-        sons.add(new Node(new Coordinates(getOriginX() + newCL, getOriginY() + newCW), lenght / 2, width / 2));
+        sons.add(new Node(origin, newLength, newWidth));
+        sons.add(new Node(new Coordinates(getOriginX() + newCoordinateLenght, getOriginY()), lenght / 2, newWidth));
+        sons.add(new Node(new Coordinates(getOriginX(), getOriginY() + newCoordinateWidth), newLength, width / 2));
+        sons.add(new Node(new Coordinates(getOriginX() + newCoordinateLenght, getOriginY() + newCoordinateWidth), lenght / 2, width / 2));
+    }
+
+    public String toStringPoint() {
+        String txt= "point d'origine : "+this.origin.toString()+"et de taille : L "+this.lenght+"l "+this.width+"\n"  ;
+        for (Iterator<Coordinates> it = points.iterator(); it.hasNext();) {
+            Coordinates pointer = it.next();
+            txt += pointer.toString();
+        }
+        return "Node{" + "points=" + points + '}';
     }
 
     public int getWidthInSons(int idSon) {
@@ -100,7 +109,9 @@ public class Node {
         if (points.size() < 4) {
             this.addPointInPoints(point);
         } else {
-            createSons();
+            if (!this.hasSons()) {
+                createSons();
+            }
             for (Iterator<Coordinates> it = points.iterator(); it.hasNext();) {
                 Coordinates pointer = it.next();
 
@@ -112,7 +123,7 @@ public class Node {
 
             if (!this.isOverlaping(point) || (this.isOverlaping(point) && points.size() == 4)) {
                 fillSons(point);
-            } else if (this.isOverlaping(point) && isInside(point) && points.size() < 4) {
+            } else if ((this.isOverlaping(point) && points.size() < 4) || isInside(point) && points.size() < 4) {
                 addPointInPoints(point);
             }
         }
@@ -158,20 +169,37 @@ public class Node {
         if (points.contains(point)) {
             return depth;
         } else {
-            
+
             for (Iterator<Node> it = sons.iterator(); it.hasNext();) {
                 Node son = it.next();
                 int sonDepth = son.getPointDepth(point);
-                if (son.isInside(point)&&sonDepth!=-1) {
-                    depth+= sonDepth;
+                if (son.isInside(point) && sonDepth != -1) {
+                    depth += sonDepth;
                     return depth;
                 }
             }
-        return-1;
+            return -1;
         }
     }
-    
-    public ArrayList<Coordinates> getNeighbors(Coordinates point){
-        
+
+    public ArrayList<Coordinates> getNeighbors(Coordinates point) {
+        if (points.contains(point)) {
+            return points;
+        } else {
+            for (Iterator<Node> it = sons.iterator(); it.hasNext();) {
+                Node son = it.next();
+                int sonDepth = son.getPointDepth(point);
+                if (son.isInside(point)) {
+
+                    return son.getNeighbors(point);
+                }
+            }
+
+        }
+        return null;
+    }
+
+    private boolean hasSons() {
+        return this.sons.size() != 0;
     }
 }

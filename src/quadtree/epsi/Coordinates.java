@@ -49,6 +49,11 @@ public class Coordinates {
         return Y;
     }
 
+    @Override
+    public String toString() {
+        return "Coordinates{" + "X=" + X + ", Y=" + Y + '}';
+    }
+
     //public Coordinates() { }
 
     public Coordinates(int X, int Y)  {
