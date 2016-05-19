@@ -6,7 +6,7 @@ const GridFactory = require('./gridFactory');
 const ContainerNode = require('./containerNode');
 const LeafNode = require('./leafNode');
 
-let grid = GridFactory.fillGrid(GridFactory.createGrid);
+let grid = GridFactory.fillGrid(GridFactory.createGrid());
 let tree;
 
 function printGrid() {
@@ -49,33 +49,8 @@ function pointExist(x, y) {
 }
 
 genTree();
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-while (1) {
-  rl.question('1 to calculate the getDeepnessOfPoint' +
-    '9 to quit', (answer) => {
-      switch (answer) {
-        case '1':
-          rl.question('x', (x) => {
-            rl.question('y', (y) => {
-              if (pointExist(x, y)) {
-                console.log(getDeepnessOfPoint(x, y, 0, tree));
-              } else {
-                console.log('wrong');
-              }
-            });
-          });
-          break;
-        case '9':
-          process.exit(0);
-          break;
-        default:
-          console.log('wrong command');
-          break;
-      }
-    });
-}
-
