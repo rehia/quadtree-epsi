@@ -1,6 +1,6 @@
 import unittest
 import Noeud as classNoeud
-import Quadtree as qt
+#import Quadtree as qt
 
 class test(unittest.TestCase):
 
@@ -56,9 +56,9 @@ class test(unittest.TestCase):
     #   q = qt.Quadtree(49,49)
     #  self.assertEquals(q.pointAuNiveau(q.listeDesNoeuds[0],(49,49)), "Le point (49,49) est a la profondeur : 2")
 
-    def testDoitAvoirDesFreres(self):
-        q = qt.Quadtree(5, 5)
-        self.assertEquals(q.pointLesPlusProches(q.listeDesNoeuds[0], (5, 5)), "Le point (49,49) est a la profondeur : 2")
+    #def testDoitAvoirDesFreres(self):
+    #    q = qt.Quadtree(5, 5)
+    #   self.assertEquals(q.pointLesPlusProches(q.listeDesNoeuds[0], (5, 5)), "Le point (49,49) est a la profondeur : 2")
 
 if __name__ == '__main__':
     unittest.main()
