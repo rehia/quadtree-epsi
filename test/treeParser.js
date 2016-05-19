@@ -36,11 +36,19 @@ describe('Test of tree parser', function() {
 
   describe('Test getting friend of a given point', function() {
     it('Should return (0,3) and (1,1)', function(done) {
-      let friends = treeParser.getFriendOf({x:3,y:2});
+      let friends = treeParser.getFriendOf({x:3,y:2}, root);
       expect(friends).to.be.a('Array');
       expect(friends).to.have.lengthOf(2);
       done();
     });
+
+    it('Should return (0,3), (1,1), (3,2), (2,7), (8,4)', function(done){
+      let friends = treeParser.getFriendOf({x:4,y:5}, root);
+      expect(friends).to.be.a('Array');
+      expect(friends).to.have.lengthOf(5);
+      done();
+    });
+
   });
 
 });
