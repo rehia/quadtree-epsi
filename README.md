@@ -4,11 +4,14 @@ Pour l'executer, il suffit de lancer le main.py
 
 Explication succinte :
 
-La ROOT node est au niveau 0
-A la création, il y a 50 points dispatchés aléatoirement et 1 point spécifié par l'utilisateur
-Les parcours (pointAuNiveau et pointLesPlusProches) se font de manière récursives
+La ROOT node est au niveau 0.
+
+A la création, il y a 50 points dispatchés aléatoirement et 1 point spécifié par l'utilisateur.
+
+Les parcours (pointAuNiveau et pointLesPlusProches) se font de manière récursives.
 
 Optionnel:
+
 	Il est possible d'afficher la création du quadtree grâce à la librairie turtle (language LOGO)
 	pour se faire :
 	
