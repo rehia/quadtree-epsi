@@ -28,9 +28,9 @@ class Noeud():
 
         pointAVirer = []
         n1 = Noeud(self.tailleDuCote * 0.5, self.x , self.y , self,"SW")
-        n2 = Noeud(self.tailleDuCote * 0.5, self.x + self.tailleDuCote/2, self.y, self,"SE")
-        n3 = Noeud(self.tailleDuCote * 0.5, self.x + self.tailleDuCote/2, self.y + self.tailleDuCote/2, self,"NE")
-        n4 = Noeud(self.tailleDuCote * 0.5, self.x , self.y + self.tailleDuCote/2, self,"NW")
+        n2 = Noeud(self.tailleDuCote * 0.5, self.x + self.tailleDuCote * 0.5, self.y, self,"SE")
+        n3 = Noeud(self.tailleDuCote * 0.5, self.x + self.tailleDuCote * 0.5, self.y + self.tailleDuCote * 0.5, self,"NE")
+        n4 = Noeud(self.tailleDuCote * 0.5, self.x , self.y + self.tailleDuCote * 0.5, self,"NW")
         self.type=Noeud.BRANCHE
         self.listeFils = [n1, n2, n3, n4]
         for point in self.listePoints :
