@@ -35,10 +35,10 @@ public class Quadtree  {
 		this.setQuadtreeTailleYmax(Ymax);
 		this.setQuadtreeParent(parent);
 		
-		System.out.println("Quadtree X min : "+this.getQuadtreeTailleXmin());
-		System.out.println("Quadtree X max : "+this.getQuadtreeTailleXmax());
-		System.out.println("Quadtree Y min : "+this.getQuadtreeTailleYmin());
-		System.out.println("Quadtree Y max : "+this.getQuadtreeTailleYmax());
+//		System.out.println("Quadtree X min : "+this.getQuadtreeTailleXmin());
+//		System.out.println("Quadtree X max : "+this.getQuadtreeTailleXmax());
+//		System.out.println("Quadtree Y min : "+this.getQuadtreeTailleYmin());
+//		System.out.println("Quadtree Y max : "+this.getQuadtreeTailleYmax());
 	}
 	
 	public Quadtree getNordOuest() {
@@ -202,7 +202,6 @@ public class Quadtree  {
 			{
 				if (quad.getListeDePoint().size()>4)
 				{
-					System.out.println("Profondeur du quad : "+quad.getProfondeur());
 					quad.subdivision();
 					quad.ventiler();
 					quad.getListeDePoint().clear();
@@ -271,7 +270,7 @@ public class Quadtree  {
 			System.out.println("Point numéro : "+i);
 			System.out.println("Coordonné X : "+ListeAffichage.get(i).abcisseX);
 			System.out.println("Coordonné Y : "+ListeAffichage.get(i).abcisseY);
-			System.out.println("Profondeur : "+ListeAffichage.get(i).getProfondeur());
+			//System.out.println("Profondeur : "+ListeAffichage.get(i).getProfondeur());
 		}
 	}
 	

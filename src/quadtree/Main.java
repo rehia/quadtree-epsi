@@ -3,70 +3,53 @@ package quadtree;
 import quadtree.Quadtree;
 import quadtree.Point;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Main {
 
 	private ArrayList<Point>ListeDePoint;
 
   	public static void main(String[] args){
-  	  String action ="";
-  	  String X_point="";
-  	  String Y_point="";
-	   if(args.length >0)
-	   {
-		   if(args[0].length() != 0)
-	       {
-	    	    action = args[0];
-	       }
-	       if(args[1].length() != 0)
-	       {
-	    	   	X_point = args[1];
-	       }
-	       if(args[1].length() != 0)
-	       {
-	    	   	Y_point = args[2];
-	       }
-	       
-	   }
-	   else
-	   {
-		   action = "list";
-	   }
-	  		
-       
-       //String action = "list";
-       
-       final int nbPointMax = 4;
-		
   		Quadtree quadtree = new Quadtree();
   		
   		for (int i = 0; i< 50 ; i++)
   		{
   			Point Newpoint = new Point(100, 0, true); 
   			quadtree.insertUniquePoint(Newpoint);
-  		}  
-
-  		
+  		}         
+       //Methode Lister les diffenrents points g�n�rer et garder en memoir ses informations
+  	   quadtree.afficheListEtProfondeur();
+       System.out.println("Enter X coordinate:");
+       Scanner X_coordinate = new Scanner(System.in);
+       int X_coor = X_coordinate.nextInt();
       
-       if(action == "list")
-       {
-
-        //   appel de la methode qui liste les points générés aléatoirement
-    	   quadtree.afficheListEtProfondeur();
-
-       }
-       else if(action == "depth")
-       {
-        
-        //   appel de la methode qui donne la profondeur du point de coordonée X_point,Y_point
-    	   quadtree.getProfondeurByPoint(10, 2);
- 
-       }
-       else if(action == "nearest")
-       {
-
-        //    appel de la methode qui donne les points les plus proches du point de coordonées X_point,Y_point
+       System.out.println("Enter Y coordinate:");
+       Scanner Y_coordinate  = new Scanner(System.in);
+       int Y_coor = Y_coordinate.nextInt();
+      
+       System.out.println("To know the depth of the point "+X_coor+","+Y_coor+" in the tree type YES:");
+       Scanner depth_boolean = new Scanner(System.in);
+       String depth_bool = depth_boolean.nextLine();
   
+      
+       if (depth_bool == "YES")
+       {
+           //methode profondeur de X_coordinate Y_coordinate
+    	   quadtree.getProfondeurByPoint(10, 2);
        }
+      
+       System.out.println("To know the neighboring of "+X_coor+","+Y_coor+"points of X, Y type YES:");
+       Scanner neighbors_boolean;
+       neighbors_boolean = new Scanner( System.in );
+       String n_bool = neighbors_boolean.toString();
+      
+       if (n_bool == "YES")
+       {
+           //methode voisins de X_coordinate Y_coordinate
+           System.out.println("neu");
+       }
+                  
+       System.out.println("Thank you for using our program. GOODBYE :)");
     }
 }
