@@ -263,7 +263,7 @@ public class Quadtree  {
 			
 	}
 	
-	public void afficheListEtProfondeur()
+	public void afficheListPoint()
 	{
 		for(int i= 0; i<this.ListeAffichage.size(); i++)
 		{
@@ -277,7 +277,8 @@ public class Quadtree  {
 	public void getProfondeurByPoint(int X ,int Y)
 	{
 		boolean isContain = false;
-		for(Point p : this.getListeDePoint())
+		System.out.println("Coucou");
+		for(Point p : this.ListeAffichage)
 		{
 			if(p.getAbcisseX() == X && p.getAbcisseY()==  Y)
 			{

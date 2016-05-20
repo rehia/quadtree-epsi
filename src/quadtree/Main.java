@@ -19,7 +19,7 @@ public class Main {
   			quadtree.insertUniquePoint(Newpoint);
   		}         
        //Methode Lister les diffenrents points générer et garder en memoir ses informations
-  	   quadtree.afficheListEtProfondeur();
+  	   quadtree.afficheListPoint();
        System.out.println("Enter X coordinate:");
        Scanner X_coordinate = new Scanner(System.in);
        int X_coor = X_coordinate.nextInt();
@@ -31,12 +31,13 @@ public class Main {
        System.out.println("To know the depth of the point "+X_coor+","+Y_coor+" in the tree type YES:");
        Scanner depth_boolean = new Scanner(System.in);
        String depth_bool = depth_boolean.nextLine();
+       System.out.println("Ceci est une var :"+depth_bool);
   
       
-       if (depth_bool == "YES")
+       if(depth_bool.contains("YES"))
        {
-           //methode profondeur de X_coordinate Y_coordinate
-    	   quadtree.getProfondeurByPoint(10, 2);
+    	   System.out.println("Coucou TOi");
+    	   quadtree.getProfondeurByPoint(X_coor, Y_coor);
        }
       
        System.out.println("To know the neighboring of "+X_coor+","+Y_coor+"points of X, Y type YES:");
@@ -44,7 +45,7 @@ public class Main {
        neighbors_boolean = new Scanner( System.in );
        String n_bool = neighbors_boolean.toString();
       
-       if (n_bool == "YES")
+       if (n_bool.contains("YES"))
        {
            //methode voisins de X_coordinate Y_coordinate
            System.out.println("neu");
