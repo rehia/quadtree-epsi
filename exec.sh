@@ -10,7 +10,9 @@ HELP="HELP: Quadtree Java Programme :
 2) Enter the coordinate of X and Y of the requested point and what you want from this point ( depth and / or neighbors) .
 3) Enjoy it !!
 "
-if [[ $1 == "HELP"]]
-echo "$HELP" ;;
+if [[ $1 == "HELP"]]; 
+then
+     echo "$HELP" ;;
+fi
 
 exec java -jar $MYSELF
