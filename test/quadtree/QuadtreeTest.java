@@ -33,8 +33,8 @@ public class QuadtreeTest {
 		quadParent.subdivision();
 		quadchild = quadParent.getNordeEst();
 		
-		assertEquals(new Long((long) (quadParent.getQuadtreeTailleX()/2)), new Long ((long) quadchild.getQuadtreeTailleX()));
-		assertEquals(new Long((long) (quadParent.getQuadtreeTailleY()/2)), new Long ((long) quadchild.getQuadtreeTailleY()));
+		assertEquals(new Long((long) (quadParent.getQuadtreeTailleXmax()/2)), new Long ((long) quadchild.getQuadtreeTailleXmin()));
+		assertEquals(new Long((long) (quadParent.getQuadtreeTailleYmax())), new Long ((long) quadchild.getQuadtreeTailleYmax()));
 	}
 	
 	@Test
@@ -47,10 +47,10 @@ public class QuadtreeTest {
 		boolean isOnLine4 = false;
 		
 		Quadtree quad = new Quadtree();
-		Point p = new Point((int)quad.getQuadtreeTailleX(), 50);
+		Point p = new Point((int)quad.getQuadtreeTailleXmax(), 50);
 		Point p1 = new Point(0, 20);
 		Point p2 = new Point(20, 0);
-		Point p3 = new Point(20, (int)quad.getQuadtreeTailleY());
+		Point p3 = new Point(20, (int)quad.getQuadtreeTailleYmax());
 		Point p4 = new Point(10, 10);
 		
 		isOnLine = quad.estSurLaLigne(p);
@@ -89,7 +89,7 @@ public class QuadtreeTest {
 			quad.insertionEnListe(new Point(nb.nextInt(100 - 0 +1)+0, nb.nextInt(100 - 0 +1)+0));
 		}
 		
-		assertEquals(new Long(4), new Long (quad.getListeDePoint().size()));
+		assertEquals(new Long(0), new Long (quad.getListeDePoint().size()));
 	}
 	
 	@Test

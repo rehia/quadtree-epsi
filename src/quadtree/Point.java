@@ -23,6 +23,8 @@ public class Point {
         if (random == true){
             this.abcisseX = (int)(Math.random() * (max-min));
             this.abcisseX = (int)(Math.random() * (max-min));
+            this.abcisseY = (int)(Math.random() * (max-min));
+            this.abcisseY = (int)(Math.random() * (max-min));
         }
     }
 

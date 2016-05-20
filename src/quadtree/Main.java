@@ -39,19 +39,12 @@ public class Main {
        final int nbPointMax = 4;
 		
   		Quadtree quadtree = new Quadtree();
-  		Point point = new Point(100,0,true);
-  		Point point1 = new Point(100,0,true);
-  		Point point2 = new Point(100,0,true);
-  		Point point3 = new Point(100,0,true);
-  		Point point4 = new Point(100,0,true);
-  		Point point5 = new Point(100,0,true);
-  		Point point6 = new Point(100,0,true);
   		
-  		quadtree.insertUniquePoint(point);
-  		quadtree.insertUniquePoint(point1);
-  		quadtree.insertUniquePoint(point2);
-  		quadtree.insertUniquePoint(point3);
-  		quadtree.insertUniquePoint(point4);
+  		for (int i = 0; i< 50 ; i++)
+  		{
+  			Point Newpoint = new Point(100, 0, true); 
+  			quadtree.insertUniquePoint(Newpoint);
+  		}  
 
   		
       
