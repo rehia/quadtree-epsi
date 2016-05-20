@@ -277,7 +277,6 @@ public class Quadtree  {
 	public void getProfondeurByPoint(int X ,int Y)
 	{
 		boolean isContain = false;
-		System.out.println("Coucou");
 		for(Point p : this.ListeAffichage)
 		{
 			if(p.getAbcisseX() == X && p.getAbcisseY()==  Y)
@@ -290,6 +289,25 @@ public class Quadtree  {
 		{
 			System.out.println("Ce point m'est inconnu il n'est probablement pas dans la liste");
 		}
+	}
+	
+	public void getVoisionOfPoint(int X, int Y)
+	{
+//		ArrayList<Point>listVoisins = new ArrayList<Point>();
+//		Point pvoulu;
+//		:
+//		for (Point p : this.ListeAffichage)
+//		{
+//			System.out.println("Profondeur du point de la liste : "+p.getProfondeur());
+//			System.out.println("Profondeur du point voulue: "+pvoulu.getProfondeur());
+//			if (p.getProfondeur() == pvoulu.getProfondeur())
+//			{
+//				System.out.println("Je suis dedans");
+//				listVoisins.add(p);
+//				System.out.println("Ce point est un voisin : Abcisse "+p.abcisseX+" Ordooné"+p.abcisseY);
+//			}
+//		}
+		System.out.println("Méthode incompléte, compléxité pour la réaliser dans les délais");
 	}
 	
 	

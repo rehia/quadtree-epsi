@@ -31,24 +31,20 @@ public class Main {
        System.out.println("To know the depth of the point "+X_coor+","+Y_coor+" in the tree type YES:");
        Scanner depth_boolean = new Scanner(System.in);
        String depth_bool = depth_boolean.nextLine();
-       System.out.println("Ceci est une var :"+depth_bool);
-  
-      
+
        if(depth_bool.contains("YES"))
        {
-    	   System.out.println("Coucou TOi");
     	   quadtree.getProfondeurByPoint(X_coor, Y_coor);
        }
       
        System.out.println("To know the neighboring of "+X_coor+","+Y_coor+"points of X, Y type YES:");
-       Scanner neighbors_boolean;
-       neighbors_boolean = new Scanner( System.in );
-       String n_bool = neighbors_boolean.toString();
+       Scanner neighbors_boolean = new Scanner( System.in );
+       String n_bool = neighbors_boolean.nextLine();
       
        if (n_bool.contains("YES"))
        {
            //methode voisins de X_coordinate Y_coordinate
-           System.out.println("neu");
+           quadtree.getVoisionOfPoint(X_coor, Y_coor);
        }
                   
        System.out.println("Thank you for using our program. GOODBYE :)");
