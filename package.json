@@ -1,0 +1,35 @@
+{
+  "name": "quadtree-epsi",
+  "version": "1.0.0",
+  "description": "TDD Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter nyan",
+    "test:watch": "npm test -- --watch",
+    "start":"node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnivoliez/quadtree-epsi.git"
+  },
+  "keywords": [
+    "TDD",
+    "NodeJs",
+    "QuadTree"
+  ],
+  "author": "mnivoliez <mathieu.nivoliez@laposte.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnivoliez/quadtree-epsi/issues"
+  },
+  "homepage": "https://github.com/mnivoliez/quadtree-epsi#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-things": "^0.2.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.4"
+  },
+  "dependencies": {
+    "vorpal": "^1.10.10"
+  }
+}
