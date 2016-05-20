@@ -18,11 +18,11 @@ namespace QuadTree_BC
             }
 
             Console.WriteLine("Le QuadTree viens d'être créé !!!");
-            AskSomethingToUser(tree);
 
+            AskSomethingToUser(tree);
         }
 
-
+        #region Private Methods
         private static void AskSomethingToUser(Quadtree tree)
         {
             AfficheLesConsignes();
@@ -41,15 +41,16 @@ namespace QuadTree_BC
                     break;
                 case "2":
                     Console.Clear();
-                    Point point = CreatePoint();
+                    Point point = AskUserAPoint();
                     PrintInfoPoints(tree, point);
+                    AskSomethingToUser(tree);
                     break;
                 default:
                     break;
             }
         }
 
-        private static Point CreatePoint()
+        private static Point AskUserAPoint()
         {
             Console.WriteLine("Entrez le x : ");
             double x = Double.Parse(Console.ReadLine());
@@ -81,14 +82,9 @@ namespace QuadTree_BC
             Console.WriteLine("Tapez 1 pour afficher l'arbre");
             Console.WriteLine("Tapez 2 pour obtenir les infos d'un point");
         }
+        #endregion
 
-        public void AddPoint()
-        {
-            Console.Clear();
-            Console.WriteLine();
-        }
-
-       
+        #region Jeux de tests
         /// <summary>
         /// Jeu de 50 points aleatoires
         /// </summary>
@@ -153,5 +149,6 @@ namespace QuadTree_BC
             listPoint.Add(new Point(80, 80));
             return listPoint;
         }
+        #endregion
     }
 }

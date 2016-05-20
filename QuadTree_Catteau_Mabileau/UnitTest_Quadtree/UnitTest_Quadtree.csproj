@@ -51,9 +51,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="QuadTreeExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestNode.cs" />
+    <Compile Include="UnitTestPoint.cs" />
+    <Compile Include="UnitTestSize.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuadTree\QuadTree.csproj">

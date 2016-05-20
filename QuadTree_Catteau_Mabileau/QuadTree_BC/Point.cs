@@ -19,6 +19,7 @@ namespace QuadTree_BC
             _depth = 0;
         }
 
+        #region Getter & Setter
         public double X()
         {
             return _x;
@@ -31,6 +32,9 @@ namespace QuadTree_BC
         {
             return _depth;
         }
+        #endregion
+
+        #region Public Methods
         public void IncrementDepth()
         {
             _depth += 1;
@@ -41,6 +45,7 @@ namespace QuadTree_BC
         {
             return "Point x : " + X().ToString() + " y: " + Y().ToString();
         }
+        #endregion
 
     }
 }

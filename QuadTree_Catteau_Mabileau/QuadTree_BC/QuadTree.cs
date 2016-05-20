@@ -8,8 +8,6 @@ namespace QuadTree_BC
 {
     public class Quadtree : Node
     { 
-        public Node _tree { get; set; }
-        
         public Quadtree(double size) : base(new Point(0,0), size)
         {  
         }

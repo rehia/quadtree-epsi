@@ -31,17 +31,16 @@ namespace QuadTree_BC
             this._points = new List<Point>();
             this._childs = new Dictionary<Loc, Node>();
         }
-        
 
+
+        #region Getter & Setter
         public Dictionary<Loc, Node> getChilds()
         {
             return _childs;
         }
+        #endregion
 
-        private bool isNodeFull()
-        {
-            return _points.Count > 4;
-        }
+        #region Public Methods
 
         public void addPoint(Point newPoint)
         {
@@ -53,87 +52,16 @@ namespace QuadTree_BC
             }
         }
 
-        private bool isContained(Point P)
-        {
-            if (P.X() > this._x
-            && P.X() < this._x + _size
-            && P.Y() > this._y
-            && P.Y() < this._y + _size)
-                return true;
-            else
-                return false;
-        } 
-
         public int getNbPoint()
         {
             return _points.Count;
         }
-        
-        private bool havePoint()
-        {
-            return _points.Count > 1;
-        }
+
         public bool haveChildren()
         {
             return _childs.Count > 0;
         }
-         
-        private void createChildrenNodes()
-        {
-            if (!haveChildren()) 
-            {
-                _childs.Add(Loc.NO, new Node(getNordOuest(), this._halfSize));
-                _childs.Add(Loc.NE, new Node(getNordEst(),   this._halfSize));
-                _childs.Add(Loc.SE, new Node(getSudEst(),    this._halfSize));
-                _childs.Add(Loc.SO, new Node(getSudOuest(),  this._halfSize));
-            } 
-        }
-
-        /// <summary>
-        ///     Répartit les points courants dans les noeuds enfants.
-        ///     Si le point est à cheval sur deux enfants il reste sur le parent 
-        /// </summary>
-        private void addPointsToChildrens()
-        {
-            for (int i = getNbPoint() - 1; i >= 0; i--)
-            {
-                foreach (Node child in _childs.Values)
-                {
-                    if (child.isContained(_points[i]))
-                    {
-                        _points[i].IncrementDepth();
-                        child.addPoint(_points[i]);
-                        _points.Remove(_points[i]);
-                        break;
-                    }
-                }
-            }
-        }
-
-        private Point getNordOuest()
-        {
-            return new Point(this._x, this._y + _halfSize);
-        }
-        private Point getNordEst()
-        {
-            return new Point(this._x + _halfSize, this._y + _halfSize);
-        }
-        private Point getSudOuest()
-        {
-            return new Point(this._x, this._y);
-        }
-        private Point getSudEst()
-        {
-            return new Point(this._x + _halfSize, this._y);
-        }
-
-        public void PrintListPoint()
-        {
-            foreach (Point point in _points)
-            {
-                point.ToString();
-            }
-        }
+        
         public void printDepth(int depth, String indentation = "")
         {
             if (isNodeFull())
@@ -150,7 +78,7 @@ namespace QuadTree_BC
                             Console.WriteLine(indentation + point.ToString());
                         }
                         Console.WriteLine(indentation + loc + " Profondeur : " + depth + " Nombre de points : " + _childs[loc].getNbPoint());
-                        Trace.WriteLine(indentation + "Node" +loc+ " " + depth);
+                        Trace.WriteLine(indentation + "Node" + loc + " " + depth);
                     }
                     else
                     {
@@ -187,7 +115,89 @@ namespace QuadTree_BC
             return result;
         }
 
-        public bool NodeHavePoint(Point p)
+        public int getNodeDepth()
+        {
+            if (_points.Count > 0)
+                return _points[0].Depth();
+            else
+                return 0;
+        }
+
+        public List<Point> getPointsVoisins(Point fromPoint)
+        {
+            List<Point> listVoisins = new List<Point>();
+            foreach (Point p in _points)
+            {
+                if (p != fromPoint)
+                    listVoisins.Add(p);
+            }
+            return listVoisins;
+        }
+
+        public void printPointsVoisins()
+        {
+            foreach (Point p in _points)
+                Console.WriteLine("P: " + p.ToString());
+        }
+        #endregion
+
+        #region Private Methods
+
+        private bool isNodeFull()
+        {
+            return _points.Count > 4;
+        }
+
+        private bool isContained(Point P)
+        {
+            if (P.X() > this._x
+            && P.X() < this._x + _size
+            && P.Y() > this._y
+            && P.Y() < this._y + _size)
+                return true;
+            else
+                return false;
+        } 
+
+        private bool havePoint()
+        {
+            return _points.Count > 1;
+        }
+        
+         
+        private void createChildrenNodes()
+        {
+            if (!haveChildren()) 
+            {
+                _childs.Add(Loc.NO, new Node(getNordOuest(), this._halfSize));
+                _childs.Add(Loc.NE, new Node(getNordEst(),   this._halfSize));
+                _childs.Add(Loc.SE, new Node(getSudEst(),    this._halfSize));
+                _childs.Add(Loc.SO, new Node(getSudOuest(),  this._halfSize));
+            } 
+        }
+
+        /// <summary>
+        ///     Répartit les points courants dans les noeuds enfants.
+        ///     Si le point est à cheval sur deux enfants il reste sur le parent 
+        /// </summary>
+        private void addPointsToChildrens()
+        {
+            for (int i = getNbPoint() - 1; i >= 0; i--)
+            {
+                foreach (Node child in _childs.Values)
+                {
+                    if (child.isContained(_points[i]))
+                    {
+                        _points[i].IncrementDepth();
+                        child.addPoint(_points[i]);
+                        _points.Remove(_points[i]);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private bool NodeHavePoint(Point p)
         {
             bool result = false;
             foreach (var point in _points)
@@ -200,29 +210,23 @@ namespace QuadTree_BC
             }
             return result;
         }
-        public int getNodeDepth()
-        {
-            if (_points.Count > 0)
-                return _points[0].Depth();
-            else
-                return 0;
-        }
-        public List<Point> getPointsVoisins(Point fromPoint)
-        {
-            List<Point> listVoisins = new List<Point>();
-            foreach (Point p in _points)
-            {
-                if (p != fromPoint)
-                    listVoisins.Add(p);
-            }
-            return listVoisins;
-        }
-        public void printPointsVoisins()
-        {
-            foreach (Point p in _points)
-                Console.WriteLine("P: " + p.ToString());
-        }
 
-
+        private Point getNordOuest()
+        {
+            return new Point(this._x, this._y + _halfSize);
+        }
+        private Point getNordEst()
+        {
+            return new Point(this._x + _halfSize, this._y + _halfSize);
+        }
+        private Point getSudOuest()
+        {
+            return new Point(this._x, this._y);
+        }
+        private Point getSudEst()
+        {
+            return new Point(this._x + _halfSize, this._y);
+        }
+        #endregion
     }
 }

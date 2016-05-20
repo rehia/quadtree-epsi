@@ -8,15 +8,16 @@ namespace QuadTree_BC
 {
     public class Size
     {
-        public double _height { get; set; }
-        public double _width { get; set; }
+        private double _height;
+        private double _width;
 
         public Size(int height, int width)
         {
             _height = height;
-            _width = _width;
+            _width = width;
         }
-        public double getHalf()
+
+        public double getHalfHeight()
         {
             return _height / 2;
         }
