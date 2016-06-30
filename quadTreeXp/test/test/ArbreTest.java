@@ -133,7 +133,7 @@ public class ArbreTest {
         assertEquals(rectangle, rectangleEnfant1);
     }
     
-    @Test
+    /*@Test
     public void getRectangleDescendantContientDesRectangles(){
         rectangleEnfant3 = new Rectangle(new Point(10,10),10,10);
         point2 = new Point(10,10);
@@ -144,7 +144,7 @@ public class ArbreTest {
         rectangleEnfant2 = arbre.getRectangleDescendant(rectangle, point2);
         
         assertEquals(rectangleEnfant3, rectangleEnfant2);
-    }
+    }*/
 
 
 }
