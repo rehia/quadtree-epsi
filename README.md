@@ -1,3 +1,22 @@
+# Rendu ANIEL & SANIE - I4 Classe 1
+
+## Requirements
+
+    - Node installed of your computer.
+    - Mocha installed globaly.
+
+## Dependencies installation
+
+    - npm install
+
+## Launch tests:
+
+    - npm test
+
+## Build in a bundle.map.js
+
+    - npm run build
+
 # quadtree-epsi
 Projet de développement pour la mise en oeuvre de TDD et des principes de Clean Code, autour du Quadtree
 
@@ -31,7 +50,7 @@ De proche en proche, cette structure devient un arbre, dans laquelle une branche
 
 On doit pouvoir interroger le quadtree de 2 façons :
 
-- d'une part, pour connaître la profondeur d'un point dans l'arbre, en passant les coordonnées X,Y du point. 
+- d'une part, pour connaître la profondeur d'un point dans l'arbre, en passant les coordonnées X,Y du point.
 - d'autre part, pour connaître les points les plus proches d'un point donné, toujours grâce aux coordonnées X,Y de ce dernier. Les points les plus proches sont évidemment ceux appartenant au même noeud. Pour un point n'ayant pas été ventilé, car se trouvant à cheval sur plusieurs noeuds fils, les points les plus proches sont l'ensemble des points se trouvant dans les noeuds descendants (quelque soit leur profondeur).
 
 ## Livraison
@@ -42,12 +61,12 @@ Liste des livrables :
 - Le script et son manuel d'utilisation (succinct)
 - Le contexte d'exécution de votre code (OS, Runtime, Versions, etc.)
 
-De préférence, forkez ce repository, et utilisez le fork pour commiter votre code. Commitez à chaque cycle TDD (après le refactor, et avant le prochain red). Faites une pull request une fois que vous avez terminé. 
+De préférence, forkez ce repository, et utilisez le fork pour commiter votre code. Commitez à chaque cycle TDD (après le refactor, et avant le prochain red). Faites une pull request une fois que vous avez terminé.
 
 ## Notation
 Vous serez notés sur votre compréhension de la démarche TDD, et sur les principes de Clean Code. La performance du système n'entrera pas en ligne de compte, sauf s'il répond de manière anormalement lente (plus d'une trentaine de secondes... c'est large...).
 
-Rappelez-vous les 2 choses suivantes : 
+Rappelez-vous les 2 choses suivantes :
 
 - "*First, make it work (and prove it by a test), then make it right*"
 - Une code propre est avant tout un code testé
