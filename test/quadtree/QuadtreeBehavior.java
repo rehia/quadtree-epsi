@@ -16,4 +16,26 @@ public class QuadtreeBehavior {
 		assertTrue(quadtree.hasPoint(point));
 	}
 
+	@Test
+	public void shouldNotPushPointToQuadtreeWhenOutOfBounds() {
+		Quadtree quadtree = new Quadtree(100, 100);
+		Point point = new Point(1000, 20);
+		
+		quadtree.push(point);
+		
+		assertFalse(quadtree.hasPoint(point));
+	}
+
+	@Test
+	public void shouldPushPointToQuadtreeWhenOnBounds() {
+		Quadtree quadtree = new Quadtree(100, 100);
+		Point northEastPoint = new Point(100, 100);
+		Point southWestPoint = new Point(0, 0);
+		
+		quadtree.push(northEastPoint);
+		quadtree.push(southWestPoint);
+		
+		assertTrue(quadtree.hasPoint(northEastPoint));
+		assertTrue(quadtree.hasPoint(southWestPoint));
+	}
 }
