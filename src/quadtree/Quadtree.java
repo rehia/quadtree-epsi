@@ -5,15 +5,11 @@ import java.util.List;
 
 public class Quadtree {
 
-	private double height;
-	private double width;
-	private Point origin;
+	private Bounds bounds;
 	private List<Point> points;
 
 	public Quadtree(Point origin, double height, double width) {
-		this.origin = origin;
-		this.height = height;
-		this.width = width;
+		this.bounds = new Bounds(origin, height, width);
 		this.points = new ArrayList<Point>();
 	}
 
@@ -28,15 +24,10 @@ public class Quadtree {
 	}
 
 	private boolean isInBounds(Point point) {
-		return point.getX() >= this.origin.getX() 
-				&& point.getX() <= this.width
-				&& point.getY() >= this.origin.getY()
-				&& point.getY() <= this.height;
+		return this.bounds.isInOrOn(point);
 	}
 
 	public boolean hasPoint(Point point) {
 		return this.points.contains(point);
 	}
-
-	
 }
