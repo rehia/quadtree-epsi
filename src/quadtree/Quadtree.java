@@ -30,4 +30,8 @@ public class Quadtree {
 	public boolean hasPoint(Point point) {
 		return this.points.contains(point);
 	}
+
+	public int depthOf(Point point) {
+		return 1;
+	}
 }

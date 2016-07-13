@@ -2,13 +2,20 @@ package quadtree;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class QuadtreeBehavior {
+	
+	private Quadtree quadtree;
+
+	@Before
+	public void before() {
+		quadtree = new Quadtree(100, 100);		
+	}
 
 	@Test
 	public void shouldPushPointToQuadtreeWhenInBounds() {
-		Quadtree quadtree = new Quadtree(100, 100);
 		Point point = new Point(10, 20);
 		
 		quadtree.push(point);
@@ -18,7 +25,6 @@ public class QuadtreeBehavior {
 
 	@Test
 	public void shouldNotPushPointToQuadtreeWhenOutOfBounds() {
-		Quadtree quadtree = new Quadtree(100, 100);
 		Point point = new Point(1000, 20);
 		
 		quadtree.push(point);
@@ -28,7 +34,6 @@ public class QuadtreeBehavior {
 
 	@Test
 	public void shouldPushPointToQuadtreeWhenOnBounds() {
-		Quadtree quadtree = new Quadtree(100, 100);
 		Point northEastPoint = new Point(100, 100);
 		Point southWestPoint = new Point(0, 0);
 		
@@ -37,5 +42,14 @@ public class QuadtreeBehavior {
 		
 		assertTrue(quadtree.hasPoint(northEastPoint));
 		assertTrue(quadtree.hasPoint(southWestPoint));
+	}
+	
+	@Test
+	public void shouldHaveADepthOf1When1PointInQuadtree() {
+		Point point = new Point(10, 20);
+		
+		quadtree.push(point);
+		
+		assertEquals(1, quadtree.depthOf(point));
 	}
 }
