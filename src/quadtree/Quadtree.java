@@ -10,19 +10,22 @@ public class Quadtree {
 	private final static int MAX_CAPACITY = 4;
 
 	private Bounds bounds;
+	private int depth;
 	private List<Point> points;
 	private Map<Cardinals, Quadtree> children;
 
+
 	private Quadtree(double xOrigin, double yOrigin, double width, double height) {
-		this(new Bounds(xOrigin, yOrigin, width, height));
+		this(new Bounds(xOrigin, yOrigin, width, height), 1);
 	}
 
 	public Quadtree(double height, double width) {
 		this(0, 0, width, height);
 	}
 
-	private Quadtree(Bounds bounds) {
+	private Quadtree(Bounds bounds, int depth) {
 		this.bounds = bounds;
+		this.depth = depth;
 		this.points = new ArrayList<Point>();
 		this.children = new HashMap<Cardinals, Quadtree>();
 	}
@@ -32,7 +35,7 @@ public class Quadtree {
 			return;
 		}
 		
-		if (isInBounds(point)) {
+		if (this.isInBounds(point)) {
 			this.points.add(point);
 		}
 		
@@ -72,7 +75,7 @@ public class Quadtree {
 	private void splitIntoChildren() {
 		Map<Cardinals, Bounds> nestedBounds = this.bounds.split();
 		for (Cardinals cardinal: nestedBounds.keySet()) {
-			this.children.put(cardinal, new Quadtree(nestedBounds.get(cardinal)));
+			this.children.put(cardinal, new Quadtree(nestedBounds.get(cardinal), this.depth + 1));
 		}
 	}
 
@@ -89,7 +92,11 @@ public class Quadtree {
 	}
 
 	public int depthOf(Point point) {
-		return 1;
+		int pointDepth = this.hasPoint(point) ? this.depth : 0;
+		for (Quadtree childQuadtree : this.children.values()) {
+			pointDepth += childQuadtree.depthOf(point);
+		}
+		return pointDepth;
 	}
 
 	public Quadtree child(Cardinals cardinal) {

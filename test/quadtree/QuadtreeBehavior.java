@@ -125,4 +125,24 @@ public class QuadtreeBehavior {
 		
 		assertFalse(quadtree.hasPoint(southWestPoint));
 	}
+	
+	@Test
+	public void shouldHaveADepthOf0WhenPointDoesNotExistInQuadtree() {
+		Point point = new Point(10, 10);
+		
+		assertEquals(0, quadtree.depthOf(point));
+	}
+	
+	@Test
+	public void shouldHaveAHigherDepthWhenPointsAreSpread() {
+		Point southWestPoint = new Point(10, 10);
+		
+		quadtree.push(southWestPoint);
+		quadtree.push(new Point(60, 10));
+		quadtree.push(new Point(90, 60));
+		quadtree.push(new Point(60, 80));
+		quadtree.push(new Point(10, 90));
+		
+		assertEquals(2, quadtree.depthOf(southWestPoint));
+	}
 }
