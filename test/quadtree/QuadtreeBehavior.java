@@ -91,6 +91,26 @@ public class QuadtreeBehavior {
 	}
 	
 	@Test
+	public void shouldNotSplitQuadtreeEachTimeQuadtreeReachesMaxCapacity() {
+		Point southWestPoint = new Point(10, 10);
+		Point southEastPoint = new Point(60, 10);
+		Point northEastPoint = new Point(60, 80);
+		Point northEastPoint2 = new Point(90, 60);
+		Point northWestPoint = new Point(10, 90);
+		Point northWestPoint2 = new Point(45, 75);
+		
+		quadtree.push(southWestPoint);
+		quadtree.push(southEastPoint);
+		quadtree.push(northEastPoint2);
+		quadtree.push(northEastPoint);
+		quadtree.push(northWestPoint);
+		quadtree.push(northWestPoint2);
+
+		assertTrue(quadtree.child(Cardinals.NW).hasPoint(northWestPoint));
+		assertTrue(quadtree.child(Cardinals.NW).hasPoint(northWestPoint2));
+	}
+	
+	@Test
 	public void shouldNotPushPointWhenAlreadyExists() {
 		quadtree.push(new Point(10, 20));
 		quadtree.push(new Point(10, 20));

@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Quadtree {
-	
+
 	private final static int MAX_CAPACITY = 4;
 
 	private Bounds bounds;
 	private int depth;
 	private List<Point> points;
 	private Map<Cardinals, Quadtree> children;
-
 
 	private Quadtree(double xOrigin, double yOrigin, double width, double height) {
 		this(new Bounds(xOrigin, yOrigin, width, height), 1);
@@ -31,17 +30,19 @@ public class Quadtree {
 	}
 
 	public void push(Point point) {
-		if (this.pointAlreadyPushed(point)) {
+		if (this.pointAlreadyPushed(point) || this.isOutOfBounds(point)) {
 			return;
 		}
 		
-		if (this.isInBounds(point)) {
-			this.points.add(point);
-		}
-		
-		if (this.hasReachedCapacity()) {
+		if (this.isLeaf() && this.hasReachedCapacity()) {
 			this.splitIntoChildren();
 			this.spreadPointsToChildren();
+		}
+		
+		if (this.isLeaf()) {
+			this.points.add(point);
+		} else {
+			this.spreadSinglePointToChildren(point);
 		}
 	}
 
@@ -51,7 +52,7 @@ public class Quadtree {
 
 	private boolean pointAlreadySpread(Point point) {
 		boolean alreadySpread = false;
-		for (Quadtree childQuadtree: this.children.values()) {
+		for (Quadtree childQuadtree : this.children.values()) {
 			alreadySpread |= childQuadtree.pointAlreadyPushed(point);
 		}
 		return alreadySpread;
@@ -60,31 +61,35 @@ public class Quadtree {
 	private void spreadPointsToChildren() {
 		List<Point> spreadPoints = new ArrayList<Point>();
 		for (Point point : this.points) {
-			for (Quadtree childQuadtree : this.children.values()) {
-				childQuadtree.push(point);
-			}
+			this.spreadSinglePointToChildren(point);
 			if (this.pointAlreadySpread(point)) {
 				spreadPoints.add(point);
 			}
 		}
-		for (Point point : spreadPoints) {			
+		for (Point point : spreadPoints) {
 			this.points.remove(point);
+		}
+	}
+
+	private void spreadSinglePointToChildren(Point point) {
+		for (Quadtree childQuadtree : this.children.values()) {
+			childQuadtree.push(point);
 		}
 	}
 
 	private void splitIntoChildren() {
 		Map<Cardinals, Bounds> nestedBounds = this.bounds.split();
-		for (Cardinals cardinal: nestedBounds.keySet()) {
+		for (Cardinals cardinal : nestedBounds.keySet()) {
 			this.children.put(cardinal, new Quadtree(nestedBounds.get(cardinal), this.depth + 1));
 		}
 	}
 
 	private boolean hasReachedCapacity() {
-		return this.points.size() > MAX_CAPACITY;
+		return this.points.size() == MAX_CAPACITY;
 	}
 
-	private boolean isInBounds(Point point) {
-		return this.bounds.isInOrOn(point);
+	private boolean isOutOfBounds(Point point) {
+		return !this.bounds.isInOrOn(point);
 	}
 
 	public boolean hasPoint(Point point) {
