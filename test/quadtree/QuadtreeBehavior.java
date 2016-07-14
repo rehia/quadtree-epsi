@@ -100,4 +100,16 @@ public class QuadtreeBehavior {
 		
 		assertFalse(quadtree.hasChildren());
 	}
+	
+	@Test
+	public void shouldNotPushPointWhenAlreadyExistsInChildren() {
+		quadtree.push(new Point(5, 5));
+		quadtree.push(new Point(10, 10));
+		quadtree.push(new Point(15, 15));
+		quadtree.push(new Point(20, 20)); // Root + SW max capacity reached
+		quadtree.push(new Point(60, 60)); // split Root
+		quadtree.push(new Point(20, 20));
+		
+		assertFalse(quadtree.child(Cardinals.SW).hasChildren());
+	}
 }

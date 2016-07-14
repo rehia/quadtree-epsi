@@ -43,7 +43,15 @@ public class Quadtree {
 	}
 
 	private boolean pointAlreadyPushed(Point point) {
-		return this.hasPoint(point);
+		return this.hasPoint(point) || this.pointAlreadySpread(point);
+	}
+
+	private boolean pointAlreadySpread(Point point) {
+		boolean alreadySpread = false;
+		for (Quadtree childQuadtree: this.children.values()) {
+			alreadySpread |= childQuadtree.pointAlreadyPushed(point);
+		}
+		return alreadySpread;
 	}
 
 	private void spreadPointsToChildren() {
