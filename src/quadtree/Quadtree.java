@@ -28,6 +28,10 @@ public class Quadtree {
 	}
 
 	public void push(Point point) {
+		if (this.pointAlreadyPushed(point)) {
+			return;
+		}
+		
 		if (isInBounds(point)) {
 			this.points.add(point);
 		}
@@ -36,6 +40,10 @@ public class Quadtree {
 			this.splitIntoChildren();
 			this.spreadPointsToChildren();
 		}
+	}
+
+	private boolean pointAlreadyPushed(Point point) {
+		return this.hasPoint(point);
 	}
 
 	private void spreadPointsToChildren() {

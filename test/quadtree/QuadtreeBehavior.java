@@ -89,4 +89,15 @@ public class QuadtreeBehavior {
 		assertTrue(quadtree.child(Cardinals.NE).hasPoint(northEastPoint));
 		assertTrue(quadtree.child(Cardinals.NE).hasPoint(northEastPoint2));
 	}
+	
+	@Test
+	public void shouldNotPushPointWhenAlreadyExists() {
+		quadtree.push(new Point(10, 20));
+		quadtree.push(new Point(10, 20));
+		quadtree.push(new Point(10, 20));
+		quadtree.push(new Point(10, 20));
+		quadtree.push(new Point(10, 20));
+		
+		assertFalse(quadtree.hasChildren());
+	}
 }
