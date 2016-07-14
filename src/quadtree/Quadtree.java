@@ -55,10 +55,17 @@ public class Quadtree {
 	}
 
 	private void spreadPointsToChildren() {
+		List<Point> spreadPoints = new ArrayList<Point>();
 		for (Point point : this.points) {
 			for (Quadtree childQuadtree : this.children.values()) {
-				childQuadtree.push(point);	
+				childQuadtree.push(point);
 			}
+			if (this.pointAlreadySpread(point)) {
+				spreadPoints.add(point);
+			}
+		}
+		for (Point point : spreadPoints) {			
+			this.points.remove(point);
 		}
 	}
 

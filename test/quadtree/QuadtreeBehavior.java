@@ -112,4 +112,17 @@ public class QuadtreeBehavior {
 		
 		assertFalse(quadtree.child(Cardinals.SW).hasChildren());
 	}
+	
+	@Test
+	public void shouldRemovePointsFromParentQuadtreeWhenPointsAreSpreadIntoChildren() {
+		Point southWestPoint = new Point(10, 10);
+		
+		quadtree.push(southWestPoint);
+		quadtree.push(new Point(60, 10));
+		quadtree.push(new Point(90, 60));
+		quadtree.push(new Point(60, 80));
+		quadtree.push(new Point(10, 90));
+		
+		assertFalse(quadtree.hasPoint(southWestPoint));
+	}
 }
