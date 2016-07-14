@@ -2,8 +2,9 @@ package quadtree;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class QuadtreeBehavior {
@@ -181,5 +182,53 @@ public class QuadtreeBehavior {
 		
 		assertTrue(quadtree.hasPoint(center));
 		assertTrue(quadtree.hasPoint(origin));
+	}
+	
+	@Test
+	public void shouldBeNeighborsWhenInSameQuadtree() {
+		Point point = new Point(10, 10);
+		Point neighbor = new Point(60, 90);
+		
+		quadtree.push(point);
+		quadtree.push(neighbor);
+		
+		List<Point> neighbors = quadtree.neighborsOf(point);
+		
+		assertEquals(1, neighbors.size());
+		assertEquals(neighbor, neighbors.get(0));
+	}
+	
+	@Test
+	public void shouldNotBeNeighborsWhenNotInSameQuadtree() {
+		Point southWestPoint = new Point(10, 10);
+		Point southEastPoint = new Point(60, 10);
+		Point northEastPoint = new Point(60, 80);
+		Point northEastPoint2 = new Point(90, 60);
+		Point northWestPoint = new Point(10, 90);
+		
+		quadtree.push(southWestPoint);
+		quadtree.push(southEastPoint);
+		quadtree.push(northEastPoint);
+		quadtree.push(northEastPoint2);
+		quadtree.push(northWestPoint);
+		
+		List<Point> northEastNeighbors = quadtree.neighborsOf(northEastPoint);
+
+		assertEquals(1, northEastNeighbors.size());
+	}
+	
+	@Test
+	public void shouldBeNeighborsWhenInChildrenQuadtree() {
+		quadtree.push(new Point(10, 10));
+		quadtree.push(new Point(60, 10));
+		quadtree.push(new Point(90, 60));
+		quadtree.push(new Point(60, 80));
+		
+		Point center = new Point(50, 50);
+		quadtree.push(center);
+		
+		List<Point> neighbors = quadtree.neighborsOf(center);
+		
+		assertEquals(4, neighbors.size());
 	}
 }

@@ -33,12 +33,12 @@ public class Quadtree {
 		if (this.pointAlreadyPushed(point) || this.isOutOfBounds(point)) {
 			return;
 		}
-		
+
 		if (this.isLeaf() && this.hasReachedCapacity()) {
 			this.splitIntoChildren();
 			this.spreadPointsToChildren();
 		}
-		
+
 		this.spreadSinglePointToChildren(point);
 	}
 
@@ -87,8 +87,7 @@ public class Quadtree {
 	}
 
 	private boolean isInBounds(Point point) {
-		return this.bounds.isStrictlyIn(point) || 
-				(this.isRoot() && this.bounds.isOn(point));
+		return this.bounds.isStrictlyIn(point) || (this.isRoot() && this.bounds.isOn(point));
 	}
 
 	private boolean isRoot() {
@@ -117,5 +116,33 @@ public class Quadtree {
 
 	private boolean isLeaf() {
 		return this.children.isEmpty();
+	}
+
+	public List<Point> neighborsOf(Point point) {
+		List<Point> neighbors = this.defineNeighbors(point);
+		neighbors.remove(point);
+		return neighbors;
+	}
+
+	private List<Point> defineNeighbors(Point point) {
+		if (this.hasPoint(point)) {
+			return this.allDescendingPoints();
+		}
+
+		List<Point> neighbors = new ArrayList<>();
+		for (Quadtree childQuadtree : this.children.values()) {
+			neighbors.addAll(childQuadtree.defineNeighbors(point));
+		}
+		return neighbors;
+	}
+
+	private List<Point> allDescendingPoints() {
+		List<Point> allPoints = new ArrayList<>(this.points);
+
+		for (Quadtree childQuadtree : this.children.values()) {
+			allPoints.addAll(childQuadtree.allDescendingPoints());
+		}
+
+		return allPoints;
 	}
 }
