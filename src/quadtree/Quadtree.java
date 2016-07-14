@@ -8,13 +8,13 @@ public class Quadtree {
 	private Bounds bounds;
 	private List<Point> points;
 
-	public Quadtree(Point origin, double height, double width) {
-		this.bounds = new Bounds(origin, height, width);
+	private Quadtree(double xOrigin, double yOrigin, double height, double width) {
+		this.bounds = new Bounds(xOrigin, yOrigin, height, width);
 		this.points = new ArrayList<Point>();
 	}
 
 	public Quadtree(double height, double width) {
-		this(new Point(), height, width);
+		this(0, 0, height, width);
 	}
 
 	public void push(Point point) {
