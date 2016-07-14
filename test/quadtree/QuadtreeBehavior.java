@@ -3,6 +3,7 @@ package quadtree;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class QuadtreeBehavior {
@@ -51,5 +52,41 @@ public class QuadtreeBehavior {
 		quadtree.push(point);
 		
 		assertEquals(1, quadtree.depthOf(point));
+	}
+	
+	@Test
+	public void shouldSplitQuadtreeWhenReachesMaxCapacity() {
+		Point southWestPoint = new Point(10, 10);
+		Point southEastPoint = new Point(60, 10);
+		Point southEastPoint2 = new Point(90, 30);
+		Point northEastPoint = new Point(60, 80);
+		Point northWestPoint = new Point(10, 90);
+		
+		quadtree.push(southWestPoint);
+		quadtree.push(southEastPoint);
+		quadtree.push(southEastPoint2);
+		quadtree.push(northEastPoint);
+		quadtree.push(northWestPoint);
+		
+		assertTrue(quadtree.hasChildren());
+	}
+	
+	@Test
+	public void shouldSpreadQuadtreePointsWhenReachesMaxCapacity() {
+		Point southWestPoint = new Point(10, 10);
+		Point southEastPoint = new Point(60, 10);
+		Point northEastPoint = new Point(60, 80);
+		Point northEastPoint2 = new Point(90, 60);
+		Point northWestPoint = new Point(10, 90);
+		
+		quadtree.push(southWestPoint);
+		quadtree.push(southEastPoint);
+		quadtree.push(northEastPoint2);
+		quadtree.push(northEastPoint);
+		quadtree.push(northWestPoint);
+		
+		assertTrue(quadtree.child(Cardinals.SW).hasPoint(southWestPoint));
+		assertTrue(quadtree.child(Cardinals.NE).hasPoint(northEastPoint));
+		assertTrue(quadtree.child(Cardinals.NE).hasPoint(northEastPoint2));
 	}
 }
