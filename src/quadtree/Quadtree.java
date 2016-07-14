@@ -39,11 +39,7 @@ public class Quadtree {
 			this.spreadPointsToChildren();
 		}
 		
-		if (this.isLeaf()) {
-			this.points.add(point);
-		} else {
-			this.spreadSinglePointToChildren(point);
-		}
+		this.spreadSinglePointToChildren(point);
 	}
 
 	private boolean pointAlreadyPushed(Point point) {
@@ -59,21 +55,19 @@ public class Quadtree {
 	}
 
 	private void spreadPointsToChildren() {
-		List<Point> spreadPoints = new ArrayList<Point>();
-		for (Point point : this.points) {
+		List<Point> pointsToSpread = new ArrayList<>(this.points);
+		this.points.clear();
+		for (Point point : pointsToSpread) {
 			this.spreadSinglePointToChildren(point);
-			if (this.pointAlreadySpread(point)) {
-				spreadPoints.add(point);
-			}
-		}
-		for (Point point : spreadPoints) {
-			this.points.remove(point);
 		}
 	}
 
 	private void spreadSinglePointToChildren(Point point) {
 		for (Quadtree childQuadtree : this.children.values()) {
 			childQuadtree.push(point);
+		}
+		if (!this.pointAlreadySpread(point)) {
+			this.points.add(point);
 		}
 	}
 
@@ -89,7 +83,16 @@ public class Quadtree {
 	}
 
 	private boolean isOutOfBounds(Point point) {
-		return !this.bounds.isInOrOn(point);
+		return !this.isInBounds(point);
+	}
+
+	private boolean isInBounds(Point point) {
+		return this.bounds.isStrictlyIn(point) || 
+				(this.isRoot() && this.bounds.isOn(point));
+	}
+
+	private boolean isRoot() {
+		return this.depth == 1;
 	}
 
 	public boolean hasPoint(Point point) {

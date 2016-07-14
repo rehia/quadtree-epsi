@@ -34,7 +34,7 @@ public class QuadtreeBehavior {
 	}
 
 	@Test
-	public void shouldPushPointToQuadtreeWhenOnBounds() {
+	public void shouldPushPointToQuadtreeWhenOnBoundsForRootQuadtree() {
 		Point northEastPoint = new Point(100, 100);
 		Point southWestPoint = new Point(0, 0);
 		
@@ -164,5 +164,22 @@ public class QuadtreeBehavior {
 		quadtree.push(new Point(10, 90));
 		
 		assertEquals(2, quadtree.depthOf(southWestPoint));
+	}
+	
+	@Test
+	public void shouldNotSpreadPointsThatAreOnBounds() {
+		quadtree.push(new Point(10, 10));
+		quadtree.push(new Point(60, 10));
+		quadtree.push(new Point(90, 60));
+		quadtree.push(new Point(60, 80));
+		
+		Point center = new Point(50, 50);
+		quadtree.push(center);
+
+		Point origin = new Point(0, 0);
+		quadtree.push(origin);
+		
+		assertTrue(quadtree.hasPoint(center));
+		assertTrue(quadtree.hasPoint(origin));
 	}
 }

@@ -16,11 +16,11 @@ public class Bounds {
 		this.width = width;
 	}
 	
-	public boolean isInOrOn(Point point) {
-		return point.getX() >= this.xOrigin
-				&& point.getX() <= this.xOrigin + this.width
-				&& point.getY() >= this.yOrigin
-				&& point.getY() <= this.yOrigin + this.height;
+	public boolean isStrictlyIn(Point point) {
+		return point.getX() > this.xOrigin
+				&& point.getX() < this.xOrigin + this.width
+				&& point.getY() > this.yOrigin
+				&& point.getY() < this.yOrigin + this.height;
 	}
 
 	public Map<Cardinals, Bounds> split() {
@@ -36,5 +36,12 @@ public class Bounds {
 		nestedBounds.put(Cardinals.NW, new Bounds(xOrigin, yCenter, halfWidth, halfHeight));
 		
 		return nestedBounds;
+	}
+
+	public boolean isOn(Point point) {
+		return point.getX() == this.xOrigin
+				|| point.getX() == this.xOrigin + this.width
+				|| point.getY() == this.yOrigin
+				|| point.getY() == this.yOrigin + this.height;
 	}
 }
