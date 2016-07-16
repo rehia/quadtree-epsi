@@ -1,6 +1,14 @@
 # quadtree-epsi
 Projet de développement pour la mise en oeuvre de TDD et des principes de Clean Code, autour du Quadtree
 
+## Utilisation
+
+Pour exécuter le code, générez le jar et exécutez le simplement avec `java -jar` (Java 8). Vous pouvez aussi utiliser Docker pour le faire.
+
+Générez l'image avec `docker build -t corrige-quadtree .` et exécutez-la avec `docker run -it --rm corrige-quadtree`.
+
+Un quadtree de 50 points est généré. Vous pouvez interroger n'importe quel point du quadtree. Si vous interrogez un point qui n'existe pas, il sera injecté dans le quadtree.
+
 ## Contexte
 Cet exercice noté a pour objectif de valider votre compréhension du Test Driven Development, et des principes de Clean Code.
 
