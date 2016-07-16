@@ -10,10 +10,6 @@ public class Point {
 		this.y = y;
 	}
 
-	public Point() {
-		this(0, 0);
-	}
-
 	public int getX() {
 		return this.x;
 	}
@@ -29,6 +25,11 @@ public class Point {
 		}
 		Point other = (Point) obj;
 		return this.x == other.x && this.y == other.y;
+	}
+	
+	@Override
+	public String toString() {
+		return "{" + x + "," + y + "}";
 	}
 
 	public static Point random(int maxX, int maxY) {

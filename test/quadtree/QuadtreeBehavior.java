@@ -231,4 +231,37 @@ public class QuadtreeBehavior {
 		
 		assertEquals(4, neighbors.size());
 	}
+	
+	@Test
+	public void shouldFormatQuadtreeAsAStringWhenNoPoints() {
+		String[] quadtreeLines = quadtree.toString().split("\n");
+		
+		assertEquals("Root (0) - []", quadtreeLines[0]);
+	}
+	
+	@Test
+	public void shouldFormatQuadtreeAsAStringWhen1Point() {
+		quadtree.push(new Point(10, 15));
+		
+		String[] quadtreeLines = quadtree.toString().split("\n");
+		
+		assertEquals("Root (1) - [{10,15}]", quadtreeLines[0]);
+	}
+	
+	@Test
+	public void shouldFormatQuadtreeAsAStringWhenSplit() {
+		quadtree.push(new Point(10, 10));
+		quadtree.push(new Point(60, 10));
+		quadtree.push(new Point(60, 80));
+		quadtree.push(new Point(90, 60));
+		quadtree.push(new Point(10, 90));
+		
+		String[] quadtreeLines = quadtree.toString().split("\n");
+		
+		assertEquals("Root (0) - []", quadtreeLines[0]);
+		assertEquals("\tSW (1) - [{10,10}]", quadtreeLines[1]);
+		assertEquals("\tSE (1) - [{60,10}]", quadtreeLines[2]);
+		assertEquals("\tNE (2) - [{60,80}, {90,60}]", quadtreeLines[3]);
+		assertEquals("\tNW (1) - [{10,90}]", quadtreeLines[4]);
+	}
 }

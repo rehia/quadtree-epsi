@@ -145,4 +145,28 @@ public class Quadtree {
 
 		return allPoints;
 	}
+	
+	@Override
+	public String toString() {
+		return this.toString("Root");
+	}
+
+	private String toString(String name) {
+		StringBuilder builder = new StringBuilder()
+				.append(name)
+				.append(" (")
+				.append(this.points.size())
+				.append(") - ")
+				.append(this.points)
+				.append("\n");
+		if (this.hasChildren()) {
+			for (Cardinals cardinal : Cardinals.values()) {
+				for (int i = 0; i < this.depth; i++) {
+					builder.append("\t");
+				}
+				builder.append(this.children.get(cardinal).toString(cardinal.toString()));
+			}			
+		}
+		return builder.toString();
+	}
 }

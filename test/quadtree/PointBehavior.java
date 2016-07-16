@@ -15,4 +15,10 @@ public class PointBehavior {
 		assertThat(point.getY(), is(lessThanOrEqualTo(100)));
 	}
 
+	@Test
+	public void shouldFormatPointAsAStringWithCoordinates() {
+		Point point = new Point(10, 15);
+		
+		assertEquals("{10,15}", point.toString());
+	}
 }
